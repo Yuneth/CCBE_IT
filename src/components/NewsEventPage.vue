@@ -1,81 +1,193 @@
 <template>
   <div class="news-events-page">
     <NavBar></NavBar>
-    <v-container class="main-container">
-      <!-- Header Section -->
-      <section class="header-section">
-        <h1 class="page-title" data-aos="fade-up" data-aos-duration="3000">
-          NEWS <span class="highlight">& EVENTS</span>
-        </h1>
-        <p class="intro-text" data-aos="fade-up" data-aos-duration="3000">
-          <b>At Cambridge College of British English (CCBE)</b>, we are constantly evolving to offer our students the best learning experiences. Our upcoming events include language workshops, cultural exchange programs, and exciting new course launches designed to meet the needs of learners of all ages. Whether you're interested in expanding your vocabulary, improving your accent, or exploring advanced language techniques, our events offer unique opportunities for growth. Stay tuned for announcements on our seasonal events, student achievements, and exciting collaborations with language experts. At CCBE, every moment is a chance to learn, connect, and celebrate the joy of mastering English.
-        </p>
-      </section>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-overlay">
+        <div class="hero-content">
+          <h1 class="hero-title" data-aos="fade-up" data-aos-duration="800">
+            News <span class="highlight">&</span> Events
+          </h1>
+          <p class="hero-subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+            Celebrating Our Community & Achievements
+          </p>
+          <p class="hero-description" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+            Stay updated with our latest achievements, community events, and inspiring stories from Cambridge College of British English.
+          </p>
+        </div>
+      </div>
+    </section>
 
-      <!-- News & Events Grid -->
-      <section class="news-events-section">
-        <v-row class="news-events-grid">
-          <v-col 
-            v-for="(card, index) in cards" 
-            :key="index" 
-            cols="12" 
-            sm="6" 
-            md="4" 
-            lg="4"
-          >
-            <v-card 
-              class="news-card" 
-              data-aos="fade-up" 
-              :data-aos-delay="(index % 3) * 100"
-              data-aos-duration="3000"
+    <!-- News & Events Section -->
+    <section class="news-events-section">
+      <div class="container">
+        <!-- Featured Event -->
+        <div class="featured-section" v-if="featuredEvent">
+          <div class="featured-card" data-aos="fade-up">
+            <div class="featured-image">
+              <v-img 
+                :src="featuredEvent.image" 
+                cover
+                class="featured-img"
+                :alt="featuredEvent.title"
+              ></v-img>
+              <div class="featured-badge">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 8C18 6.4087 17.3679 4.88258 16.2426 3.75736C15.1174 2.63214 13.5913 2 12 2C10.4087 2 8.88258 2.63214 7.75736 3.75736C6.63214 4.88258 6 6.4087 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Featured Event</span>
+              </div>
+            </div>
+            <div class="featured-content">
+              <div class="featured-header">
+                <div class="event-date">
+                  <span class="date-day">NOW</span>
+                  <span class="date-text">Featured</span>
+                </div>
+                <div class="event-category">Community Initiative</div>
+              </div>
+              <h2 class="featured-title">{{ featuredEvent.title }}</h2>
+              <p class="featured-description">{{ featuredEvent.subtitle }}</p>
+              <p class="featured-full">{{ featuredEvent.content }}</p>
+              <div class="featured-tags">
+                <span class="tag">Environment</span>
+                <span class="tag">Community</span>
+                <span class="tag">Growth</span>
+              </div>
+              <button class="featured-btn" @click="openEventModal(featuredEvent)">
+                Learn More
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Events Filter -->
+        <div class="filter-section" data-aos="fade-up">
+          <div class="filter-tabs">
+            <button 
+              v-for="tab in tabs" 
+              :key="tab.id"
+              class="filter-tab"
+              :class="{ 'active': activeTab === tab.id }"
+              @click="setActiveTab(tab.id)"
             >
-              <!-- Image Container -->
-              <div class="image-container">
+              <component :is="tab.icon" />
+              <span>{{ tab.label }}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Events Grid -->
+        <div class="events-grid">
+          <div 
+            v-for="(event, index) in filteredEvents" 
+            :key="index"
+            class="event-card-wrapper"
+            :data-aos="index % 2 === 0 ? 'fade-right' : 'fade-left'"
+            :data-aos-delay="(index % 4) * 100"
+          >
+            <div class="event-card">
+              <div class="card-image">
                 <v-img 
-                  :src="card.image" 
-                  height="200" 
+                  :src="event.image" 
                   cover
-                  class="news-image"
+                  class="event-image"
+                  :alt="event.title"
                 ></v-img>
-                <div class="card-overlay">
-                  <v-icon class="overlay-icon">mdi-newspaper</v-icon>
-                  <span class="overlay-text">Event</span>
+                <div class="image-overlay"></div>
+                <div class="event-badge">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Event</span>
                 </div>
               </div>
-              
-              <!-- Card Content -->
-              <v-card-text class="card-content">
-                <div class="news-badge">Latest</div>
-                <h3 class="news-title">{{ card.title }}</h3>
-                <p class="news-subtitle">{{ card.subtitle }}</p>
-                
-                <!-- Expandable Content -->
-                <v-expand-transition>
-                  <div v-show="card.show" class="expanded-content">
-                    <v-divider class="content-divider"></v-divider>
-                    <p class="news-content">{{ card.content }}</p>
+
+              <div class="card-content">
+                <div class="card-header">
+                  <div class="event-date">
+                    <span class="date-day">{{ getEventDate(index) }}</span>
+                    <span class="date-month">Latest</span>
                   </div>
-                </v-expand-transition>
-              </v-card-text>
-              
-              <!-- Card Actions -->
-              <v-card-actions class="card-actions">
-                <v-btn 
-                  class="read-more-btn" 
-                  variant="text" 
-                  @click="toggleCard(index)"
-                  :icon="card.show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+                  <div class="event-category">{{ event.category }}</div>
+                </div>
+                
+                <h3 class="event-title">{{ event.title }}</h3>
+                <p class="event-subtitle">{{ event.subtitle }}</p>
+                
+                <div class="event-description">
+                  <p>{{ truncateText(event.content, 120) }}</p>
+                </div>
+
+                <div class="event-actions">
+                  <button class="read-btn" @click="toggleEvent(index)">
+                    {{ event.expanded ? 'Show Less' : 'Read More' }}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                  <button class="share-btn" @click="shareEvent(event)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4 12V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M16 6L12 2L8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M12 2V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <div v-if="event.expanded" class="expanded-content">
+                  <p class="full-content">{{ event.content }}</p>
+                  <div class="event-tags">
+                    <span class="tag" v-for="(tag, i) in event.tags" :key="i">{{ tag }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+      <div class="container">
+        <div class="newsletter-card" data-aos="fade-up">
+          <div class="newsletter-content">
+            <h2 class="newsletter-title">Stay Updated</h2>
+            <p class="newsletter-description">
+              Subscribe to our newsletter and never miss important announcements, upcoming events, and student achievements.
+            </p>
+            <form class="newsletter-form" @submit.prevent="subscribeNewsletter">
+              <div class="input-group">
+                <input 
+                  type="email" 
+                  v-model="email" 
+                  placeholder="Enter your email" 
+                  required
+                  class="newsletter-input"
                 >
-                  {{ card.show ? 'Show Less' : 'Read More' }}
-                  <v-icon right>{{ card.show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </section>
-    </v-container>
-    
+                <button type="submit" class="subscribe-btn">
+                  Subscribe
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <p class="newsletter-note">We respect your privacy. Unsubscribe at any time.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <ArrowButton></ArrowButton>
     <ChatBot></ChatBot>
     <FooterPage></FooterPage>
@@ -83,564 +195,912 @@
 </template>
 
 <script>
-import AOS from 'aos';
 import NavBar from './NavBar.vue';
 import FooterPage from './FooterPage.vue';
-import ChatBot from './ChatBot.vue'
+import ChatBot from './ChatBot.vue';
 import ArrowButton from './ArrowButton.vue';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+// SVG Icons
+const AllIcon = {
+  template: `
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 9H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 21V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M21 3H3V21H21V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `
+};
+
+const EventsIcon = {
+  template: `
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 10H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `
+};
+
+const AchievementsIcon = {
+  template: `
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 15C15.866 15 19 11.866 19 8C19 4.13401 15.866 1 12 1C8.13401 1 5 4.13401 5 8C5 11.866 8.13401 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8.21 13.89L7 23L12 20L17 23L15.79 13.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `
+};
+
+const CommunityIcon = {
+  template: `
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `
+};
 
 export default {
-  name: 'NewsEventPage',
+  name: 'NewsEventsPage',
   components: {
     NavBar,
     FooterPage,
     ChatBot,
     ArrowButton
   },
+  mounted() {
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+  },
   data() {
     return {
-      cards: [
-        {
-          image: "https://ik.imagekit.io/u3wbiya66/News&Events/WhatsApp%20Image%202025-06-08%20at%2010.12.15_fb599a49.jpg?updatedAt=1749452636230",
-          title: "🌿 Husma Fluit Plant Dansal 2025",
-          subtitle: "Thank You for Being a Part of the Husma Project 2025",
-          content: "The Husma Project, first launched by our CCBE Galle branch in 2024 with just 500 plants, has grown into a beautiful island-wide movement. In 2025, thanks to the amazing support from all our branches, the project has flourished reaching 5,000 plants across the country. This initiative reflects our shared commitment to a greener tomorrow and the strength of working together as one. Thank you for being a part of this journey. Together, we breathe life into the future.",
-          show: false,
-        },
+      activeTab: 'all',
+      email: '',
+      tabs: [
+        { id: 'all', label: 'All', icon: AllIcon },
+        { id: 'events', label: 'Events', icon: EventsIcon },
+        { id: 'achievements', label: 'Achievements', icon: AchievementsIcon },
+        { id: 'community', label: 'Community', icon: CommunityIcon }
+      ],
+      featuredEvent: {
+        image: "https://ik.imagekit.io/u3wbiya66/News&Events/WhatsApp%20Image%202025-06-08%20at%2010.12.15_fb599a49.jpg?updatedAt=1749452636230",
+        title: "🌿 Husma Fluit Plant Dansal 2025",
+        subtitle: "Thank You for Being a Part of the Husma Project 2025",
+        content: "The Husma Project, first launched by our CCBE Galle branch in 2024 with just 500 plants, has grown into a beautiful island-wide movement. In 2025, thanks to the amazing support from all our branches, the project has flourished reaching 5,000 plants across the country. This initiative reflects our shared commitment to a greener tomorrow and the strength of working together as one. Thank you for being a part of this journey. Together, we breathe life into the future."
+      },
+      events: [
         {
           image: "https://ik.imagekit.io/u3wbiya66/_MG_9895.jpg?updatedAt=1745842133941",
           title: "Cambrians Awrudu Udanaya",
           subtitle: "The Cambrians Awurudu Udanaya 2025",
           content: "A vibrant day filled with traditional games, colorful festivities, cultural performances, and joyful togetherness awaits. Let's come together to honor our rich heritage and create unforgettable memories.",
-          show: false,
+          category: "Cultural Event",
+          tags: ["Culture", "Festival", "Community"],
+          type: "events",
+          expanded: false
         },
         {
           image: "https://ik.imagekit.io/u3wbiya66/481082092_601994946155124_2299747182221281091_n.jpg?updatedAt=1745841751881",
           title: "MasterChef Kitchen in Action!",
           subtitle: "Culinary Creations, Teamwork, and Speaking Skills",
-          content: "MasterChef Kitchen in Action! 👨‍🍳🍴 Our talented students stepped into the spotlight to showcase their favorite meals in an exciting culinary event! This wasn't just about cooking—it was an opportunity to blend creativity, teamwork, and communication skills. From sharing their unique recipes to presenting their culinary masterpieces with confidence, the event was a flavorful journey of learning, collaboration, and fun. Students worked together seamlessly, demonstrating their ability to combine flavors and ideas while honing their public speaking skills. It was inspiring to witness their passion, teamwork, and creativity come to life in the kitchen. Here's to more delicious moments and skill-building adventures in the future! Stay tuned for highlights, photos, and recipes from this vibrant event! 🌟✨",
-          show: false,
+          content: "MasterChef Kitchen in Action! Our talented students stepped into the spotlight to showcase their favorite meals in an exciting culinary event! This wasn't just about cooking—it was an opportunity to blend creativity, teamwork, and communication skills. From sharing their unique recipes to presenting their culinary masterpieces with confidence, the event was a flavorful journey of learning, collaboration, and fun.",
+          category: "Student Activity",
+          tags: ["Cooking", "Teamwork", "Skills"],
+          type: "events",
+          expanded: false
         },
         {
           image: "https://ik.imagekit.io/u3wbiya66/IMG_6630.JPG?updatedAt=1745842202604",
           title: "Welcoming 2025 with Warmth and Positivity",
           subtitle: "A Heartfelt New Year Celebration Marking New Beginnings",
-          content: "✨ As we step into 2025, our Galle branch hosted a celebration that radiated warmth and positivity. The event was more than just a New Year gathering—it was a heartfelt occasion filled with joy, reflection, and a shared vision for the year ahead. 🌟 The team came together to embrace the opportunities and challenges that 2025 will bring. With a sense of unity and optimism, we reflected on the accomplishments of the past year while setting our sights on continued growth and success. This celebration was a reminder of the strong bonds that connect us, and the meaningful impact we aim to make as we move forward, together. Here's to embracing new opportunities, pursuing excellence, and creating a year filled with meaningful moments. Cheers to a fantastic 2025! 🌱",
-          show: false,
+          content: "As we step into 2025, our Galle branch hosted a celebration that radiated warmth and positivity. The event was more than just a New Year gathering—it was a heartfelt occasion filled with joy, reflection, and a shared vision for the year ahead.",
+          category: "Celebration",
+          tags: ["New Year", "Celebration", "Team"],
+          type: "community",
+          expanded: false
         },
         {
           image: "https://ik.imagekit.io/u3wbiya66/News&Events/FB_IMG_1738984651465.jpg?updatedAt=1738985253696",
           title: "Spreading Festive Cheer with a Secret Santa Celebration",
           subtitle: "A Joyful Day of Togetherness at Cambridge College of British English",
-          content: "🎅✨ We brought the festive cheer to Cambridge College of British English with a delightful Secret Santa celebration! 🎁❤️ Our team shared laughter, exchanged thoughtful gifts, and created heartwarming memories that truly captured the spirit of togetherness. It was a day filled with joy, surprises, and the magic of giving! 🎄🎉",
-          show: false,
-        },
-        {
-          image: "https://ik.imagekit.io/u3wbiya66/News&Events/FB_IMG_1738984743534.jpg?updatedAt=1738985253864",
-          title: "Throwback to Unforgettable Moments from Our Annual Trip",
-          subtitle: "Breathtaking Views, Adventures, and Team Bonding",
-          content: "Throwback to the unforgettable moments from our annual trip! 🌟 From breathtaking views and laughter-filled adventures to team bonding and endless joy, every memory is a treasure we'll cherish forever. Here's to more journeys, stronger connections, and creating magic together! 🏞️✨",
-          show: false,
+          content: "We brought the festive cheer to Cambridge College of British English with a delightful Secret Santa celebration! Our team shared laughter, exchanged thoughtful gifts, and created heartwarming memories that truly captured the spirit of togetherness.",
+          category: "Festive Event",
+          tags: ["Christmas", "Team Building", "Fun"],
+          type: "community",
+          expanded: false
         },
         {
           image: "https://ik.imagekit.io/u3wbiya66/News&Events/FB_IMG_1738984882674.jpg?updatedAt=1738985253221",
-          title: "Celebrating Success at Cambridge College of British English",
+          title: "Celebrating Student Success",
           subtitle: "Congratulations to Our Students on Achieving A2 Flyers Level!",
-          content: "🎉 Exciting News from Cambridge College of British English 📚 A big congratulations to our incredible students for achieving the Cambridge English Assessment A2 Flyers Level! 🏆✨ Your hard work and dedication continue to inspire us every day. This milestone is just the beginning of your amazing language-learning journey! 🌟🙌 Keep aiming high and chasing your dreams! 🚀✨",
-          show: false,
+          content: "Exciting News from Cambridge College of British English! A big congratulations to our incredible students for achieving the Cambridge English Assessment A2 Flyers Level! Your hard work and dedication continue to inspire us every day.",
+          category: "Achievement",
+          tags: ["Success", "Students", "Cambridge"],
+          type: "achievements",
+          expanded: false
         },
         {
           image: "https://ik.imagekit.io/u3wbiya66/News&Events/FB_IMG_1738984825665.jpg?updatedAt=1738985254002",
           title: "Fit to Fight 2024",
           subtitle: "Our 9th Annual Event a Huge Success!",
-          content: "Heartfelt thanks to everyone who contributed to and supported our 9th annual Fit to Fight event! Your unwavering generosity and dedication have once again demonstrated the power of community and compassion. This year's event was a remarkable success, with participants, sponsors, and volunteers coming together to support a noble cause. The funds raised during this event will directly benefit the Cancer Hospital in Karapitiya, providing vital resources for patients and their families. Together, we have shown that strength lies in unity, and with your support, we have made a meaningful difference in the lives of those who need it most. Thank you for being a part of this incredible journey. Here's to continuing the fight and spreading hope, one step at a time! Stay tuned for updates, photos, and highlights from the event!",
-          show: false,
-        },
-      ],
+          content: "Heartfelt thanks to everyone who contributed to and supported our 9th annual Fit to Fight event! Your unwavering generosity and dedication have once again demonstrated the power of community and compassion.",
+          category: "Charity Event",
+          tags: ["Charity", "Community", "Health"],
+          type: "community",
+          expanded: false
+        }
+      ]
     };
   },
-  methods: {
-    toggleCard(index) {
-      this.cards[index].show = !this.cards[index].show;
-    },
+  computed: {
+    filteredEvents() {
+      if (this.activeTab === 'all') {
+        return this.events;
+      }
+      return this.events.filter(event => event.type === this.activeTab);
+    }
   },
-  mounted() {
-    AOS.init();
+  methods: {
+    setActiveTab(tabId) {
+      this.activeTab = tabId;
+    },
+    toggleEvent(index) {
+      this.events[index].expanded = !this.events[index].expanded;
+    },
+    truncateText(text, length) {
+      if (text.length <= length) return text;
+      return text.substring(0, length) + '...';
+    },
+    getEventDate(index) {
+      const days = ['01', '02', '03', '04', '05', '06', '07'];
+      return days[index] || '01';
+    },
+    openEventModal(event) {
+      // Implement modal opening logic
+      console.log('Opening modal for:', event.title);
+    },
+    shareEvent(event) {
+      if (navigator.share) {
+        navigator.share({
+          title: event.title,
+          text: event.subtitle,
+          url: window.location.href,
+        });
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        navigator.clipboard.writeText(`${event.title} - ${event.subtitle}`);
+        alert('Event link copied to clipboard!');
+      }
+    },
+    subscribeNewsletter() {
+      if (this.email) {
+        console.log('Subscribing email:', this.email);
+        alert('Thank you for subscribing to our newsletter!');
+        this.email = '';
+      }
+    }
   }
 };
 </script>
 
 <style scoped>
 .news-events-page {
-  background: linear-gradient(135deg, white 0%, white 100%);
+  background: #ffffff;
   min-height: 100vh;
-  color: #ffffff;
+  color: #333;
 }
 
-.main-container {
-  background: transparent;
-  padding: 1rem;
+/* Hero Section */
+.hero-section {
+  height: 60vh;
+  min-height: 500px;
+  background: linear-gradient(135deg, white 0%, white 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Header Section */
-.header-section {
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+}
+
+.hero-overlay {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.hero-content {
   text-align: center;
-  padding: 2rem 0;
-  margin-bottom: 2rem;
+  padding: 2rem;
+  max-width: 800px;
+  color: white;
 }
 
-.page-title {
+.hero-title {
   font-family: 'Inter', 'Poppins', sans-serif;
-  font-size: 2rem;
+  font-size: 3.5rem;
   font-weight: 800;
-  color: black;
   margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: -0.5px;
+  color: black;
+  
 }
 
 .highlight {
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  position: relative;
 }
 
-.highlight::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #FFD700, transparent);
-  opacity: 0.7;
+.hero-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
-.intro-text {
+.hero-description {
   font-family: 'Inter', sans-serif;
   font-size: 1.1rem;
   line-height: 1.6;
   color: black;
-  max-width: 1000px;
+  max-width: 600px;
   margin: 0 auto;
-  text-align: center;
 }
 
-/* News & Events Section */
-.news-events-section {
-  padding: 1rem 0;
+/* Main Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-.news-events-grid {
-  margin: 0 -8px;
+/* Featured Section */
+.featured-section {
+  margin: 4rem 0;
 }
 
-/* News Card */
-.news-card {
-  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-  border: 2px solid #333;
-  border-radius: 15px;
+.featured-card {
+  background: white;
+  border-radius: 24px;
   overflow: hidden;
-  transition: all 0.4s ease;
-  height: 100%;
-  position: relative;
-  margin-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  border: 1px solid rgba(102,126,234,0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
 }
 
-.news-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
+.featured-image {
+  position: relative;
+  height: 100%;
+  min-height: 400px;
+  overflow: hidden;
+}
+
+.featured-img {
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-  transition: left 0.6s ease;
-  z-index: 1;
+  object-fit: cover;
+  transition: transform 0.6s ease;
 }
 
-.news-card:hover::before {
-  left: 100%;
+.featured-card:hover .featured-img {
+  transform: scale(1.05);
 }
 
-.news-card:hover {
-  transform: translateY(-10px);
-  border-color: #FFD700;
-  box-shadow: 0 20px 40px rgba(255, 215, 0, 0.25);
-}
-
-/* Image Container */
-.image-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.news-image {
-  transition: transform 0.4s ease;
-  position: relative;
-}
-
-.news-card:hover .news-image {
-  transform: scale(1.1);
-}
-
-.card-overlay {
+.featured-badge {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.9) 0%, rgba(255, 165, 0, 0.9) 100%);
-  padding: 0.4rem 0.8rem;
-  border-radius: 15px;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  backdrop-filter: blur(10px);
-}
-
-.overlay-icon {
-  color: #000000 !important;
-  font-size: 1rem !important;
-}
-
-.overlay-text {
+  gap: 0.75rem;
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
   font-weight: 600;
-  color: #000000;
-  text-transform: uppercase;
+  font-size: 0.9rem;
+  z-index: 2;
 }
 
-/* Card Content */
-.card-content {
-  padding: 1.5rem;
-  position: relative;
-  z-index: 2;
-  flex: 1;
+.featured-badge svg {
+  color: white;
+}
+
+.featured-content {
+  padding: 3rem;
   display: flex;
   flex-direction: column;
 }
 
-.news-badge {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #FFD700;
-  background: rgba(255, 215, 0, 0.1);
-  padding: 0.3rem 0.8rem;
-  border-radius: 12px;
-  display: inline-block;
-  margin-bottom: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  align-self: flex-start;
+.featured-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
-.news-title {
+.event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date-day {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #667eea;
+  line-height: 1;
+}
+
+.date-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.event-category {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #667eea;
+  background: rgba(102,126,234,0.1);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+}
+
+.featured-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.featured-description {
   font-family: 'Inter', sans-serif;
   font-size: 1.1rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.3;
-  margin-bottom: 0.5rem;
-  min-height: 2.8rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.featured-full {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 2rem;
+  flex: 1;
+}
+
+.featured-tags {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #667eea;
+  background: rgba(102,126,234,0.1);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-weight: 500;
+}
+
+.featured-btn {
+  align-self: flex-start;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.featured-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(102,126,234,0.3);
+  gap: 1rem;
+}
+
+/* Filter Section */
+.filter-section {
+  margin-bottom: 3rem;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-tab {
+  background: white;
+  border: 2px solid rgba(102,126,234,0.1);
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.filter-tab:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.filter-tab.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.filter-tab svg {
+  color: currentColor;
+}
+
+/* Events Grid */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.event-card-wrapper {
+  perspective: 1000px;
+}
+
+.event-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  border: 1px solid rgba(102,126,234,0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.event-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(102,126,234,0.15);
+}
+
+.card-image {
+  position: relative;
+  height: 200px;
   overflow: hidden;
 }
 
-.news-subtitle {
+.event-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.event-card:hover .event-image {
+  transform: scale(1.05);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1) 100%);
+}
+
+.event-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.event-badge svg {
+  color: white;
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date-day {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #667eea;
+  line-height: 1;
+}
+
+.date-month {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.event-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.event-subtitle {
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
-  line-height: 1.4;
-  color: #e0e0e0;
-  margin-bottom: 0.75rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  flex: 1;
+  color: #667eea;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.event-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.event-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.read-btn {
+  background: white;
+  color: #667eea;
+  border: 2px solid rgba(102,126,234,0.3);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.read-btn:hover {
+  background: rgba(102,126,234,0.05);
+  border-color: #667eea;
+  gap: 0.75rem;
+}
+
+.share-btn {
+  background: white;
+  color: #666;
+  border: 2px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-btn:hover {
+  color: #667eea;
+  border-color: rgba(102,126,234,0.3);
+  transform: rotate(45deg);
 }
 
 /* Expanded Content */
 .expanded-content {
-  margin-top: 0.75rem;
+  border-top: 1px solid rgba(102,126,234,0.1);
+  padding-top: 1rem;
+  margin-top: 1rem;
 }
 
-.content-divider {
-  border-color: #333;
-  margin-bottom: 0.75rem;
-}
-
-.news-content {
+.full-content {
   font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: #e0e0e0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 1rem;
   white-space: pre-line;
 }
 
-/* Card Actions */
-.card-actions {
-  padding: 0 1.5rem 1rem;
+.event-tags {
   display: flex;
-  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-.read-more-btn {
-  color: #FFD700 !important;
-  font-weight: 600 !important;
-  font-family: 'Inter', sans-serif !important;
-  text-transform: none !important;
-  transition: all 0.3s ease !important;
-  font-size: 0.9rem;
+/* Newsletter Section */
+.newsletter-section {
+  padding: 6rem 1rem;
+  background: linear-gradient(135deg, #f6f9ff 0%, #f0f4ff 100%);
 }
 
-.read-more-btn:hover {
-  color: #FFA500 !important;
-  transform: translateY(-1px);
+.newsletter-card {
+  background: white;
+  border-radius: 24px;
+  padding: 4rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  border: 1px solid rgba(102,126,234,0.1);
+  text-align: center;
 }
 
-/* Floating Animation */
-.news-card {
-  animation: float 6s ease-in-out infinite;
+.newsletter-content {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.news-card:nth-child(3n+1) {
-  animation-delay: 0s;
+.newsletter-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
 }
 
-.news-card:nth-child(3n+2) {
-  animation-delay: 1.5s;
+.newsletter-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 2rem;
 }
 
-.news-card:nth-child(3n+3) {
-  animation-delay: 3s;
+.newsletter-form {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+.input-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.news-card:hover {
-  animation: none;
+.newsletter-input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: 2px solid rgba(102,126,234,0.3);
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-/* Additional Effects */
-.news-card::after {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  right: -1px;
-  bottom: -1px;
-  background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
-  border-radius: 16px;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.newsletter-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
 }
 
-.news-card:hover::after {
-  opacity: 0.3;
+.subscribe-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-/* Scroll Animation Enhancement */
-.news-events-section {
-  perspective: 1000px;
+.subscribe-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(102,126,234,0.3);
+  gap: 1rem;
 }
 
-.news-card {
-  transform-style: preserve-3d;
+.newsletter-note {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 0.5rem;
 }
 
 /* Responsive Design */
-@media (max-width: 960px) {
-  .page-title {
-    font-size: 2.2rem;
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 2.8rem;
   }
   
-  .intro-text {
-    font-size: 1rem;
+  .featured-card {
+    grid-template-columns: 1fr;
   }
   
-  .news-title {
-    font-size: 1rem;
-    min-height: 2.5rem;
+  .featured-image {
+    min-height: 300px;
+    order: -1;
   }
   
-  .news-subtitle {
-    font-size: 0.85rem;
-  }
-  
-  .news-events-grid {
-    margin: 0 -6px;
+  .featured-content {
+    padding: 2rem;
   }
 }
 
 @media (max-width: 768px) {
-  .page-title {
-    font-size: 2rem;
+  .hero-section {
+    height: 50vh;
+    min-height: 400px;
   }
   
-  .intro-text {
-    font-size: 0.95rem;
-    text-align: left;
-    padding: 0 1rem;
+  .hero-title {
+    font-size: 2.2rem;
   }
   
-  .header-section {
-    padding: 1.5rem 0;
+  .hero-subtitle {
+    font-size: 1rem;
+    letter-spacing: 2px;
   }
   
-  .card-content {
-    padding: 1.25rem;
+  .featured-title {
+    font-size: 1.5rem;
   }
   
-  .news-title {
-    font-size: 0.95rem;
+  .featured-content {
+    padding: 1.5rem;
   }
   
-  .news-subtitle {
-    font-size: 0.8rem;
+  .events-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto 4rem;
   }
   
-  .news-content {
-    font-size: 0.8rem;
+  .newsletter-card {
+    padding: 2rem;
   }
   
-  .card-actions {
-    padding: 0 1.25rem 0.75rem;
+  .input-group {
+    flex-direction: column;
   }
   
-  .news-events-grid {
-    margin: 0 -4px;
-  }
-  
-  .news-image {
-    height: 180px;
+  .subscribe-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
-  .main-container {
-    padding: 0.5rem;
-  }
-  
-  .page-title {
+  .hero-title {
     font-size: 1.8rem;
   }
   
-  .intro-text {
+  .hero-subtitle {
     font-size: 0.9rem;
+    letter-spacing: 1px;
   }
   
-  .header-section {
-    padding: 1rem 0;
+  .filter-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
   }
   
-  .card-content {
-    padding: 1rem;
+  .filter-tab {
+    white-space: nowrap;
   }
   
-  .news-title {
-    font-size: 0.9rem;
-    min-height: auto;
-  }
-  
-  .news-subtitle {
-    font-size: 0.75rem;
-  }
-  
-  .news-content {
-    font-size: 0.75rem;
-  }
-  
-  .card-actions {
-    padding: 0 1rem 0.5rem;
-  }
-  
-  .read-more-btn {
+  .featured-badge {
+    padding: 0.5rem 1rem;
     font-size: 0.8rem;
   }
   
-  .news-badge {
-    font-size: 0.65rem;
-    padding: 0.25rem 0.6rem;
-  }
-  
-  .overlay-text {
-    font-size: 0.6rem;
-  }
-  
-  .overlay-icon {
-    font-size: 0.8rem !important;
-  }
-  
-  .card-overlay {
-    padding: 0.3rem 0.6rem;
-  }
-  
-  .news-image {
-    height: 160px;
+  .event-card {
+    margin: 0;
   }
 }
 
-/* Smooth transitions for expandable content */
-.v-expand-transition {
-  transition: all 0.3s ease !important;
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Ensure proper text wrapping and readability */
-:deep(.v-card-text) {
-  white-space: normal;
-  word-wrap: break-word;
-}
-
-/* Improve the expand transition */
-:deep(.v-expand-transition-enter-active),
-:deep(.v-expand-transition-leave-active) {
-  transition: all 0.3s ease !important;
-}
-
-:deep(.v-expand-transition-enter-from),
-:deep(.v-expand-transition-leave-to) {
+.event-card-wrapper {
+  animation: fadeInUp 0.6s ease forwards;
   opacity: 0;
-  transform: translateY(-8px);
 }
 
-/* Touch-friendly improvements */
-@media (hover: none) {
-  .news-card:hover {
-    transform: none;
-  }
-  
-  .news-card:hover .news-image {
-    transform: none;
-  }
-  
-  .read-more-btn:hover {
-    transform: none;
-  }
-}
+/* Stagger animations */
+.event-card-wrapper:nth-child(1) { animation-delay: 0.1s; }
+.event-card-wrapper:nth-child(2) { animation-delay: 0.2s; }
+.event-card-wrapper:nth-child(3) { animation-delay: 0.3s; }
+.event-card-wrapper:nth-child(4) { animation-delay: 0.4s; }
+.event-card-wrapper:nth-child(5) { animation-delay: 0.5s; }
+.event-card-wrapper:nth-child(6) { animation-delay: 0.6s; }
 
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .news-card {
-    animation: none;
-  }
-  
-  .news-card:hover .news-image {
-    transform: none;
-  }
+/* Smooth transitions */
+.expanded-content {
+  transition: all 0.3s ease;
 }
 </style>

@@ -19,13 +19,13 @@
         <h1 class="title" data-aos="fade-up" data-aos-duration="3000">
           Welcome to
           <span class="highlight"
-            >Cambridge College of British English</span
+            >Cambridge College of Information Technology</span
           >
         </h1>
 
         <div class="content-wrapper">
           <p class="paragraph" data-aos="fade-up" data-aos-duration="3000">
-            <b>Cambridge College of British English (CCBE)</b> is renowned for
+            <b>Cambridge College of Information Technology (CCIT)</b> is renowned for
             its commitment to providing world-class English courses tailored to
             individuals of all ages, from 5-year-old children to adults. With a
             dedicated mission to foster proficiency in reading, writing,
@@ -231,7 +231,7 @@ export default {
       qualifiedTeachers: 0,
       yearsInField: 9,
       branches: 6,
-      logo: require("@/assets/Logo.png"),
+      logo: require("@/assets/CCIT - logo.png"),
     };
   },
   mounted() {
