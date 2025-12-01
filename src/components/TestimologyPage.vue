@@ -3,9 +3,6 @@
     <v-container class="main-container">
       <!-- Header Section -->
       <section class="header-section">
-        <!-- <h1 class="page-title" data-aos="fade-up" data-aos-duration="3000">
-          STUDENT <span class="highlight">TESTIMONIALS</span>
-        </h1> -->
         <p class="intro-text" data-aos="fade-up" data-aos-duration="3000">
           Hear from our students about their transformative learning experiences. 
           These testimonials reflect the impact of our comprehensive English programmes 
@@ -224,7 +221,9 @@ export default {
   },
   computed: {
     visibleTestimonials() {
-      return this.testimonials.slice(this.currentSlide, this.currentSlide + this.testimonialsPerPage);
+      const start = this.currentSlide;
+      const end = start + this.testimonialsPerPage;
+      return this.testimonials.slice(start, end);
     },
     totalPages() {
       return Math.ceil(this.testimonials.length / this.testimonialsPerPage);
@@ -247,17 +246,36 @@ export default {
     },
     goToPage(page) {
       this.currentSlide = (page - 1) * this.testimonialsPerPage;
+    },
+    updateTestimonialsPerPage() {
+      const width = window.innerWidth;
+      if (width < 768) {
+        this.testimonialsPerPage = 1;
+      } else if (width < 1024) {
+        this.testimonialsPerPage = 2;
+      } else {
+        this.testimonialsPerPage = 3;
+      }
+      // Reset current slide if it's out of bounds
+      if (this.currentSlide >= this.testimonials.length) {
+        this.currentSlide = 0;
+      }
     }
   },
   mounted() {
     AOS.init();
+    this.updateTestimonialsPerPage();
+    window.addEventListener('resize', this.updateTestimonialsPerPage);
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.updateTestimonialsPerPage);
   }
 };
 </script>
 
 <style scoped>
 .testimonials-page {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, white 0%, white 100%);
   min-height: 100vh;
   color: #ffffff;
 }
@@ -265,6 +283,8 @@ export default {
 .main-container {
   background: transparent;
   padding: 2rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* Header Section */
@@ -274,40 +294,11 @@ export default {
   margin-bottom: 3rem;
 }
 
-.page-title {
-  font-family: 'Inter', 'Poppins', sans-serif;
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.highlight {
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  position: relative;
-}
-
-.highlight::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #FFD700, transparent);
-  opacity: 0.7;
-}
-
 .intro-text {
   font-family: 'Inter', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.7;
-  color: #e0e0e0;
+  color: black;
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
@@ -320,24 +311,48 @@ export default {
 
 .carousel-container {
   position: relative;
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 1rem;
 }
 
 .testimonials-carousel {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 1rem;
   margin-bottom: 3rem;
+  width: 100%;
 }
 
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   flex: 1;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Navigation Buttons */
+.nav-button {
+  background: linear-gradient(135deg, white 0%, white 100%);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: black;
+  flex-shrink: 0;
+}
+
+.nav-button:hover {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border-color: #FFD700;
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
 }
 
 /* Testimonial Card */
@@ -351,6 +366,7 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
+  min-height: 500px;
 }
 
 .testimonial-card::before {
@@ -380,6 +396,7 @@ export default {
   position: relative;
   overflow: hidden;
   height: 200px;
+  flex-shrink: 0;
 }
 
 .testimonial-avatar {
@@ -452,6 +469,10 @@ export default {
   line-height: 1.3;
   margin-bottom: 1rem;
   min-height: 3.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .testimonial-text {
@@ -462,6 +483,10 @@ export default {
   margin-bottom: 0;
   flex: 1;
   font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Card Actions */
@@ -469,6 +494,7 @@ export default {
   padding: 0 2rem 2rem;
   display: flex;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .learn-more-btn {
@@ -481,6 +507,7 @@ export default {
   padding: 0.75rem 2rem !important;
   text-transform: none !important;
   transition: all 0.3s ease !important;
+  min-width: 160px;
 }
 
 .learn-more-btn:hover {
@@ -495,6 +522,7 @@ export default {
   justify-content: center;
   gap: 12px;
   margin-top: 2rem;
+  flex-wrap: wrap;
 }
 
 .pagination-dot {
@@ -505,6 +533,7 @@ export default {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .pagination-dot.active {
@@ -525,17 +554,36 @@ export default {
 
 .section-title {
   font-family: 'Inter', 'Poppins', sans-serif;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: black;
   margin-bottom: 1rem;
   text-transform: uppercase;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #FFD700, transparent);
+  opacity: 0.7;
 }
 
 .section-subtitle {
   font-family: 'Inter', sans-serif;
   font-size: 1.1rem;
-  color: #e0e0e0;
+  color: black;
   margin-bottom: 3rem;
 }
 
@@ -550,6 +598,7 @@ export default {
   overflow: hidden;
   transition: all 0.4s ease;
   position: relative;
+  height: 100%;
 }
 
 .video-card:hover {
@@ -574,30 +623,6 @@ export default {
 
 .video-card:hover .video-iframe {
   transform: scale(1.05);
-}
-
-.video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 165, 0, 0.1) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.video-card:hover .video-overlay {
-  opacity: 1;
-}
-
-.play-icon {
-  font-size: 3rem !important;
-  color: #FFD700 !important;
-  opacity: 0.8;
 }
 
 /* Floating Animation */
@@ -645,48 +670,28 @@ export default {
   opacity: 0.3;
 }
 
-/* Responsive Design */
-@media (max-width: 960px) {
-  .page-title {
-    font-size: 2.8rem;
-  }
-  
-  .intro-text {
-    font-size: 1.1rem;
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+/* Large Desktop (1200px and above) */
+@media (min-width: 1200px) {
+  .main-container {
+    padding: 3rem 2rem;
   }
   
   .testimonials-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 2.5rem;
   }
   
-  .testimonial-title {
-    font-size: 1.2rem;
-    min-height: auto;
-  }
-  
-  .section-title {
-    font-size: 2.2rem;
+  .carousel-container {
+    padding: 0 2rem;
   }
 }
 
-@media (max-width: 600px) {
-  .page-title {
-    font-size: 2.2rem;
-  }
-  
-  .intro-text {
-    font-size: 1rem;
-    text-align: left;
-  }
-  
-  .header-section {
-    padding: 2rem 0;
-  }
-  
+/* Desktop (1024px - 1199px) */
+@media (max-width: 1199px) and (min-width: 1024px) {
   .testimonials-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
   }
   
   .card-content {
@@ -694,24 +699,154 @@ export default {
   }
   
   .testimonial-title {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    min-height: 3.2rem;
   }
   
   .testimonial-text {
     font-size: 0.9rem;
   }
-  
-  .card-actions {
-    padding: 0 1.5rem 1.5rem;
-  }
-  
-  .carousel-container {
-    padding: 0 16px;
+}
+
+/* Tablet Landscape (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
   
   .nav-button {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .intro-text {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
+  
+  .card-content {
+    padding: 1.5rem;
+  }
+  
+  .testimonial-title {
+    font-size: 1.2rem;
+    min-height: auto;
+    -webkit-line-clamp: 2;
+  }
+  
+  .testimonial-text {
+    font-size: 0.9rem;
+    -webkit-line-clamp: 5;
+  }
+  
+  .video-container {
+    height: 220px;
+  }
+}
+
+/* Tablet Portrait (600px - 767px) */
+@media (max-width: 767px) and (min-width: 600px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .testimonials-carousel {
+    gap: 0.5rem;
+  }
+  
+  .nav-button {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .intro-text {
+    font-size: 1rem;
+    text-align: left;
+    padding: 0;
+  }
+  
+  .header-section {
+    padding: 2rem 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+  }
+  
+  .card-content {
+    padding: 1.25rem;
+  }
+  
+  .testimonial-title {
+    font-size: 1.1rem;
+    min-height: auto;
+  }
+  
+  .testimonial-text {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 4;
+  }
+  
+  .card-actions {
+    padding: 0 1.25rem 1.25rem;
+  }
+  
+  .learn-more-btn {
+    padding: 0.6rem 1.5rem !important;
+    min-width: 140px;
+    font-size: 0.9rem !important;
+  }
+  
+  .video-container {
+    height: 200px;
+  }
+  
+  .image-container {
+    height: 180px;
+  }
+}
+
+/* Mobile (480px - 599px) */
+@media (max-width: 599px) and (min-width: 480px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .testimonials-carousel {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav-button {
+    width: 40px;
+    height: 40px;
+    order: 2;
+  }
+  
+  .nav-left, .nav-right {
+    position: static;
+    transform: none;
+  }
+  
+  .intro-text {
+    font-size: 0.95rem;
+    text-align: left;
+    line-height: 1.6;
+  }
+  
+  .header-section {
+    padding: 1.5rem 0;
   }
   
   .section-title {
@@ -719,11 +854,233 @@ export default {
   }
   
   .section-subtitle {
-    font-size: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .card-content {
+    padding: 1rem;
+  }
+  
+  .testimonial-title {
+    font-size: 1.1rem;
+    min-height: auto;
+  }
+  
+  .testimonial-text {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 5;
+  }
+  
+  .card-actions {
+    padding: 0 1rem 1rem;
+  }
+  
+  .learn-more-btn {
+    padding: 0.5rem 1.25rem !important;
+    min-width: 130px;
+    font-size: 0.85rem !important;
   }
   
   .video-container {
-    height: 200px;
+    height: 180px;
+  }
+  
+  .image-container {
+    height: 160px;
+  }
+  
+  .carousel-container {
+    padding: 0 0.5rem;
+  }
+}
+
+/* Small Mobile (below 480px) */
+@media (max-width: 479px) {
+  .main-container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .testimonials-carousel {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  
+  .nav-button {
+    width: 35px;
+    height: 35px;
+    order: 2;
+  }
+  
+  .nav-button .v-icon {
+    font-size: 1.2rem !important;
+  }
+  
+  .intro-text {
+    font-size: 0.9rem;
+    text-align: left;
+    line-height: 1.5;
+  }
+  
+  .header-section {
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+  }
+  
+  .section-title {
+    font-size: 1.6rem;
+  }
+  
+  .section-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+  
+  .testimonial-card {
+    min-height: 450px;
+    border-radius: 15px;
+  }
+  
+  .card-content {
+    padding: 0.75rem;
+  }
+  
+  .testimonial-badge {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+  }
+  
+  .testimonial-title {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .testimonial-text {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    -webkit-line-clamp: 6;
+  }
+  
+  .card-actions {
+    padding: 0 0.75rem 0.75rem;
+  }
+  
+  .learn-more-btn {
+    padding: 0.4rem 1rem !important;
+    min-width: 120px;
+    font-size: 0.8rem !important;
+    border-radius: 20px !important;
+  }
+  
+  .video-container {
+    height: 160px;
+  }
+  
+  .image-container {
+    height: 140px;
+  }
+  
+  .card-overlay {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.3rem 0.75rem;
+  }
+  
+  .overlay-text {
+    font-size: 0.7rem;
+  }
+  
+  .pagination-dots {
+    gap: 8px;
+    margin-top: 1.5rem;
+  }
+  
+  .pagination-dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Extra Small Mobile (below 360px) */
+@media (max-width: 359px) {
+  .main-container {
+    padding: 0.5rem;
+  }
+  
+  .intro-text {
+    font-size: 0.85rem;
+  }
+  
+  .section-title {
+    font-size: 1.4rem;
+  }
+  
+  .testimonial-card {
+    min-height: 420px;
+  }
+  
+  .testimonial-title {
+    font-size: 0.95rem;
+  }
+  
+  .testimonial-text {
+    font-size: 0.78rem;
+  }
+  
+  .video-container {
+    height: 140px;
+  }
+  
+  .image-container {
+    height: 120px;
+  }
+}
+
+/* Hide navigation buttons on very small screens when only one card is shown */
+@media (max-width: 479px) {
+  .testimonials-carousel {
+    position: relative;
+  }
+  
+  .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  
+  .nav-left {
+    left: 0.5rem;
+  }
+  
+  .nav-right {
+    right: 0.5rem;
+  }
+}
+
+/* Ensure proper spacing for video grid on mobile */
+@media (max-width: 599px) {
+  .videos-grid {
+    margin: 0 -8px;
+  }
+  
+  .v-col {
+    padding: 8px !important;
+  }
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 767px) {
+  .nav-button,
+  .pagination-dot,
+  .learn-more-btn {
+    min-height: 12px;
+    min-width: 12px;
   }
 }
 </style>

@@ -18,7 +18,7 @@
           <swiper
             :modules="[Autoplay, Navigation, Pagination]"
             :slides-per-view="1"
-            :space-between="30"
+            :space-between="20"
             :loop="true"
             :autoplay="{ delay: 4000, disableOnInteraction: false }"
             :pagination="{
@@ -49,7 +49,7 @@
                   <v-img
                     :src="highlight.src"
                     :alt="highlight.title"
-                    height="250"
+                    height="200"
                     cover
                     class="highlight-image"
                   ></v-img>
@@ -206,29 +206,29 @@ export default {
 
 <style scoped>
 .highlights-page {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, white 0%, white 100%);
   min-height: 100vh;
   color: #ffffff;
 }
 
 .main-container {
   background: transparent;
-  padding: 2rem 1rem;
+  padding: 1rem;
 }
 
 /* Header Section */
 .header-section {
   text-align: center;
-  padding: 3rem 0;
-  margin-bottom: 3rem;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
 }
 
 .page-title {
   font-family: 'Inter', 'Poppins', sans-serif;
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
+  color: black;
+  margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -244,7 +244,7 @@ export default {
 .highlight::after {
   content: '';
   position: absolute;
-  bottom: -5px;
+  bottom: -3px;
   left: 0;
   width: 100%;
   height: 2px;
@@ -254,9 +254,9 @@ export default {
 
 .intro-text {
   font-family: 'Inter', sans-serif;
-  font-size: 1.2rem;
-  line-height: 1.7;
-  color: #e0e0e0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: black;
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
@@ -264,18 +264,18 @@ export default {
 
 /* Highlights Section */
 .highlights-section {
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .carousel-container {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 15px;
 }
 
 .highlights-swiper {
-  padding: 20px 10px 80px;
+  padding: 15px 5px 60px;
   width: 100%;
 }
 
@@ -288,7 +288,7 @@ export default {
 .highlight-card {
   background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
   border: 2px solid #333;
-  border-radius: 20px;
+  border-radius: 15px;
   overflow: hidden;
   transition: all 0.4s ease;
   height: 100%;
@@ -314,9 +314,9 @@ export default {
 }
 
 .highlight-card:hover {
-  transform: translateY(-15px);
+  transform: translateY(-10px);
   border-color: #FFD700;
-  box-shadow: 0 25px 50px rgba(255, 215, 0, 0.25);
+  box-shadow: 0 20px 40px rgba(255, 215, 0, 0.25);
 }
 
 /* Image Container */
@@ -336,25 +336,25 @@ export default {
 
 .card-overlay {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.75rem;
+  right: 0.75rem;
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.9) 0%, rgba(255, 165, 0, 0.9) 100%);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   backdrop-filter: blur(10px);
 }
 
 .overlay-icon {
   color: #000000 !important;
-  font-size: 1.2rem !important;
+  font-size: 1rem !important;
 }
 
 .overlay-text {
   font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: #000000;
   text-transform: uppercase;
@@ -362,7 +362,7 @@ export default {
 
 /* Card Content */
 .card-content {
-  padding: 2rem;
+  padding: 1.5rem;
   position: relative;
   z-index: 2;
   flex: 1;
@@ -372,14 +372,14 @@ export default {
 
 .highlight-badge {
   font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #FFD700;
   background: rgba(255, 215, 0, 0.1);
-  padding: 0.4rem 1rem;
-  border-radius: 15px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
   display: inline-block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   align-self: flex-start;
@@ -387,18 +387,18 @@ export default {
 
 .highlight-title {
   font-family: 'Inter', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.3;
-  margin-bottom: 1rem;
-  min-height: 3.5rem;
+  margin-bottom: 0.75rem;
+  min-height: 2.8rem;
 }
 
 .highlight-description {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: #e0e0e0;
   margin-bottom: 0;
   flex: 1;
@@ -410,11 +410,11 @@ export default {
 
 /* Card Actions */
 .card-actions {
-  padding: 0 2rem 2rem;
+  padding: 0 1.5rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .learn-more-btn {
@@ -423,8 +423,8 @@ export default {
   font-weight: 600 !important;
   font-family: 'Inter', sans-serif !important;
   border: 2px solid transparent !important;
-  border-radius: 25px !important;
-  padding: 0.75rem 2rem !important;
+  border-radius: 20px !important;
+  padding: 0.6rem 1.5rem !important;
   text-transform: none !important;
   transition: all 0.3s ease !important;
   flex: 1;
@@ -432,13 +432,13 @@ export default {
 
 .learn-more-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4) !important;
+  box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4) !important;
   border-color: #FFD700 !important;
 }
 
 .social-icons {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .icon-btn {
@@ -446,7 +446,7 @@ export default {
 }
 
 .icon-btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   background: rgba(255, 215, 0, 0.1) !important;
 }
 
@@ -455,39 +455,40 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: 20px;
   position: relative;
 }
 
 .swiper-button {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-  border: 2px solid #333;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, white 0%, white 100%);
+  
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #FFD700;
+  color: black;
   position: relative;
   z-index: 10;
+  margin: 0 15px; 
 }
 
 .swiper-button:hover {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: #000000;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
   border-color: #FFD700;
 }
 
 /* Pagination */
 .custom-pagination-wrapper {
   position: absolute;
-  bottom: -60px;
+  bottom: -50px;
   left: 0;
   width: 100%;
   display: flex;
@@ -497,14 +498,14 @@ export default {
 :deep(.custom-pagination) {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   position: relative;
   z-index: 5;
 }
 
 :deep(.custom-bullet) {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -512,16 +513,16 @@ export default {
 }
 
 :deep(.bullet-inner) {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #333;
   transition: all 0.3s ease;
 }
 
 :deep(.swiper-pagination-bullet-active .bullet-inner) {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background: #FFD700;
   box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
 }
@@ -529,7 +530,7 @@ export default {
 /* View All Button */
 .view-all-container {
   text-align: center;
-  margin-top: 4rem;
+  margin-top: 3rem;
 }
 
 .view-all-btn {
@@ -538,17 +539,17 @@ export default {
   font-weight: 700 !important;
   font-family: 'Inter', sans-serif !important;
   border: 2px solid transparent !important;
-  border-radius: 30px !important;
-  padding: 1rem 3rem !important;
+  border-radius: 25px !important;
+  padding: 0.875rem 2.5rem !important;
   text-transform: none !important;
   transition: all 0.3s ease !important;
-  font-size: 1.1rem !important;
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3) !important;
+  font-size: 1rem !important;
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3) !important;
 }
 
 .view-all-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4) !important;
   border-color: #FFD700 !important;
 }
 
@@ -570,7 +571,7 @@ export default {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
@@ -582,12 +583,12 @@ export default {
 .highlight-card::after {
   content: '';
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
   background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
-  border-radius: 22px;
+  border-radius: 16px;
   z-index: -1;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -609,26 +610,26 @@ export default {
 /* Responsive Design */
 @media (max-width: 960px) {
   .page-title {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
   }
   
   .intro-text {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   
   .highlight-title {
-    font-size: 1.2rem;
-    min-height: auto;
+    font-size: 1rem;
+    min-height: 2.5rem;
   }
   
   .highlights-swiper {
-    padding: 20px 10px 70px;
+    padding: 15px 5px 50px;
   }
   
   .card-actions {
     flex-direction: column;
     align-items: stretch;
-    gap: 1rem;
+    gap: 0.75rem;
   }
   
   .social-icons {
@@ -636,56 +637,169 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .page-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
   
   .intro-text {
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-align: left;
+    padding: 0 1rem;
   }
   
   .header-section {
-    padding: 2rem 0;
+    padding: 1.5rem 0;
   }
   
   .card-content {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
   
   .highlight-title {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
   
   .highlight-description {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
   
   .card-actions {
-    padding: 0 1.5rem 1.5rem;
+    padding: 0 1.25rem 0.75rem;
   }
   
   .carousel-container {
-    padding: 0 16px;
+    padding: 0 10px;
   }
   
   .carousel-navigation {
-    gap: 16px;
+    gap: 15px;
   }
   
   .swiper-button {
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
   }
   
   .custom-pagination-wrapper {
-    bottom: -50px;
+    bottom: -45px;
   }
   
   .view-all-btn {
-    padding: 0.875rem 2.5rem !important;
-    font-size: 1rem !important;
+    padding: 0.75rem 2rem !important;
+    font-size: 0.95rem !important;
+  }
+  
+  .highlight-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    padding: 0.5rem;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  .intro-text {
+    font-size: 0.9rem;
+  }
+  
+  .header-section {
+    padding: 1rem 0;
+  }
+  
+  .card-content {
+    padding: 1rem;
+  }
+  
+  .highlight-title {
+    font-size: 0.9rem;
+    min-height: auto;
+  }
+  
+  .highlight-description {
+    font-size: 0.8rem;
+  }
+  
+  .card-actions {
+    padding: 0 1rem 0.5rem;
+  }
+  
+  .carousel-container {
+    padding: 0 5px;
+  }
+  
+  .carousel-navigation {
+    gap: 12px;
+  }
+  
+  .swiper-button {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .custom-pagination-wrapper {
+    bottom: -40px;
+  }
+  
+  .view-all-btn {
+    padding: 0.625rem 1.75rem !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .highlight-badge {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.6rem;
+  }
+  
+  .overlay-text {
+    font-size: 0.6rem;
+  }
+  
+  .overlay-icon {
+    font-size: 0.8rem !important;
+  }
+  
+  .card-overlay {
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .highlight-image {
+    height: 160px;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) {
+  .highlight-card:hover {
+    transform: none;
+  }
+  
+  .highlight-card:hover .highlight-image {
+    transform: none;
+  }
+  
+  .swiper-button:hover {
+    transform: none;
+  }
+  
+  .view-all-btn:hover {
+    transform: none;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .highlight-card {
+    animation: none;
+  }
+  
+  .highlight-card:hover .highlight-image {
+    transform: none;
   }
 }
 </style>

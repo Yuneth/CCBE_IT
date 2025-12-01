@@ -7,7 +7,10 @@
       <!-- Main Footer Content -->
       <div class="footer-main">
         <div class="footer-title-container">
-          <strong class="footer-title">Shaping the Future of Education</strong>
+          <strong class="footer-title">Shaping the </strong>
+          <span class="highlight"
+            > Future of Education</span
+          >
         </div>
         <div class="contact-info">
           <strong class="contact-text"
@@ -25,7 +28,7 @@
             @click="navigate(icon.link)"
             :aria-label="`Follow us on ${icon.name.replace('mdi-', '')}`"
           >
-            <v-icon size="24">{{ icon.name }}</v-icon>
+            <v-icon size="20">{{ icon.name }}</v-icon>
           </v-btn>
         </div>
       </div>
@@ -33,20 +36,20 @@
       <!-- Logo Section -->
       <div class="logo-section">
         <v-row justify="center" align="center" class="logo-row">
-          <v-col cols="12" sm="6" md="3" lg="2" class="logo-col">
+          <v-col cols="6" sm="3" md="3" lg="2" class="logo-col">
             <img
               class="main-logo"
               :src="logo"
               alt="Cambridge College of British English Logo"
             />
           </v-col>
-          <v-col cols="12" sm="6" md="3" lg="2" class="logo-col">
+          <v-col cols="6" sm="3" md="3" lg="2" class="logo-col">
             <img class="partner-logo1" :src="lable1" alt="WEP Partner Logo" />
           </v-col>
-          <v-col cols="12" sm="6" md="3" lg="2" class="logo-col">
+          <v-col cols="6" sm="3" md="3" lg="2" class="logo-col">
             <img class="partner-logo2" :src="lable2" alt="IELTS Partner Logo" />
           </v-col>
-          <v-col cols="12" sm="6" md="3" lg="2" class="logo-col">
+          <v-col cols="6" sm="3" md="3" lg="2" class="logo-col">
             <img class="partner-logo3" :src="lable3" alt="CES Partner Logo" />
           </v-col>
         </v-row>
@@ -369,7 +372,7 @@
 export default {
   data() {
     return {
-      logo: require("@/assets/CCIT - logo.png"),
+      logo: require("@/assets/logo-New.png"),
       lable1: require("@/assets/CamE.png"),
       lable2: require("@/assets/IELTS.png"),
       lable3: require("@/assets/CES.png"),
@@ -402,9 +405,9 @@ export default {
 
 <style scoped>
 .footer-container {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
-  border-top: 3px solid #ffd700;
-  padding: 3rem 1rem 2rem !important;
+  background: linear-gradient(135deg, white 0%, white 50%) !important;
+  border-top: '';
+  padding: 2rem 1rem 1.5rem !important;
   color: #ffffff;
 }
 
@@ -417,32 +420,41 @@ export default {
 /* Main Footer Content */
 .footer-main {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .footer-title-container {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .footer-title {
   font-family: "Inter", "Poppins", sans-serif;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+  background: linear-gradient(135deg, black 0%, black 50%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: inline-block;
 }
 
+.highlight {
+  background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
 .contact-info {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .contact-text {
   font-family: "Inter", sans-serif;
-  font-size: 1.1rem;
-  color: #e0e0e0;
+  font-size: 1rem;
+  color: black;
   font-weight: 500;
 }
 
@@ -450,47 +462,47 @@ export default {
 .social-icons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .social-btn {
-  color: #ffd700 !important;
+  color: black !important;
   transition: all 0.3s ease !important;
   border-radius: 50% !important;
-  width: 48px !important;
-  height: 48px !important;
+  width: 42px !important;
+  height: 42px !important;
 }
 
 .social-btn:hover {
-  color: #ffffff !important;
+  color: black !important;
   background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%) !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3) !important;
+  box-shadow: 0 3px 12px rgba(255, 215, 0, 0.3) !important;
 }
 
 /* Logo Section */
 .logo-section {
-  background: linear-gradient(135deg, #0f0f0f 0%, #ebe8e8 50%);
-  padding: 2rem 1rem;
-  border-radius: 16px;
-  margin-bottom: 2rem;
-  border: 2px solid #333;
+  background: linear-gradient(135deg, white 0%, white 50%);
+  padding: 1.5rem 0.75rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 1px solid white;
 }
 
 .logo-row {
-  margin: 0 -8px;
+  margin: 0 -6px;
 }
 
 .logo-col {
-  padding: 1rem;
+  padding: 0.75rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .main-logo {
-  max-width: 200px;
+  max-width: 160px;
   height: auto;
   transition: transform 0.3s ease;
 }
@@ -499,26 +511,18 @@ export default {
   transform: scale(1.05);
 }
 
-.partner-logo {
-  max-width: 150px;
-  height: auto;
-  margin-right: 100px;
-}
-
 .partner-logo1 {
-  max-width: 175px;
+  max-width: 140px;
   height: auto;
-  margin-right: 50px;
 }
 
 .partner-logo2 {
-  max-width: 150px;
+  max-width: 120px;
   height: auto;
-  margin-right: 50px;
 }
 
 .partner-logo3 {
-  max-width: 250px;
+  max-width: 200px;
   height: auto;
 }
 
@@ -528,17 +532,17 @@ export default {
 
 /* Legal Links */
 .legal-links {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   text-align: center;
 }
 
 .legal-link {
-  color: #ffd700;
+  color: black;
   font-family: "Inter", sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   text-decoration: none;
   font-weight: 500;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 6px;
   transition: all 0.3s ease;
   display: inline-block;
@@ -546,36 +550,36 @@ export default {
 
 .legal-link:hover {
   color: #ffffff;
-  background: rgba(255, 215, 0, 0.2);
+  background: black;
   text-decoration: underline;
 }
 
 .link-separator {
   color: #666;
-  margin: 0 0.5rem;
+  margin: 0 0.4rem;
 }
 
 /* Copyright Section */
 .copyright-section {
   text-align: center;
   border-top: 1px solid #333;
-  padding-top: 1.5rem;
+  padding-top: 1.25rem;
 }
 
 .mission-text {
   font-family: "Inter", sans-serif;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #e0e0e0;
-  margin-bottom: 1rem;
-  max-width: 800px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: black;
+  margin-bottom: 0.75rem;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .copyright-text {
   font-family: "Inter", sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #999;
   margin: 0;
 }
@@ -586,9 +590,9 @@ export default {
 }
 
 .dialog-card {
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   border: 2px solid #ffd700;
   background: #1a1a1a;
 }
@@ -596,44 +600,45 @@ export default {
 .dialog-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 2rem 2rem 1.5rem;
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-  color: #ffd700;
+  gap: 0.75rem;
+  padding: 1.5rem 1.5rem 1rem;
+  background: linear-gradient(135deg, white 0%, white 100%);
+  color: black;
   border-bottom: 1px solid #333;
 }
 
 .dialog-icon {
-  font-size: 2rem !important;
+  font-size: 1.8rem !important;
   color: #ffd700 !important;
 }
 
 .dialog-title {
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin: 0;
   letter-spacing: -0.25px;
   text-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
 }
 
 .dialog-body {
-  padding: 2rem;
-  background: #1a1a1a;
-  color: #e0e0e0;
+  padding: 1.5rem;
+  background: white;
+  color: black;
   font-family: "Inter", sans-serif;
-  line-height: 1.6;
+  line-height: 1.5;
+  font-size: 0.9rem;
 }
 
 .dialog-divider {
-  margin: 0 2rem;
+  margin: 0 1.5rem;
   border-color: #333;
 }
 
 .dialog-actions {
-  padding: 1.5rem 2rem;
+  padding: 1.25rem 1.5rem;
   display: flex;
   justify-content: flex-end;
-  background: #1a1a1a;
+  background: white;
   border-top: 1px solid #333;
 }
 
@@ -641,62 +646,70 @@ export default {
   border-radius: 8px;
   font-weight: 600;
   text-transform: none;
-  padding: 0.75rem 2rem;
+  padding: 0.6rem 1.5rem;
   font-family: "Inter", "Poppins", sans-serif;
 }
 
 .policy-heading {
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  color: #ffd700;
-  margin: 1.5rem 0 0.5rem 0;
-  font-size: 1.1rem;
+  color: black;
+  margin: 1.25rem 0 0.5rem 0;
+  font-size: 1rem;
 }
 
 .dialog-body ul {
   margin: 0.5rem 0;
-  padding-left: 1.5rem;
+  padding-left: 1.25rem;
 }
 
 .dialog-body li {
   margin-bottom: 0.25rem;
-  color: #e0e0e0;
+  color: black;
 }
 
 .dialog-body strong {
-  color: #ffd700;
+  color: black;
 }
 
 /* Responsive Design */
 @media (max-width: 960px) {
   .footer-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .contact-text {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .logo-section {
-    padding: 1.5rem 0.5rem;
+    padding: 1.25rem 0.5rem;
   }
 
   .main-logo {
-    max-width: 160px;
+    max-width: 140px;
   }
 
-  .partner-logo {
+  .partner-logo1 {
     max-width: 120px;
+  }
+
+  .partner-logo2 {
+    max-width: 100px;
+  }
+
+  .partner-logo3 {
+    max-width: 160px;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .footer-container {
-    padding: 2rem 1rem 1rem !important;
+    padding: 1.5rem 0.75rem 1rem !important;
   }
 
   .footer-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .contact-text {
@@ -708,8 +721,8 @@ export default {
   }
 
   .social-btn {
-    width: 40px !important;
-    height: 40px !important;
+    width: 38px !important;
+    height: 38px !important;
   }
 
   .logo-row {
@@ -721,11 +734,19 @@ export default {
   }
 
   .main-logo {
-    max-width: 140px;
+    max-width: 120px;
   }
 
-  .partner-logo {
+  .partner-logo1 {
     max-width: 100px;
+  }
+
+  .partner-logo2 {
+    max-width: 80px;
+  }
+
+  .partner-logo3 {
+    max-width: 140px;
   }
 
   .mission-text {
@@ -738,7 +759,127 @@ export default {
 
   .legal-link {
     font-size: 0.85rem;
-    padding: 0.25rem 0.5rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .dialog-header {
+    padding: 1.25rem 1rem 0.75rem;
+  }
+
+  .dialog-body {
+    padding: 1.25rem;
+  }
+
+  .dialog-actions {
+    padding: 1rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 1rem 0.5rem 0.75rem !important;
+  }
+
+  .footer-title {
+    font-size: 1.2rem;
+  }
+
+  .contact-text {
+    font-size: 0.85rem;
+  }
+
+  .social-btn {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .logo-section {
+    padding: 1rem 0.25rem;
+  }
+
+  .logo-col {
+    padding: 0.25rem;
+  }
+
+  .main-logo {
+    max-width: 100px;
+  }
+
+  .partner-logo1 {
+    max-width: 80px;
+  }
+
+  .partner-logo2 {
+    max-width: 70px;
+  }
+
+  .partner-logo3 {
+    max-width: 120px;
+  }
+
+  .mission-text {
+    font-size: 0.85rem;
+  }
+
+  .copyright-text {
+    font-size: 0.75rem;
+  }
+
+  .legal-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .link-separator {
+    display: none;
+  }
+
+  .dialog-header {
+    padding: 1rem 0.75rem 0.5rem;
+  }
+
+  .dialog-body {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .dialog-actions {
+    padding: 0.75rem 1rem;
+  }
+
+  .action-btn {
+    padding: 0.5rem 1.25rem;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) {
+  .social-btn:hover {
+    transform: none;
+  }
+  
+  .legal-link:hover {
+    background: transparent;
+  }
+  
+  .main-logo:hover {
+    transform: none;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .social-btn {
+    transition: none;
+  }
+  
+  .main-logo {
+    transition: none;
+  }
+  
+  .legal-link {
+    transition: none;
   }
 }
 </style>

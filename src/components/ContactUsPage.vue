@@ -1,53 +1,113 @@
 <template>
-<NavBar></NavBar>
-<v-container>
-
-    <div class="logo-container mt-3" data-aos="zoom-in-up" data-aos-duration="2000">
-        <img :src="logo" alt="Company Logo" width="200" height="150" id="logo">
-    </div>
-
-    <h1 class="title mt-5" data-aos="fade-up" data-aos-duration="3000">
+  <div class="contact-page">
+    <NavBar></NavBar>
+    <v-container class="main-container">
+      <!-- Logo Section -->
+      <div class="logo-container" data-aos="zoom-in-up" data-aos-duration="2000">
+        <img :src="logo" alt="Company Logo" class="logo-image">
+      </div>
+      
+      <!-- Main Title -->
+      <h1 class="page-title" data-aos="fade-up" data-aos-duration="3000">
         CONTACT <span class="highlight">US</span>
-    </h1>
-
-    <h4 class="mt-2 subtitle" data-aos="fade-up" data-aos-duration="2000">
+      </h1>
+      
+      <!-- Subtitle -->
+      <h4 class="subtitle" data-aos="fade-up" data-aos-duration="2000">
         At the heart of our commitment to communication and service lies our dedication to ensuring every interaction is meaningful, responsive, and supportive.
-    </h4>
+      </h4>
 
-    <h1 class="title" data-aos="fade-up" data-aos-duration="3000">
-        OUR <span class="highlight mt-3">BRANCH NETWORK</span>
-    </h1>
+      <v-divider class="section-divider"></v-divider>
 
-    <div class="center-container-Branch mt-3">
-        <!-- Image Container -->
-        <div class="image-container">
+      <!-- Branch Network Section -->
+      <section class="branch-section">
+        <h1 class="section-title" data-aos="fade-up" data-aos-duration="3000">
+          OUR <span class="highlight">BRANCH NETWORK</span>
+        </h1>
+
+        <div class="branch-map-container">
+          <!-- Image Container -->
+          <div class="image-container" data-aos="zoom-in" data-aos-duration="2000">
             <!-- Main Image -->
-            <v-img data-aos="zoom-out" data-aos-duration="2000" width="390" height="490" src="@/assets/Branch_Network.png" alt="Branch Network"></v-img>
-            <!-- Ambalangoda Branch -->
-            <div class="point" v-tooltip:start="'Ambalangoda College'" :style="{ top: '72%', left: '34%' }" @click="navigateTo('/about/ambalangoda')"></div>
-            <!-- Galle Branch -->
-            <div class="point" v-tooltip:start="'Galle College'" :style="{ top: '80%', left: '40%' }" @click="navigateTo('/about/galle')"></div>
-            <!-- Matara Branch -->
-            <div class="point" v-tooltip:start="'Matara College'" :style="{ top: '79%', left: '55%' }" @click="navigateTo('/about/matara')"></div>
-            <!-- Piliyandala Branch -->
-            <div class="point" v-tooltip:start="'Piliyandala College'" :style="{ top: '63%', left: '35%' }" @click="navigateTo('/about/piliyandala')"></div>
-            <!-- Kalutara Branch -->
-            <div class="point" v-tooltip:start="'Kalutara College'" :style="{ top: '63%', left: '28%' }" @click="navigateTo('/about/kalutara')"></div>
-            <!-- Horana Branch -->
-            <div class="point" v-tooltip:start="'Horana College'" :style="{ top: '67%', left: '32%' }" @click="navigateTo('/about/horana')"></div>
+            <v-img 
+              class="branch-map" 
+              src="@/assets/Branch_Network.png" 
+              alt="Branch Network"
+            ></v-img>
+            
+            <!-- Interactive Points -->
+            <div 
+              class="branch-point" 
+              v-tooltip:start="'Ambalangoda College'" 
+              :style="{ top: '79%', left: '34%' }" 
+              @click="navigateTo('/about/ambalangoda')"
+            ></div>
+            <div 
+              class="branch-point" 
+              v-tooltip:start="'Galle College'" 
+              :style="{ top: '88%', left: '40%' }" 
+              @click="navigateTo('/about/galle')"
+            ></div>
+            <div 
+              class="branch-point" 
+              v-tooltip:start="'Matara College'" 
+              :style="{ top: '86%', left: '55%' }" 
+              @click="navigateTo('/about/matara')"
+            ></div>
+            <div 
+              class="branch-point" 
+              v-tooltip:start="'Piliyandala College'" 
+              :style="{ top: '66.5%', left: '35%' }" 
+              @click="navigateTo('/about/piliyandala')"
+            ></div>
+            <div 
+              class="branch-point" 
+              v-tooltip:start="'Horana College'" 
+              :style="{ top: '70.7%', left: '32%' }" 
+              @click="navigateTo('/about/horana')"
+            ></div>
+            <div 
+              class="branch-point" 
+              v-tooltip:start="'Kalutara College'" 
+              :style="{ top: '66.2%', left: '28.4%' }" 
+              @click="navigateTo('/about/kalutara')"
+            ></div>
+          </div>
         </div>
-    </div>
-    <div v-if="selectedOffice" class="text-center mt-5">
-        <h3>{{ selectedOffice.name }}</h3>
-        <p>{{ selectedOffice.address }}</p>
-        <p>{{ selectedOffice.phone }}</p>
-    </div>
-    <div>
-    </div>
 
-</v-container>
-<ChatBot></ChatBot>
-<FooterPage></FooterPage>
+        <!-- Selected Office Info -->
+        <div v-if="selectedOffice" class="office-info" data-aos="fade-up">
+          <h3 class="office-name">{{ selectedOffice.name }}</h3>
+          <p class="office-detail">{{ selectedOffice.address }}</p>
+          <p class="office-detail">{{ selectedOffice.phone }}</p>
+        </div>
+
+        <!-- Branch Buttons -->
+        <div class="branch-buttons">
+          <v-row justify="center" class="button-row">
+            <v-btn 
+              v-for="(office, index) in offices" 
+              :key="index" 
+              class="branch-btn"
+              data-aos="zoom-out" 
+              data-aos-duration="2000"
+              :data-aos-delay="index * 100"
+              rounded="xl" 
+              size="large" 
+              @click="selectOffice(office)"
+            >
+              {{ office.name }}
+            </v-btn>
+          </v-row>
+        </div>
+      </section>
+
+      <v-divider class="section-divider"></v-divider>
+    </v-container>
+
+    <ChatBot></ChatBot>
+    <FooterPage></FooterPage>
+  </div>
 </template>
 
 <script>
@@ -75,12 +135,15 @@ export default {
             return phone.replace(/(\d{2})(\d{3})(\d{3})(\d{2})/, "+$1 $2 $3 $4");
         },
         navigateTo(route) {
-        this.$router.push(route);
-    }
+            this.$router.push(route);
+        },
+        selectOffice(office) {
+            this.selectedOffice = office;
+        }
     },
     data() {
         return {
-            logo: require('@/assets/Logo.png'),
+            logo: require('@/assets/logo-New.png'),
             offices: [{
                     name: "Galle College",
                     address: "118, Old Matara Rd, Galle, 80000",
@@ -112,205 +175,313 @@ export default {
                     phone: "+342 121 210"
                 },
             ],
-            points: [{
-                    x: 34,
-                    y: 73,
-                    label: "AmbalangodaBranch",
-                    link: "/courses"
-                },
-                {
-                    x: 40,
-                    y: 80.5,
-                    label: "Galle",
-                    link: ""
-                },
-                {
-                    x: 55,
-                    y: 79,
-                    label: "Matara",
-                    link: ""
-                },
-                {
-                    x: 32,
-                    y: 67,
-                    label: "Piliyandala",
-                    link: ""
-                },
-                {
-                    x: 35,
-                    y: 63,
-                    label: "Horana",
-                    link: ""
-                },
-            ],
             selectedOffice: null,
         };
     },
 };
 </script>
 
-<style>
-.title {
-    color: #FBB700;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
+<style scoped>
+.contact-page {
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+.main-container {
+  background: transparent;
+  padding: 2rem 1rem;
+}
+
+/* Logo Section */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.logo-image {
+  width: 300px;
+  height: 200px;
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.05);
+}
+
+/* Typography */
+.page-title {
+  font-family: 'Inter', 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  color: #0c0c0c;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: 'Inter', 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #0f0f0f;
+  margin-bottom: 2rem;
 }
 
 .highlight {
-    color: #FF5F15;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .subtitle {
-    font-size: 1.2rem;
-    color: #555;
-    margin: 20px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  text-align: center;
+  margin: 2rem 0;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.title-intro {
-    font-family: "Anton", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    text-align: center;
+/* Section Divider */
+.section-divider {
+  border-color: '';
+  margin: 3rem 0;
+  background: linear-gradient(90deg, transparent, #FFD700, transparent);
+  height: 2px;
 }
 
-.paragraph {
-    font-family: "Roboto", sans-serif;
-    font-weight: 14px;
-    font-size: 20px;
-    font-style: normal;
-    text-align: justify;
+/* Branch Network Section */
+.branch-section {
+  padding: 3rem 0;
 }
 
-#logo {
-    justify-content: center;
-}
-
-h4 {
-    justify-content: center;
-    text-align: center;
-}
-
-.logo-container {
-    display: flex;
-    justify-content: center;
-    /* Center horizontally */
-    align-items: center;
-    margin-top: 20px;
-}
-
-@media (max-width: 960px) {
-
-    /* For smaller screens, remove zigzag effect to keep a clean layout */
-    .zigzag-left,
-    .zigzag-right {
-        margin-top: 20px;
-    }
-}
-
-.branch {
-    margin: 20px 0;
-    text-align: center;
-}
-
-.whatsapp-button {
-    display: inline-flex;
-    align-items: center;
-    background-color: #25d366;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.whatsapp-button img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-}
-
-.whatsapp-button:hover {
-    background-color: #1ebf57;
-}
-
-.small {
-    font-size: 12px;
-    color: #d4f1dc;
+.branch-map-container {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
 }
 
 .image-container {
-    position: relative;
-    width: auto;
-    height: auto;
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  overflow: hidden;
+  
 }
 
-.point {
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background-color: rgb(255, 230, 0);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    z-index: 10;
-    animation: pulse-grow 2s infinite;
-    box-shadow: 0 0 10px rgba(255, 230, 0, 0.8);
+.branch-map {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
-.point::before,
-.point::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 2px solid rgba(255, 243, 7, 0.889);
-    border-radius: 50%;
-    top: 0;
-    left: 0;
-    transform: scale(1);
-    animation: wave 2s infinite;
+.branch-point {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 10;
+  animation: pulse-grow 2s infinite;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  transition: all 0.3s ease;
 }
 
-.point::after {
-    animation-delay: 1s;
+.branch-point:hover {
+  transform: translate(-50%, -50%) scale(1.3);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 1);
+}
+
+.branch-point::before,
+.branch-point::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #FFD700;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  transform: scale(1);
+  animation: wave 2s infinite;
+}
+
+.branch-point::after {
+  animation-delay: 1s;
 }
 
 @keyframes pulse-grow {
-
-    0%,
-    100% {
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-    50% {
-        transform: translate(-50%, -50%) scale(1.2);
-    }
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
 }
 
 @keyframes wave {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    100% {
-        opacity: 0;
-        transform: scale(3);
-    }
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3);
+  }
 }
 
-.center-container-Branch {
-    display: flex;
-    justify-content: center;
+/* Office Info */
+.office-info {
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #FFD700;
+  margin: 2rem auto;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.office-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #FFD700;
+  margin-bottom: 1rem;
+}
+
+.office-detail {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  margin: 0.5rem 0;
+}
+
+/* Branch Buttons */
+.branch-buttons {
+  margin: 2rem 0;
+}
+
+.button-row {
+  gap: 1rem;
+}
+
+.branch-btn {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%) !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+  font-family: 'Inter', sans-serif !important;
+  border: 2px solid transparent !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3) !important;
+}
+
+.branch-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4) !important;
+  border-color: #FFD700 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 960px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .logo-image {
+    width: 160px;
+    height: 120px;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    text-align: left;
+    padding: 0 0.5rem;
+  }
+  
+  .branch-point {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .button-row {
+    flex-direction: column;
     align-items: center;
-    position: relative;
-    width: 300px;
-    /* Match the image width */
-    height: 400px;
-    /* Match the image height */
-    margin: 0 auto;
+  }
+  
+  .branch-btn {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .office-info {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .office-name {
+    font-size: 1.3rem;
+  }
+  
+  .office-detail {
+    font-size: 1rem;
+  }
+}
+
+/* Additional Animations */
+.branch-section {
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Center container for branch map */
+.center-container-Branch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
 }
 </style>

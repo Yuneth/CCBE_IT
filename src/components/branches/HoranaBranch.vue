@@ -1,319 +1,619 @@
 <template>
+  <div class="horana-branch-page">
     <NavBar></NavBar>
-    <v-container>
-        <h1 class="title mt-5" data-aos="fade-up" data-aos-duration="3000">
-            Welcome to <span class="highlight">Horana College</span>
+    <v-container class="main-container">
+      <!-- Header Section -->
+      <section class="header-section">
+        <h1 class="page-title" data-aos="fade-up" data-aos-duration="3000">
+          Welcome to <span class="highlight">Horana College</span>
         </h1>
-        <br />
-    
-        <h2 class="title mt-5" data-aos="fade-up" data-aos-duration="3000">Contact</h2>
+      </section>
+
+      <v-divider class="section-divider"></v-divider>
+
+      <!-- Contact Section -->
+      <section class="content-section">
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="3000">CONTACT</h2>
         <v-row justify="center" class="fill-height">
-    
-            <v-col cols="12" class="branch-card mt-3" style="text-align: center;">
-                <div class="branch-info">
-                    <p>
-                        <v-icon class="icon">mdi-map-marker</v-icon>
-                        No: 149 Graceland,Circular Road,Horana,12400
-                    </p>
-                    <p>
-                        <v-icon color="blue" @click="openGoogleMaps" style="cursor: pointer;">mdi-map-marker</v-icon>
-                        Google Map
-                    </p>
-                    <p>
-                        <v-icon class="icon">mdi-phone</v-icon>
-                        <a href="tel:034 2 205 503">034 2 205 503</a>
-                    </p>
-                    <p>
-                        <v-icon class="icon">mdi-email</v-icon>
-                        <a>horanaccbe@gmail.com</a>
-                    </p>
-                    <p>
-                        <a href="https://www.facebook.com/ccbe.ambalangoda" target="_blank" rel="noopener noreferrer">
-                            <v-icon class="icon mr-1" color="blue">mdi-facebook</v-icon>
-                        </a>
-                        <a href="https://www.youtube.com/@cambridgecollegeofbritishe9360" target="_blank" rel="noopener noreferrer">
-                            <v-icon class="icon mr-1" color="red">mdi-youtube</v-icon>
-                        </a>
-                        <a href="https://www.instagram.com/ccbeamb" target="_blank" rel="noopener noreferrer">
-                            <v-icon class="icon mr-1" color="pink">mdi-instagram</v-icon>
-                        </a>
-                        <a href="https://www.tiktok.com/@cambridgecollege9" target="_blank" rel="noopener noreferrer">
-                            <v-icon class="icon mr-1" color="orange">mdi-music-note</v-icon>
-                        </a>
-                    </p>
-                    <a href="https://wa.me/+94707997512?text=Hello%20Branch%201" target="_blank" class="whatsapp-button">
-                        <img :src="require('@/assets/icons/whatsapp.jpg')" alt="WhatsApp" />
-                        <strong>Chat Via WhatsApp</strong>
-                    </a>
-                </div>
-            </v-col>
+          <v-col cols="12" md="8" lg="6" class="branch-card mt-3">
+            <div class="branch-info">
+              <p class="contact-item">
+                <v-icon class="address-icon">mdi-map-marker</v-icon>
+                No: 149 Graceland, Circular Road, Horana, 12400
+              </p>
+              <p class="contact-item">
+                <v-icon class="contact-icon map-icon" @click="openGoogleMaps" style="cursor: pointer;">mdi-map-marker</v-icon>
+                Google Map
+              </p>
+              <p class="contact-item">
+                <v-icon class="contact-icon">mdi-phone</v-icon>
+                <a href="tel:0342205503" class="contact-link">034 2 205 503</a>
+              </p>
+              <p class="contact-item">
+                <v-icon class="contact-icon">mdi-email</v-icon>
+                <a href="mailto:horanaccbe@gmail.com" class="contact-link">horanaccbe@gmail.com</a>
+              </p>
+              <div class="social-links">
+                <a href="https://www.facebook.com/ccbe.ambalangoda" target="_blank" rel="noopener noreferrer" class="social-link">
+                  <v-icon class="social-icon" color="#1877F2">mdi-facebook</v-icon>
+                </a>
+                <a href="https://www.youtube.com/@cambridgecollegeofbritishe9360" target="_blank" rel="noopener noreferrer" class="social-link">
+                  <v-icon class="social-icon" color="#FF0000">mdi-youtube</v-icon>
+                </a>
+                <a href="https://www.instagram.com/ccbeamb" target="_blank" rel="noopener noreferrer" class="social-link">
+                  <v-icon class="social-icon" color="#E4405F">mdi-instagram</v-icon>
+                </a>
+                <a href="https://www.tiktok.com/@cambridgecollege9" target="_blank" rel="noopener noreferrer" class="social-link">
+                  <v-icon class="social-icon" color="#000000">mdi-music-note</v-icon>
+                </a>
+              </div>
+              <a href="https://wa.me/+94707997512?text=Hello%20Horana%20Branch" target="_blank" class="whatsapp-button">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+                <strong>Chat Via WhatsApp</strong>
+              </a>
+            </div>
+          </v-col>
         </v-row>
-        <v-divider></v-divider>
-    
-        <h2 class="title mt-5" data-aos="fade-up" data-aos-duration="3000">Gallery</h2>
-    
-        <div>
-            <v-row>
-                <!-- Loop through all items (images and iframes) -->
-                <v-col v-for="(item, index) in contentItems" :key="index" cols="12" sm="6" md="4" lg="4" xl="2">
-                    <v-card class="pa-3" v-if="item.iframeSrc">
-                        <iframe width="100%" height="200px" frameborder="0" :src="item.iframeSrc" allowfullscreen></iframe>
-                        <v-card-subtitle class="black--text mt-3" style="color: black; font-weight: bold;">
-                            {{ item.subtitle }}
-                        </v-card-subtitle>
-                        <v-card-text>
-                            <div>{{ item.description }}</div>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col v-for="(image, index) in images" :key="index" class="d-flex child-flex" cols="12" sm="6" md="4" lg="4" xl="2">
-                    <v-img :lazy-src="image.lazySrc" :src="image.src" aspect-ratio="1" class="bg-grey-lighten-2" cover>
-                        <template v-slot:placeholder>
-                            <v-row align="center" class="fill-height ma-0" justify="center">
-                                <v-progress-circular color="grey-lighten-5" indeterminate></v-progress-circular>
-                            </v-row>
-                        </template>
-                    </v-img>
-                </v-col>
-            </v-row>
+      </section>
+
+      <v-divider class="section-divider"></v-divider>
+
+      <!-- Gallery Section -->
+      <section class="content-section">
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="3000">Gallery</h2>
+        
+        <div class="gallery-container">
+          <v-row>
+            <!-- Virtual Tour Items -->
+            <v-col v-for="(item, index) in contentItems" :key="'tour-' + index" cols="12" sm="6" md="4">
+              <v-card class="gallery-card" data-aos="fade-up" :data-aos-duration="1000 + (index * 200)">
+                <iframe 
+                  width="100%" 
+                  height="200px" 
+                  frameborder="0" 
+                  :src="item.iframeSrc" 
+                  allowfullscreen
+                  class="gallery-iframe"
+                  loading="lazy"
+                ></iframe>
+                <v-card-subtitle class="gallery-subtitle">
+                  {{ item.subtitle }}
+                </v-card-subtitle>
+                <v-card-text class="gallery-description">
+                  <div>{{ item.description }}</div>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+          
+          <!-- Image Gallery -->
+          <v-row>
+            <v-col 
+              v-for="(image, index) in images" 
+              :key="'image-' + index" 
+              cols="12" sm="6" md="4" lg="3"
+            >
+              <v-card class="image-card" data-aos="zoom-in" :data-aos-duration="1200 + (index * 200)">
+                <v-img 
+                  :src="image.src" 
+                  aspect-ratio="1" 
+                  class="gallery-image" 
+                  cover
+                  gradient="to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3)"
+                >
+                  <template v-slot:placeholder>
+                    <v-row align="center" class="fill-height ma-0" justify="center">
+                      <v-progress-circular color="grey-lighten-5" indeterminate></v-progress-circular>
+                    </v-row>
+                  </template>
+                </v-img>
+              </v-card>
+            </v-col>
+          </v-row>
         </div>
+      </section>
     </v-container>
+    
     <ArrowButton></ArrowButton>
     <ChatBot></ChatBot>
     <FooterPage></FooterPage>
-    </template>
-    
-    <script>
-    import NavBar from '../NavBar.vue';
-    import FooterPage from '../FooterPage.vue';
-    import ChatBot from '../ChatBot.vue'
-    import ArrowButton from '../ArrowButton.vue';
-    
-    export default {
-    
-        name: 'HoranaBranch',
-        components: {
-            NavBar,
-            FooterPage,
-            ChatBot,
-            ArrowButton
+  </div>
+</template>
+
+<script>
+import NavBar from '../NavBar.vue';
+import FooterPage from '../FooterPage.vue';
+import ChatBot from '../ChatBot.vue'
+import ArrowButton from '../ArrowButton.vue';
+
+// AOS Transition
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+export default {
+  name: 'HoranaBranch',
+  components: {
+    NavBar,
+    FooterPage,
+    ChatBot,
+    ArrowButton
+  },
+  data() {
+    return {
+      contentItems: [{
+        iframeSrc: "https://momento360.com/e/u/4e0567c60ff04f2399663f0331bf84d5?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=75&size=medium&display-plan=true",
+        subtitle: "Explore Horana Branch in 360",
+        description: "Immerse yourself in a virtual tour of our vibrant learning spaces at the Horana Branch.",
+      }],
+      images: [
+        {
+          src: 'https://ik.imagekit.io/u3wbiya66/Ambalangoda/BC2.jpg?updatedAt=1737874746112',
         },
-        data() {
-            return {
-                contentItems: [{
-                    iframeSrc: "https://momento360.com/e/u/4e0567c60ff04f2399663f0331bf84d5?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=75&size=medium&display-plan=true",
-                    subtitle: "Explore Ambalangoda Branch in 360",
-                    description: "Immerse yourself in a virtual tour of our vibrant learning spaces at the Ambalangoda Branch.",
-                }, ],
-                images: [{
-                        lazySrc: 'https://picsum.photos/10/6?image=15',
-                        src: 'https://ik.imagekit.io/u3wbiya66/Ambalangoda/BC2.jpg?updatedAt=1737874746112',
-                    },
-                    {
-                        lazySrc: 'https://picsum.photos/10/6?image=10',
-                        src: 'https://ik.imagekit.io/u3wbiya66/PXL_20250117_094732824.jpg?updatedAt=1737789273936',
-                    },
-                    {
-                        lazySrc: 'https://picsum.photos/10/6?image=15',
-                        src: 'https://ik.imagekit.io/u3wbiya66/Ambalangoda/CV8.jpg?updatedAt=1737874746020',
-                    },
-                ],
-                fullscreenDialog: false, // Control for the fullscreen image dialog
-            };
+        {
+          src: 'https://ik.imagekit.io/u3wbiya66/PXL_20250117_094732824.jpg?updatedAt=1737789273936',
         },
-        mounted() {
-            window.scrollTo(0, 0);
+        {
+          src: 'https://ik.imagekit.io/u3wbiya66/Ambalangoda/CV8.jpg?updatedAt=1737874746020',
         },
-        methods: {
-            openGoogleMaps() {
-                window.open('https://www.google.com/maps/place/CAMBRIDGE+COLLEGE+OF+BRITISH+ENGLISH+-+HORANA/@6.7164033,80.0575963,17z/data=!3m1!4b1!4m6!3m5!1s0x3ae24b0b0effc743:0xd8743653d2d47685!8m2!3d6.7164033!4d80.0601712!16s%2Fg%2F11y6h97s0y?entry=ttu&g_ep=EgoyMDI1MDEyMi4wIKXMDSoASAFQAw%3D%3D', '_blank');
-            },
-        },
+        {
+          src: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+        }
+      ],
     };
-    </script>
-    
-    <style>
-    .title {
-        text-align: center;
-        font-size: 2rem;
-        font-weight: bold;
-    }
-    
-    .highlight {
-        color: #FF5F15;
-    }
-    
-    .subtitle {
-        font-size: 1.2rem;
-        color: #555;
-        margin: 20px 0;
-    }
-    
-    .professionals-grid {
-        margin-top: 30px;
-    }
-    
-    .name {
-        font-weight: bold;
-        font-size: 1.1rem;
-        margin: 10px 0;
-    }
-    
-    .title-intro {
-        font-family: "Arial", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-        text-align: center;
-    }
-    
-    .paragraph {
-        font-family: "Roboto", sans-serif;
-        font-weight: 14px;
-        font-size: 20px;
-        font-style: normal;
-        text-align: center;
-    }
-    
-    .horizontal-scroll {
-        display: flex;
-        overflow-x: auto;
-        white-space: nowrap;
-        padding: 10px;
-        scrollbar-width: none;
-        /* For Firefox */
-        -ms-overflow-style: none;
-        /* For Internet Explorer and Edge */
-    }
-    
-    .horizontal-scroll::-webkit-scrollbar {
-        display: none;
-        /* For Chrome, Safari, and Opera */
-    }
-    
-    .why-choose-us {
-        padding: 40px 20px;
-        background-color: #f9f9f9;
-    }
-    
-    .section-title {
-        font-size: 2.5rem;
-        color: #272643;
-        font-family: "Arial", sans-serif;
-        margin-bottom: 20px;
-    }
-    
-    .stats-row {
-        margin-top: 20px;
-    }
-    
-    .stat-item {
-        padding: 20px;
-    }
-    
-    .stat-value {
-        font-size: 2rem;
-        color: #120150;
-        font-weight: bold;
-        transition: all 0.3s ease-out;
-    }
-    
-    .stat-label {
-        font-size: 1.2rem;
-        color: #6c757d;
-    }
-    
-    .carousel-content {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        text-align: center;
-    }
-    
-    .carousel-image {
-        max-width: 120px;
-        max-height: 120px;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-    
-    .why-choose-us {
-        padding: 50px 0;
-        background-color: #5E0000;
-    }
-    
-    .title {
-        font-family: 'Roboto', sans-serif;
-        color: #FBB700;
-        text-transform: uppercase;
-        font-weight: bold;
-    }
-    
-    .stats-row .v-col {
-        transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-    
-    .stats-card {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    
-    .stats-card-img {
-        object-fit: cover;
-        border-bottom: 3px solid #FBB700;
-    }
-    
-    .card-content {
-        padding: 20px;
-    }
-    
-    .stat-value {
-        font-size: 28px;
-        color: #FBB700;
-        font-weight: bold;
-    }
-    
-    .stat-label {
-        font-size: 18px;
-        color: rgb(20, 10, 10);
-        font-family: 'Roboto', sans-serif;
-    }
-    
-    .v-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-    }
-    
-    .stats-row .v-col:hover {
-        transform: scale(1.05);
-        opacity: 0.9;
-    }
-    
-    .whatsapp-button {
-        display: inline-flex;
-        align-items: center;
-        background-color: #25d366;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 25px;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: bold;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-    
-    .whatsapp-button img {
-        width: 40px;
-        height: 40px;
-        margin-right: 10px;
-    }
-    
-    .whatsapp-button:hover {
-        background-color: #1ebf57;
-    }
-    </style>
-    
+  },
+  mounted() {
+    window.scrollTo(0, 0);
+    AOS.init();
+  },
+  methods: {
+    openGoogleMaps() {
+      window.open('https://www.google.com/maps/place/CAMBRIDGE+COLLEGE+OF+BRITISH+ENGLISH+-+HORANA/@6.7164033,80.0575963,17z/data=!3m1!4b1!4m6!3m5!1s0x3ae24b0b0effc743:0xd8743653d2d47685!8m2!3d6.7164033!4d80.0601712!16s%2Fg%2F11y6h97s0y?entry=ttu&g_ep=EgoyMDI1MDEyMi.0wIKXMDSoASAFQAw%3D%3D', '_blank');
+    },
+  },
+};
+</script>
+
+<style scoped>
+.horana-branch-page {
+  background: linear-gradient(135deg, white 0%, white 100%);
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+.main-container {
+  background: transparent;
+  padding: 2rem 1rem;
+}
+
+/* Header Section */
+.header-section {
+  text-align: center;
+  padding: 3rem 0;
+  margin-bottom: 3rem;
+}
+
+.page-title {
+  font-family: "Inter", "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: black;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.highlight::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  opacity: 0.7;
+}
+
+/* Section Divider */
+.section-divider {
+  border-color: '';
+  margin: 3rem 0;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  height: 2px;
+}
+
+/* Content Sections */
+.content-section {
+  margin: 3rem 0;
+}
+
+.section-title {
+  font-family: "Inter", "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: black;
+  margin-bottom: 2rem;
+}
+
+/* Contact Section */
+.branch-card {
+  background: linear-gradient(135deg, white 0%, white 100%);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin: 1rem auto;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.branch-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 215, 0, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+
+.branch-card:hover::before {
+  left: 100%;
+}
+
+.branch-info {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-item {
+  font-family: "Inter", sans-serif;
+  font-size: 1.1rem;
+  color: black;
+  margin: 1.2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.contact-icon {
+  color: blue;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.address-icon {
+  color: black;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.map-icon {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: green;
+}
+
+.map-icon:hover {
+  color: #ffa500;
+  transform: scale(1.1);
+}
+
+.contact-link {
+  color: black;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.contact-link:hover {
+  color: #ffa500;
+  text-decoration: underline;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 2rem 0;
+}
+
+.social-link {
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.social-link:hover {
+  transform: scale(1.2);
+  background: rgba(255, 215, 0, 0.2);
+}
+
+.social-icon {
+  font-size: 1.8rem !important;
+}
+
+/* WhatsApp Button */
+.whatsapp-button {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, #25d366 0%, #128C7E 100%);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+  border: 2px solid transparent;
+}
+
+.whatsapp-button img {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  border-radius: 50%;
+}
+
+.whatsapp-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6);
+  background: linear-gradient(135deg, #128C7E 0%, #25d366 100%);
+  border-color: #fff;
+}
+
+/* Gallery Section */
+.gallery-container {
+  margin-top: 2rem;
+}
+
+.gallery-card {
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  border: 2px solid #333;
+  border-radius: 16px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.gallery-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 215, 0, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+
+.gallery-card:hover::before {
+  left: 100%;
+}
+
+.gallery-card:hover {
+  transform: translateY(-8px);
+  border-color: #ffd700;
+  box-shadow: 0 15px 35px rgba(255, 215, 0, 0.25);
+}
+
+.gallery-iframe {
+  border-radius: 12px 12px 0 0;
+  border: none;
+}
+
+.gallery-subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  color: #ffd700 !important;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+.gallery-description {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: #e0e0e0;
+  text-align: center;
+  line-height: 1.6;
+  padding: 0 1rem 1rem;
+}
+
+.image-card {
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  border: 2px solid #333;
+  border-radius: 16px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.image-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 215, 0, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+
+.image-card:hover::before {
+  left: 100%;
+}
+
+.image-card:hover {
+  transform: translateY(-8px);
+  border-color: #ffd700;
+  box-shadow: 0 15px 35px rgba(255, 215, 0, 0.25);
+}
+
+.gallery-image {
+  border-radius: 12px;
+  transition: transform 0.4s ease;
+}
+
+.image-card:hover .gallery-image {
+  transform: scale(1.05);
+}
+
+/* Floating Animation */
+.branch-card, .gallery-card, .image-card {
+  animation: float 6s ease-in-out infinite;
+}
+
+.branch-card:nth-child(odd), .gallery-card:nth-child(odd), .image-card:nth-child(odd) {
+  animation-delay: 0s;
+}
+
+.branch-card:nth-child(even), .gallery-card:nth-child(even), .image-card:nth-child(even) {
+  animation-delay: 1.5s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.branch-card:hover, .gallery-card:hover, .image-card:hover {
+  animation: none;
+}
+
+/* Additional Effects */
+.branch-card::after, .gallery-card::after, .image-card::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ffd700, #ffa500, #ffd700);
+  border-radius: 18px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.branch-card:hover::after, .gallery-card:hover::after, .image-card:hover::after {
+  opacity: 0.3;
+}
+
+/* Responsive Design */
+@media (max-width: 960px) {
+  .page-title {
+    font-size: 2.2rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .contact-item {
+    font-size: 1rem;
+  }
+
+  .branch-card {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .header-section {
+    padding: 2rem 0;
+  }
+
+  .contact-item {
+    font-size: 0.9rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .social-links {
+    gap: 0.8rem;
+  }
+
+  .social-link {
+    width: 45px;
+    height: 45px;
+  }
+
+  .social-icon {
+    font-size: 1.6rem !important;
+  }
+
+  .whatsapp-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+
+  .whatsapp-button img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .branch-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Content Animation Enhancement */
+.content-section {
+  perspective: 1000px;
+}
+</style>

@@ -9,7 +9,7 @@
       
       <!-- Main Title -->
       <h1 class="page-title" data-aos="fade-up" data-aos-duration="3000">
-        ABOUT <span class="highlight">CCIT</span>
+        ABOUT <span class="highlight">CCBE</span>
       </h1>
       
       <br>
@@ -95,37 +95,37 @@
             <div 
               class="branch-point" 
               v-tooltip:start="'Ambalangoda College'" 
-              :style="{ top: '72%', left: '34%' }" 
+              :style="{ top: '79%', left: '34%' }" 
               @click="navigateTo('/about/ambalangoda')"
             ></div>
             <div 
               class="branch-point" 
               v-tooltip:start="'Galle College'" 
-              :style="{ top: '80%', left: '40%' }" 
+              :style="{ top: '88%', left: '40%' }" 
               @click="navigateTo('/about/galle')"
             ></div>
             <div 
               class="branch-point" 
               v-tooltip:start="'Matara College'" 
-              :style="{ top: '79%', left: '55%' }" 
+              :style="{ top: '86%', left: '55%' }" 
               @click="navigateTo('/about/matara')"
             ></div>
             <div 
               class="branch-point" 
               v-tooltip:start="'Piliyandala College'" 
-              :style="{ top: '63%', left: '35%' }" 
+              :style="{ top: '66.5%', left: '35%' }" 
               @click="navigateTo('/about/piliyandala')"
             ></div>
             <div 
               class="branch-point" 
               v-tooltip:start="'Horana College'" 
-              :style="{ top: '67%', left: '32%' }" 
+              :style="{ top: '70.7%', left: '32%' }" 
               @click="navigateTo('/about/horana')"
             ></div>
             <div 
               class="branch-point" 
               v-tooltip:start="'Kalutara College'" 
-              :style="{ top: '63%', left: '28%' }" 
+              :style="{ top: '66.2%', left: '28.4%' }" 
               @click="navigateTo('/about/kalutara')"
             ></div>
           </div>
@@ -201,7 +201,7 @@ export default {
   },
   data() {
     return {
-      logo: require('@/assets/CCIT - logo.png'),
+      logo: require('@/assets/logo-New.png'),
       offices: [
         {
           name: "Galle College",
@@ -242,7 +242,7 @@ export default {
 
 <style scoped>
 .about-page {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
   min-height: 100vh;
   color: #ffffff;
 }
@@ -261,8 +261,8 @@ export default {
 }
 
 .logo-image {
-  width: 200px;
-  height: 150px;
+  width: 300px;
+  height: 200px;
   transition: transform 0.3s ease;
 }
 
@@ -273,19 +273,19 @@ export default {
 /* Typography */
 .page-title {
   font-family: 'Inter', 'Poppins', sans-serif;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 800;
   text-align: center;
-  color: #ffffff;
+  color: #0c0c0c;
   margin-bottom: 1rem;
 }
 
 .section-title {
   font-family: 'Inter', 'Poppins', sans-serif;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   text-align: center;
-  color: #ffffff;
+  color: #0f0f0f;
   margin-bottom: 2rem;
 }
 
@@ -307,7 +307,6 @@ export default {
 
 .about-image {
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease;
 }
 
@@ -319,13 +318,13 @@ export default {
   font-family: 'Inter', sans-serif;
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #e0e0e0;
+  color: #0e0d0d;
   text-align: justify;
 }
 
 /* Section Divider */
 .section-divider {
-  border-color: #333;
+  border-color: '';
   margin: 3rem 0;
   background: linear-gradient(90deg, transparent, #FFD700, transparent);
   height: 2px;
@@ -414,12 +413,11 @@ export default {
 
 .image-container {
   position: relative;
-  max-width: 600px;
+  max-width: 400px;
   width: 100%;
+  height: auto;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  border: 2px solid #333;
 }
 
 .branch-map {
@@ -430,8 +428,8 @@ export default {
 
 .branch-point {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   border-radius: 50%;
   transform: translate(-50%, -50%);

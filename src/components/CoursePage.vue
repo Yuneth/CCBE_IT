@@ -310,7 +310,7 @@ export default {
 
 <style scoped>
 .programmes-page {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, white 0%, white 100%);
   min-height: 100vh;
   color: #ffffff;
 }
@@ -329,9 +329,9 @@ export default {
 
 .page-title {
   font-family: 'Inter', 'Poppins', sans-serif;
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: #ffffff;
+  color: black;
   margin-bottom: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -358,9 +358,9 @@ export default {
 
 .intro-text {
   font-family: 'Inter', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.7;
-  color: #e0e0e0;
+  color: black;
   max-width: 800px;
   margin: 0 auto;
   text-align: center;

@@ -1,216 +1,257 @@
 <template>
-    <nav class="navbar-creative">
-        <div class="nav-container">
-            <!-- Logo and Brand Section -->
-            <div class="brand-section">
-                <div class="brand-wrapper">
+    <!-- Elegant Navigation Bar -->
+    <nav class="elegant-navbar">
+        <!-- Top Navigation Bar -->
+        <div class="top-nav">
+            <div class="nav-container">
+                <!-- Logo & Brand -->
+                <div class="brand-section">
                     <div class="logo-container">
-                        <div class="logo-glow"></div>
-                        <img :src="logoPath" alt="Cambridge College of Information Technology" class="brand-logo" />
+                        <img :src="logoPath" alt="CCBE Logo" class="brand-logo" />
                     </div>
                     <div class="brand-text">
-                        <h1 class="brand-title">CCIT</h1>
-                        <p class="brand-subtitle">Cambridge College of Information Technology</p>
+                        <h1 class="brand-name">CCIT</h1>
+                        <p class="brand-tagline">Cambridge College of Information Technology</p>
                     </div>
                 </div>
-                  <!-- Action Buttons -->
-                <div class="nav-actions">
-                    <a href="https://classroom.google.com/" target="_blank" class="action-btn lms-btn">
-                        <div class="btn-glow"></div>
-                        <v-icon class="action-icon">mdi-monitor-dashboard</v-icon>
-                        <span class="action-text">LMS Portal</span>
+
+                <!-- Top Action Buttons -->
+                <div class="top-actions">
+                    <a href="https://classroom.google.com/" target="_blank" class="top-action-btn lms-btn">
+                        <v-icon class="btn-icon">mdi-monitor-dashboard</v-icon>
+                        <span>LMS Portal</span>
                     </a>
-                    <button class="action-btn payment-btn" @click="openPaymentDialog">
-                        <div class="btn-glow"></div>
-                        <v-icon class="action-icon">mdi-credit-card-outline</v-icon>
-                        <span class="action-text">Make Payment</span>
+                    <a href="https://pay.ccbe.lk/" target="_blank" class="top-action-btn payment-btn">
+                        <v-icon class="btn-icon">mdi-credit-card-outline</v-icon>
+                        <span>Make Payment</span>
+                    </a>
+                    <button class="top-action-btn contact-btn" @click="openContact">
+                        <v-icon class="btn-icon">mdi-email-outline</v-icon>
+                        <span>Contact</span>
+                    </button>
+                    <button class="top-action-btn inquiry-btn" @click="dialogInq = true">
+                        <v-icon class="btn-icon">mdi-help-circle-outline</v-icon>
+                        <span>Inquiry</span>
                     </button>
                 </div>
 
-                <!-- Mobile Toggler -->
-                <button class="navbar-toggler creative-toggler" type="button" @click="toggleMobileMenu" 
-                        :class="{ 'toggler-active': isMenuOpen }">
-                    <span class="toggler-line toggler-line-1"></span>
-                    <span class="toggler-line toggler-line-2"></span>
-                    <span class="toggler-line toggler-line-3"></span>
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-toggle" @click="toggleMobileMenu" :class="{ 'active': mobileMenuOpen }">
+                    <span class="toggle-line"></span>
+                    <span class="toggle-line"></span>
+                    <span class="toggle-line"></span>
                 </button>
-            </div>
-
-            <!-- Desktop Navigation -->
-            <div class="nav-content" :class="{ 'nav-content-open': isMenuOpen }">
-                <!-- Animated Background for Mobile -->
-                <div class="nav-background" v-if="isMenuOpen"></div>
-                
-                <!-- Main Navigation Menu -->
-                <ul class="nav-menu">
-                    <li class="nav-item" v-for="(item, index) in navItems" :key="index">
-                        <router-link :to="item.link" class="nav-link creative-link" @click="closeMobileMenu">
-                            <div class="link-content">
-                                <v-icon class="nav-icon">{{ item.icon }}</v-icon>
-                                <span class="nav-text">{{ item.text }}</span>
-                            </div>
-                            <div class="link-hover-effect"></div>
-                            <div class="link-underline"></div>
-                        </router-link>
-                    </li>
-                </ul>
-
-              
-
-                <!-- Quick Actions -->
-                <div class="quick-actions">
-                    <button class="quick-btn contact-btn" @click="openInquiryDialog">
-                        <v-icon class="quick-icon">mdi-message-text</v-icon>
-                        <span class="quick-text">Quick Inquiry</span>
-                    </button>
-                    <router-link to="/contact" class="quick-btn inquiry-btn" @click="closeMobileMenu">
-                        <v-icon class="quick-icon">mdi-phone-in-talk</v-icon>
-                        <span class="quick-text">Contact Us</span>
-                    </router-link>
-                </div>
             </div>
         </div>
 
-        <!-- Floating Notification -->
-        <div class="floating-notification" :class="{ 'notification-visible': showNotification }">
-            <v-icon class="notification-icon">mdi-bell-outline</v-icon>
-            <span>Welcome to CCIT - Excellence in IT Education</span>
+        <!-- Bottom Navigation Menu -->
+        <div class="bottom-nav">
+            <div class="nav-container">
+                <ul class="main-menu">
+                    <li class="menu-item" v-for="(item, index) in menuItems" :key="index">
+                        <a :href="item.link" class="menu-link" @mouseenter="setActiveItem(index)">
+                            <span class="menu-icon">
+                                <v-icon small>{{ item.icon }}</v-icon>
+                            </span>
+                            <span class="menu-text">{{ item.text }}</span>
+                            <div class="menu-indicator" :class="{ 'active': activeItem === index }"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-menu" :class="{ 'active': mobileMenuOpen }">
+            <div class="mobile-menu-container">
+                <!-- Mobile Header -->
+                <div class="mobile-header">
+                    <div class="mobile-brand">
+                        <img :src="logoPath" alt="CCBE Logo" class="mobile-logo" />
+                        <div class="mobile-brand-text">
+                            <h2>CCBE</h2>
+                            <p>Cambridge College</p>
+                        </div>
+                    </div>
+                    <button class="mobile-close" @click="closeMobileMenu">
+                        <v-icon>mdi-close</v-icon>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Items -->
+                <div class="mobile-content">
+                    <!-- Top Actions in Mobile -->
+                    <div class="mobile-top-actions">
+                        <a href="https://classroom.google.com/" target="_blank" class="mobile-top-action-btn lms-btn" @click="closeMobileMenu">
+                            <v-icon>mdi-monitor-dashboard</v-icon>
+                            <span>LMS Portal</span>
+                        </a>
+                        <a href="https://pay.ccbe.lk/" target="_blank" class="mobile-top-action-btn payment-btn" @click="closeMobileMenu">
+                            <v-icon>mdi-credit-card-outline</v-icon>
+                            <span>Make Payment</span>
+                        </a>
+                        <button class="mobile-top-action-btn contact-btn" @click="openContact; closeMobileMenu();">
+                            <v-icon>mdi-email-outline</v-icon>
+                            <span>Contact</span>
+                        </button>
+                        <button class="mobile-top-action-btn inquiry-btn" @click="dialogInq = true; closeMobileMenu();">
+                            <v-icon>mdi-help-circle-outline</v-icon>
+                            <span>Inquiry</span>
+                        </button>
+                    </div>
+
+                    <!-- Main Menu Items -->
+                    <div class="mobile-menu-section">
+                        <h3 class="mobile-section-title">Main Menu</h3>
+                        <ul class="mobile-nav-items">
+                            <li class="mobile-nav-item" v-for="(item, index) in menuItems" :key="index">
+                                <a :href="item.link" class="mobile-nav-link" @click="closeMobileMenu">
+                                    <v-icon class="mobile-nav-icon">{{ item.icon }}</v-icon>
+                                    <span class="mobile-nav-text">{{ item.text }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Mobile Contact Info -->
+                    <div class="mobile-contact">
+                        <div class="contact-item">
+                            <v-icon small>mdi-phone</v-icon>
+                            <span>071 3 999 666</span>
+                        </div>
+                        <div class="contact-item">
+                            <v-icon small>mdi-email</v-icon>
+                            <span>info@ccbe.lk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <!-- Enhanced Dialogs -->
-    
     <!-- Inquiry Dialog -->
-    <v-dialog v-model="dialogInq" max-width="600" class="creative-dialog">
-        <v-card class="dialog-card inquiry-card">
-            <div class="dialog-header-glow"></div>
-            <div class="dialog-header">
-                <div class="dialog-icon-container">
-                    <v-icon class="dialog-icon">mdi-message-text-outline</v-icon>
-                </div>
-                <div class="dialog-title-section">
-                    <h3 class="dialog-title">Get In Touch</h3>
-                    <p class="dialog-subtitle">We'll respond within 24 hours</p>
-                </div>
-            </div>
-            
-            <v-card-text class="dialog-body">
-                <v-row dense>
-                    <v-col cols="12" md="6">
-                        <v-text-field 
-                            label="Your Name" 
-                            v-model="formData.name" 
-                            required
-                            variant="outlined"
-                            density="comfortable"
-                            class="creative-field"
-                            prepend-inner-icon="mdi-account-outline"
-                        ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field 
-                            label="Contact Number" 
-                            v-model="formData.contact"
-                            variant="outlined"
-                            density="comfortable"
-                            class="creative-field"
-                            prepend-inner-icon="mdi-phone-outline"
-                        ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-select 
-                            :items="['Ambalangoda', 'Galle', 'Horana', 'Matara', 'Piliyandala', 'Kalutara']"
-                            label="Preferred Branch" 
-                            v-model="formData.branch" 
-                            required 
-                            variant="outlined"
-                            density="comfortable"
-                            class="creative-field"
-                            prepend-inner-icon="mdi-map-marker-outline"
-                        ></v-select>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-select 
-                            :items="['Social Media', 'Website', 'Friend/Referral', 'Newspaper', 'Other']"
-                            label="How did you hear about us?" 
-                            v-model="formData.source" 
-                            required
-                            variant="outlined"
-                            density="comfortable"
-                            class="creative-field"
-                            prepend-inner-icon="mdi-information-outline"
-                        ></v-select>
-                    </v-col>
-                    <v-col cols="12">
-                        <v-textarea 
-                            label="Your Message" 
-                            v-model="formData.message" 
-                            required
-                            variant="outlined"
-                            rows="4"
-                            class="creative-field"
-                            prepend-inner-icon="mdi-pencil-outline"
-                            placeholder="Tell us about your inquiry..."
-                        ></v-textarea>
-                    </v-col>
-                </v-row>
-                <div class="form-footer">
-                    <small class="field-caption">* Required fields</small>
-                    <div class="privacy-notice">
-                        <v-icon small>mdi-shield-check-outline</v-icon>
-                        <span>Your information is secure and protected</span>
+    <v-dialog v-model="dialogInq" max-width="600" class="inquiry-dialog">
+        <v-card class="dialog-card">
+            <v-card-header class="dialog-header">
+                <div class="header-content">
+                    <div class="icon-container">
+                        <v-icon class="header-icon">mdi-chat-question</v-icon>
+                    </div>
+                    <div class="header-text">
+                        <v-card-title class="dialog-title">Get In Touch With Us</v-card-title>
+                        <v-card-subtitle class="dialog-subtitle">We'll respond within 24 hours</v-card-subtitle>
                     </div>
                 </div>
+            </v-card-header>
+
+            <v-card-text class="dialog-body">
+                <v-form ref="inquiryForm" class="inquiry-form">
+                    <v-row>
+                        <v-col cols="12" md="6">
+                            <v-text-field
+                                v-model="formData.name"
+                                label="Full Name *"
+                                variant="outlined"
+                                color="#2962ff"
+                                :rules="[v => !!v || 'Name is required']"
+                                required
+                            ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                            <v-text-field
+                                v-model="formData.contact"
+                                label="Contact Number"
+                                variant="outlined"
+                                color="#2962ff"
+                            ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                            <v-select
+                                v-model="formData.branch"
+                                :items="branchOptions"
+                                label="Select Branch *"
+                                variant="outlined"
+                                color="#2962ff"
+                                :rules="[v => !!v || 'Branch is required']"
+                                required
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                            <v-select
+                                v-model="formData.source"
+                                :items="sourceOptions"
+                                label="How did you hear about us?"
+                                variant="outlined"
+                                color="#2962ff"
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-textarea
+                                v-model="formData.message"
+                                label="Your Message *"
+                                variant="outlined"
+                                color="#2962ff"
+                                rows="4"
+                                :rules="[v => !!v || 'Message is required']"
+                                required
+                                placeholder="Tell us about your inquiry..."
+                            ></v-textarea>
+                        </v-col>
+                    </v-row>
+                </v-form>
+                <small class="required-note">* indicates required field</small>
             </v-card-text>
-            
-            <v-divider class="dialog-divider"></v-divider>
-            
+
+            <v-divider></v-divider>
+
             <v-card-actions class="dialog-actions">
-                <v-btn 
-                    text="Cancel" 
-                    variant="outlined" 
+                <v-btn
+                    variant="outlined"
                     @click="dialogInq = false"
-                    class="action-btn cancel-btn"
+                    class="cancel-btn"
+                    size="large"
                 >
                     <v-icon left>mdi-close</v-icon>
                     Cancel
                 </v-btn>
-                <v-btn 
-                    color="primary" 
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="#2962ff"
+                    variant="flat"
                     @click="sendInquiry"
-                    class="action-btn submit-btn creative-submit"
+                    class="submit-btn"
+                    size="large"
+                    :loading="loading"
+                    :disabled="loading"
                 >
                     <v-icon left>mdi-send</v-icon>
                     Send Inquiry
-                    <div class="btn-sparkle"></div>
                 </v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
 
     <!-- Success Dialog -->
-    <v-dialog v-model="successDialog" max-width="500" class="creative-dialog">
-        <v-card class="dialog-card success-card">
-            <div class="success-glow"></div>
-            <div class="success-icon-container">
-                <div class="success-circle">
-                    <v-icon class="success-icon">mdi-check</v-icon>
+    <v-dialog v-model="successDialog" max-width="500" class="success-dialog">
+        <v-card class="success-card">
+            <v-card-text class="success-content">
+                <div class="success-icon">
+                    <v-icon color="success" size="64">mdi-check-circle</v-icon>
                 </div>
-            </div>
-            <v-card-title class="success-title">Message Sent Successfully!</v-card-title>
-            <v-card-text class="success-message">
-                Thank you for contacting Cambridge College of IT. Our team will get back to you within 24 hours.
+                <h3 class="success-title">Inquiry Sent Successfully!</h3>
+                <p class="success-message">
+                    Thank you for contacting us. We'll get back to you within 24 hours.
+                </p>
             </v-card-text>
-            <v-divider class="dialog-divider"></v-divider>
-            <v-card-actions class="dialog-actions">
-                <v-btn 
-                    text="Close" 
-                    color="primary" 
+            <v-card-actions class="success-actions">
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="#2962ff"
                     variant="flat"
                     @click="successDialog = false"
-                    class="action-btn success-close-btn"
+                    class="success-btn"
+                    size="large"
                 >
-                    <v-icon left>mdi-check</v-icon>
                     Got It
                 </v-btn>
             </v-card-actions>
@@ -219,457 +260,373 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import emailjs from "emailjs-com";
 
 export default {
-    name: 'CreativeNavBar',
-    setup() {
-        const isMenuOpen = ref(false)
-        const dialogInq = ref(false)
-        const successDialog = ref(false)
-        const showNotification = ref(false)
-        
-        const logoPath = require("@/assets/CCIT - logo.png")
-
-        const navItems = [
-            { 
-                text: "Home", 
-                link: "/",
-                icon: "mdi-home-outline"
-            },
-            { 
-                text: "Programmes", 
-                link: "/courses",
-                icon: "mdi-book-education-outline"
-            },
-            { 
-                text: "Values", 
-                link: "/corevalues",
-                icon: "mdi-heart-outline"
-            },
-            { 
-                text: "About", 
-                link: "/about",
-                icon: "mdi-information-outline"
-            },
-            { 
-                text: "News", 
-                link: "/news",
-                icon: "mdi-newspaper-variant-outline"
-            },
-            { 
-                text: "Careers", 
-                link: "/careers",
-                icon: "mdi-briefcase-outline"
-            }
-        ]
-
-        const formData = ref({
-            name: "",
-            contact: "",
-            branch: "",
-            source: "",
-            message: "",
-        })
-
-        const toggleMobileMenu = () => {
-            isMenuOpen.value = !isMenuOpen.value
-        }
-
-        const closeMobileMenu = () => {
-            isMenuOpen.value = false
-        }
-
-        const openInquiryDialog = () => {
-            dialogInq.value = true
-            closeMobileMenu()
-        }
-
-        const openPaymentDialog = () => {
-            // Payment dialog logic here
-            console.log("Open payment dialog")
-        }
-
-        const sendInquiry = async () => {
-            if (!formData.value.name || !formData.value.branch || !formData.value.message) {
-                alert("Please fill out all required fields.");
-                return;
-            }
+    name: 'ElegantNavBar',
+    data() {
+        return {
+            logoPath: require("@/assets/CCIT - logo.png"),
+            mobileMenuOpen: false,
+            activeItem: 0,
+            dialogInq: false,
+            successDialog: false,
+            loading: false,
             
-            // Simulate successful inquiry submission
-            console.log("Inquiry submitted:", formData.value);
-            
-            // Clear form and show success
-            formData.value = {
+            // Form data
+            formData: {
                 name: "",
                 contact: "",
                 branch: "",
                 source: "",
                 message: "",
+            },
+
+            // Form options
+            branchOptions: [
+                'Ambalangoda',
+                'Galle', 
+                'Horana',
+                'Matara',
+                'Piliyandala',
+                'Kalutara'
+            ],
+            sourceOptions: [
+                'Social Media',
+                'Website',
+                'Friend/Referral',
+                'Advertisement',
+                'Other'
+            ],
+
+            menuItems: [
+                {
+                    text: "Home",
+                    link: "/",
+                    icon: "mdi-home-outline"
+                },
+                {
+                    text: "About",
+                    link: "/about",
+                    icon: "mdi-information-outline"
+                },
+                {
+                    text: "Core Values",
+                    link: "/corevalues",
+                    icon: "mdi-shield-check-outline"
+                },
+                {
+                    text: "Programmes",
+                    link: "/courses",
+                    icon: "mdi-book-education-outline"
+                },
+                {
+                    text: "News & Events",
+                    link: "/news",
+                    icon: "mdi-calendar-text-outline"
+                },
+                {
+                    text: "Careers",
+                    link: "/careers",
+                    icon: "mdi-briefcase-outline"
+                }
+            ]
+        };
+    },
+    methods: {
+        toggleMobileMenu() {
+            this.mobileMenuOpen = !this.mobileMenuOpen;
+        },
+        closeMobileMenu() {
+            this.mobileMenuOpen = false;
+        },
+        setActiveItem(index) {
+            this.activeItem = index;
+        },
+        openContact() {
+            window.location.href = '/contact';
+        },
+
+        async sendInquiry() {
+            // Validate form
+            if (!this.formData.name || !this.formData.branch || !this.formData.message) {
+                alert("Please fill out all required fields.");
+                return;
             }
-            
-            dialogInq.value = false
-            successDialog.value = true
-        }
 
-        // Show welcome notification
-        onMounted(() => {
-            setTimeout(() => {
-                showNotification.value = true
-                setTimeout(() => {
-                    showNotification.value = false
-                }, 4000)
-            }, 1000)
-        })
+            this.loading = true;
 
-        return {
-            isMenuOpen,
-            dialogInq,
-            successDialog,
-            showNotification,
-            logoPath,
-            navItems,
-            formData,
-            toggleMobileMenu,
-            closeMobileMenu,
-            openInquiryDialog,
-            openPaymentDialog,
-            sendInquiry
+            const branchConfig = {
+                Ambalangoda: {
+                    serviceId: "service_lfaw7ig",
+                    templateId: "template_2qr8exc",
+                    publicKey: "RrKZfdB7O-c_xrVE3",
+                },
+                Galle: {
+                    serviceId: "service_a0rf5c8",
+                    templateId: "template_6bv0ico",
+                    publicKey: "5DFKJ881pqi_jmuPZ",
+                },
+                Horana: {
+                    serviceId: "service_a0rf5c8",
+                    templateId: "template_6bv0ico",
+                    publicKey: "5DFKJ881pqi_jmuPZ",
+                },
+                Matara: {
+                    serviceId: "service_a0rf5c8",
+                    templateId: "template_6bv0ico",
+                    publicKey: "5DFKJ881pqi_jmuPZ",
+                },
+                Piliyandala: {
+                    serviceId: "service_a0rf5c8",
+                    templateId: "template_6bv0ico",
+                    publicKey: "5DFKJ881pqi_jmuPZ",
+                },
+                Kalutara: {
+                    serviceId: "service_mg2271v",
+                    templateId: "template_loig6cz",
+                    publicKey: "MJPUAdls_w9W5hPaK",
+                },
+            };
+
+            const selectedBranchConfig = branchConfig[this.formData.branch];
+            if (!selectedBranchConfig) {
+                alert("Invalid branch selected.");
+                this.loading = false;
+                return;
+            }
+
+            const templateParams = {
+                name: this.formData.name,
+                contact: this.formData.contact || "Not provided",
+                branch: this.formData.branch,
+                source: this.formData.source || "Not provided",
+                message: this.formData.message,
+            };
+
+            try {
+                await emailjs.send(
+                    selectedBranchConfig.serviceId,
+                    selectedBranchConfig.templateId,
+                    templateParams,
+                    selectedBranchConfig.publicKey
+                );
+                
+                this.dialogInq = false;
+                this.successDialog = true;
+                this.clearForm();
+            } catch (error) {
+                console.error("Failed to send inquiry. Error details:", error);
+                alert(`Failed to send inquiry. Please try again or contact us directly.`);
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        clearForm() {
+            this.formData = {
+                name: "",
+                contact: "",
+                branch: "",
+                source: "",
+                message: "",
+            };
         }
     }
-}
+};
 </script>
 
 <style scoped>
-/* Creative Navbar Styles - Enhanced Dark Yellow & Black Theme */
-.navbar-creative {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
-    padding: 0.5rem 0;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+/* Elegant Navigation Styles */
+.elegant-navbar {
+    font-family: 'Inter', 'Poppins', sans-serif;
     position: relative;
     z-index: 1000;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-    backdrop-filter: blur(20px);
 }
 
-.navbar-creative::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #FFD700, transparent);
-    opacity: 0.6;
+/* Top Navigation Bar */
+.top-nav {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    padding: 0.5px 0; 
+}
+
+/* Bottom Navigation Menu */
+.bottom-nav {
+    background: linear-gradient(135deg, white 0%, white 100%);
+    box-shadow: 0 4px 20px rgba(41, 98, 255, 0.15);
 }
 
 .nav-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
+    padding: 0.75rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 /* Brand Section */
 .brand-section {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    position: relative;
-}
-
-.brand-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .logo-container {
-    position: relative;
-    padding: 0.5rem;
-}
-
-.logo-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: pulseGlow 3s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+    display: flex;
+    align-items: center;
 }
 
 .brand-logo {
-    width: 200px;
-    height: 120px;
-    object-fit: contain;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    z-index: 2;
+    height: 100px;
+    width: auto;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .brand-logo:hover {
-    transform: scale(1.05) rotate(-1deg);
+    transform: scale(1.05);
 }
 
 .brand-text {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
 }
 
-.brand-title {
-    font-family: 'Inter', 'Poppins', sans-serif;
-    font-weight: 800;
-    font-size: 2rem;
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+.brand-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, black 0%, black 50%, black 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin: 0;
+    line-height: 1.1;
     letter-spacing: -0.5px;
-    text-shadow: 0 2px 20px rgba(255, 215, 0, 0.3);
-    position: relative;
 }
 
-.brand-title::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #FFD700, transparent);
-    opacity: 0.8;
-}
-
-.brand-subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    color: #888;
+.brand-tagline {
+    font-size: 0.7rem;
+    color: #666;
     margin: 0;
     font-weight: 500;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
 }
 
-/* Creative Toggler */
-.creative-toggler {
-    background: rgba(255, 215, 0, 0.1);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    border-radius: 8px;
-    padding: 0.75rem;
-    cursor: pointer;
-    display: none;
-    flex-direction: column;
-    gap: 0.35rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.creative-toggler::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
-    transition: left 0.6s ease;
-}
-
-.creative-toggler:hover::before {
-    left: 100%;
-}
-
-.creative-toggler:hover {
-    border-color: rgba(255, 215, 0, 0.6);
-    background: rgba(255, 215, 0, 0.15);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-    transform: scale(1.05);
-}
-
-.toggler-line {
-    width: 24px;
-    height: 2px;
-    background: #FFD700;
-    border-radius: 2px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-}
-
-.toggler-active .toggler-line-1 {
-    transform: rotate(45deg) translate(6px, 6px);
-}
-
-.toggler-active .toggler-line-2 {
-    opacity: 0;
-    transform: scale(0);
-}
-
-.toggler-active .toggler-line-3 {
-    transform: rotate(-45deg) translate(6px, -6px);
-}
-
-/* Navigation Content */
-.nav-content {
+/* Top Action Buttons */
+.top-actions {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    flex: 1;
-    justify-content: space-between;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 0.5rem;
 }
 
-.nav-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    opacity: 0.98;
-    z-index: -1;
+.top-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
-/* Main Navigation Menu */
-.nav-menu {
+.lms-btn {
+    background: rgba(41, 98, 255, 0.1);
+    color: #2962ff;
+    border: 1px solid rgba(41, 98, 255, 0.2);
+}
+
+.lms-btn:hover {
+    background: rgba(41, 98, 255, 0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(41, 98, 255, 0.2);
+}
+
+.payment-btn {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.payment-btn:hover {
+    background: rgba(76, 175, 80, 0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+.contact-btn {
+    background: rgba(156, 39, 176, 0.1);
+    color: #9c27b0;
+    border: 1px solid rgba(156, 39, 176, 0.2);
+}
+
+.contact-btn:hover {
+    background: rgba(156, 39, 176, 0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.2);
+}
+
+.inquiry-btn {
+    background: linear-gradient(135deg, #ff6d00 0%, #ff9100 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(255, 109, 0, 0.3);
+}
+
+.inquiry-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(255, 109, 0, 0.4);
+}
+
+.btn-icon {
+    font-size: 1rem;
+}
+
+/* Main Menu in Bottom Nav */
+.main-menu {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
     gap: 0.5rem;
-    flex: 1;
+    align-items: center;
     justify-content: center;
-}
-
-.nav-item {
-    position: relative;
-}
-
-.creative-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.75rem 1.5rem;
-    color: #ffffff !important;
-    text-decoration: none;
-    font-family: 'Inter', 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    border-radius: 12px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 215, 0, 0.1);
-    position: relative;
-    overflow: hidden;
-}
-
-.link-content {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    position: relative;
-    z-index: 2;
-}
-
-.link-hover-effect {
-    position: absolute;
-    top: 0;
-    left: -100%;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-    transition: left 0.6s ease;
 }
 
-.creative-link:hover .link-hover-effect {
-    left: 100%;
+.menu-item {
+    position: relative;
 }
 
-.creative-link:hover {
-    background: rgba(255, 215, 0, 0.1);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
-    border-color: rgba(255, 215, 0, 0.4);
-}
-
-.creative-link.router-link-active {
-    background: rgba(255, 215, 0, 0.15);
-    border-color: rgba(255, 215, 0, 0.6);
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
-}
-
-.creative-link.router-link-active .link-underline {
-    width: 80%;
-    background: #FFA500;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-}
-
-.nav-icon {
-    color: #FFD700 !important;
-    font-size: 1.3rem !important;
-    transition: all 0.4s ease;
-}
-
-.creative-link:hover .nav-icon {
-    color: #FFA500 !important;
-    transform: scale(1.2) rotate(5deg);
-}
-
-.link-underline {
-    position: absolute;
-    bottom: 0.5rem;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: #FFD700;
-    border-radius: 2px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateX(-50%);
-}
-
-.creative-link:hover .link-underline {
-    width: 60%;
-}
-
-/* Action Buttons */
-.nav-actions {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.action-btn {
+.menu-link {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1.5rem;
-    border: 1px solid;
-    border-radius: 10px;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    color: black;
     text-decoration: none;
-    font-family: 'Inter', 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 0.95rem;
     position: relative;
     overflow: hidden;
 }
 
-.btn-glow {
+.menu-link:hover {
+    background: #FFD700;
+    transform: translateY(-1px);
+}
+
+.menu-link::before {
+    content: '';
     position: absolute;
     top: 0;
     left: -100%;
@@ -679,491 +636,524 @@ export default {
     transition: left 0.6s ease;
 }
 
-.action-btn:hover .btn-glow {
+.menu-link:hover::before {
     left: 100%;
 }
 
-.lms-btn {
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-    color: #000000 !important;
-    border-color: transparent;
-    font-weight: 700;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-}
-
-.lms-btn:hover {
-    background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
-}
-
-.payment-btn {
-    background: rgba(255, 215, 0, 0.1);
-    color: #FFD700 !important;
-    border-color: #FFD700;
-    backdrop-filter: blur(10px);
-}
-
-.payment-btn:hover {
-    background: rgba(255, 215, 0, 0.2);
-    border-color: #FFA500;
-    color: #FFA500 !important;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-}
-
-.action-icon {
-    font-size: 1.3rem !important;
+.menu-icon {
+    display: flex;
+    align-items: center;
     transition: transform 0.3s ease;
 }
 
-.action-btn:hover .action-icon {
+.menu-link:hover .menu-icon {
     transform: scale(1.1);
 }
 
-/* Quick Actions */
-.quick-actions {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-}
-
-.quick-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1rem;
-    color: #FFD700 !important;
-    text-decoration: none;
-    font-family: 'Inter', 'Poppins', sans-serif;
-    font-weight: 500;
-    font-size: 0.85rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    background: rgba(255, 215, 0, 0.08);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    cursor: pointer;
-}
-
-.quick-btn:hover {
-    background: rgba(255, 215, 0, 0.15);
-    border-color: rgba(255, 215, 0, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
-}
-
-.quick-icon {
-    font-size: 1.1rem !important;
-    color: #FFD700 !important;
-}
-
-/* Floating Notification */
-.floating-notification {
-    position: fixed;
-    top: -100px;
-    right: 2rem;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: #FFD700;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1001;
-}
-
-.notification-visible {
-    top: 6rem;
-}
-
-.notification-icon {
-    color: #FFD700 !important;
-    animation: ring 2s ease-in-out infinite;
-}
-
-@keyframes ring {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(15deg); }
-    75% { transform: rotate(-15deg); }
-}
-
-/* Enhanced Dialog Styles */
-.creative-dialog {
-    font-family: 'Inter', 'Poppins', sans-serif;
-}
-
-.dialog-card {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 215, 0, 0.4);
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    position: relative;
-}
-
-.dialog-header-glow {
+.menu-indicator {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
-    opacity: 0.8;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
 }
 
-.dialog-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 2.5rem 2.5rem 1.5rem;
-    background: transparent;
-    color: #FFD700;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+.menu-indicator.active {
+    width: 70%;
 }
 
-.dialog-icon-container {
-    background: rgba(255, 215, 0, 0.1);
-    border-radius: 12px;
-    padding: 1rem;
-    border: 1px solid rgba(255, 215, 0, 0.3);
-}
-
-.dialog-icon {
-    font-size: 2.5rem !important;
-    color: #FFD700 !important;
-}
-
-.dialog-title-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.dialog-title {
-    font-weight: 700;
-    font-size: 1.6rem;
-    margin: 0;
-    letter-spacing: -0.25px;
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.dialog-subtitle {
-    color: #888;
+.menu-text {
     font-size: 0.9rem;
-    margin: 0;
-    font-weight: 500;
-}
-
-.dialog-body {
-    padding: 2rem 2.5rem;
-    background: transparent;
-}
-
-.dialog-divider {
-    margin: 0 2.5rem;
-    border-color: rgba(255, 215, 0, 0.2);
-}
-
-.dialog-actions {
-    padding: 1.5rem 2.5rem;
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-    background: rgba(0, 0, 0, 0.3);
-    border-top: 1px solid rgba(255, 215, 0, 0.1);
-}
-
-/* Enhanced Form Fields */
-.creative-field {
-    border-radius: 10px;
-}
-
-.creative-field :deep(.v-field) {
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    transition: all 0.3s ease;
-}
-
-.creative-field :deep(.v-field:hover) {
-    border-color: rgba(255, 215, 0, 0.5);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.creative-field :deep(.v-field--focused) {
-    border-color: #FFD700;
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
-}
-
-.creative-field :deep(.v-label) {
-    color: #999 !important;
-}
-
-.creative-field :deep(.v-field__input) {
-    color: #ffffff !important;
-}
-
-.creative-field :deep(.v-icon) {
-    color: #FFD700 !important;
-}
-
-.form-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
-}
-
-.field-caption {
-    color: #666;
-    font-size: 0.875rem;
-}
-
-.privacy-notice {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #888;
-    font-size: 0.8rem;
-}
-
-.privacy-notice .v-icon {
-    color: #4caf50 !important;
-    font-size: 1rem !important;
-}
-
-/* Enhanced Buttons */
-.creative-submit {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%) !important;
-    color: #000000 !important;
-    font-weight: 700;
-    border: none !important;
-}
-
-.btn-sparkle {
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.creative-submit:hover .btn-sparkle {
-    opacity: 0.6;
-}
-
-/* Success Dialog Enhancements */
-.success-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
-    opacity: 0.6;
-}
-
-.success-icon-container {
-    padding: 2rem 2rem 1rem;
     position: relative;
     z-index: 2;
 }
 
-.success-circle {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #4caf50, #45a049);
-    border-radius: 50%;
+/* Mobile Toggle */
+.mobile-toggle {
+    display: none;
+    flex-direction: column;
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.6rem;
+    cursor: pointer;
+    gap: 0.25rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.mobile-toggle:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.toggle-line {
+    width: 18px;
+    height: 2px;
+    background: #37474f;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.mobile-toggle.active .toggle-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-toggle.active .toggle-line:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-toggle.active .toggle-line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu.active {
+    transform: translateX(0);
+}
+
+.mobile-menu-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, white 0%, white 100%);
+}
+
+.mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mobile-logo {
+    height: 45px;
+    width: auto;
+}
+
+.mobile-brand-text h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: black;
+    margin: 0;
+}
+
+.mobile-brand-text p {
+    font-size: 0.75rem;
+    color: black;
+    margin: 0;
+}
+
+.mobile-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
-    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
-    animation: successPulse 2s ease-in-out infinite;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: black;
 }
 
-@keyframes successPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+.mobile-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.mobile-content {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* Mobile Top Actions */
+.mobile-top-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.mobile-top-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    justify-content: center;
+    font-size: 0.85rem;
+}
+
+/* Mobile Menu Section */
+.mobile-menu-section {
+    margin-bottom: 2rem;
+}
+
+.mobile-section-title {
+    color: #2962ff;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mobile-nav-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInRight 0.5s ease forwards;
+}
+
+.mobile-nav-item:nth-child(1) { animation-delay: 0.1s; }
+.mobile-nav-item:nth-child(2) { animation-delay: 0.2s; }
+.mobile-nav-item:nth-child(3) { animation-delay: 0.3s; }
+.mobile-nav-item:nth-child(4) { animation-delay: 0.4s; }
+.mobile-nav-item:nth-child(5) { animation-delay: 0.5s; }
+.mobile-nav-item:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes slideInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    color: #37474f;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.mobile-nav-link:hover {
+    background: rgba(41, 98, 255, 0.08);
+    color: #2962ff;
+    transform: translateX(8px);
+}
+
+.mobile-nav-icon {
+    font-size: 1.1rem;
+}
+
+/* Mobile Contact Info */
+.mobile-contact {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.contact-item .v-icon {
+    color: #2962ff;
+}
+
+/* Inquiry Dialog Styles */
+.inquiry-dialog {
+    font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+.dialog-card {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    background: white;
+}
+
+.dialog-header {
+    background: linear-gradient(135deg, #2962ff 0%, #448aff 100%);
+    padding: 2rem;
+    color: white;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.icon-container {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.header-icon {
+    font-size: 2rem;
+    color: white;
+}
+
+.header-text {
+    flex: 1;
+}
+
+.dialog-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.dialog-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+}
+
+.dialog-body {
+    padding: 2rem;
+}
+
+.inquiry-form {
+    margin-bottom: 1rem;
+}
+
+.required-note {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.dialog-actions {
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.cancel-btn {
+    border: 1px solid #ddd;
+    color: #666;
+    font-weight: 500;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #2962ff 0%, #448aff 100%);
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(41, 98, 255, 0.3);
+}
+
+.submit-btn:hover {
+    box-shadow: 0 6px 20px rgba(41, 98, 255, 0.4);
+}
+
+/* Success Dialog */
+.success-dialog {
+    font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+.success-card {
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.success-content {
+    padding: 3rem 2rem;
 }
 
 .success-icon {
-    font-size: 2.5rem !important;
-    color: white !important;
+    margin-bottom: 1.5rem;
+    animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .success-title {
-    justify-content: center;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: #FFD700;
-    font-size: 1.5rem !important;
-    font-family: 'Inter', sans-serif;
-    text-align: center;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
 }
 
 .success-message {
-    text-align: center;
-    color: #ccc;
-    font-size: 1rem;
-    font-family: 'Inter', sans-serif;
+    color: #666;
     line-height: 1.6;
+    font-size: 1rem;
 }
 
-.success-close-btn {
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%) !important;
-    color: #000000 !important;
-    font-weight: 700;
+.success-actions {
+    padding: 1.5rem 2rem;
 }
 
-/* Mobile Responsive Design */
-@media (max-width: 1200px) {
+.success-btn {
+    background: linear-gradient(135deg, #2962ff 0%, #448aff 100%);
+    color: white;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
     .nav-container {
-        padding: 0 1.5rem;
+        padding: 0.75rem 1.5rem;
     }
     
-    .brand-logo {
-        width: 160px;
-        height: 50px;
+    .top-action-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
     }
     
-    .brand-title {
-        font-size: 1.8rem;
-    }
-    
-    .nav-menu {
-        gap: 0.25rem;
-    }
-    
-    .creative-link {
-        padding: 0.6rem 1.25rem;
+    .menu-link {
+        padding: 0.7rem 1.2rem;
         font-size: 0.9rem;
     }
-}
-
-@media (max-width: 991.98px) {
-    .creative-toggler {
-        display: flex;
-    }
     
-    .nav-content {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 1.5rem;
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-        padding: 2rem;
-        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
-        z-index: 999;
-        overflow-y: auto;
-    }
-    
-    .nav-content-open {
-        display: flex;
-    }
-    
-    .nav-menu {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    
-    .nav-actions {
-        justify-content: center;
-        order: -1;
-    }
-    
-    .quick-actions {
-        justify-content: center;
-        order: -2;
-    }
-    
-    .brand-title {
+    .brand-name {
         font-size: 1.6rem;
     }
     
     .brand-logo {
-        width: 140px;
         height: 45px;
-    }
-    
-    .floating-notification {
-        right: 1rem;
-        left: 1rem;
     }
 }
 
-@media (max-width: 575.98px) {
-    .nav-container {
-        padding: 0 1rem;
+@media (max-width: 768px) {
+    .top-actions,
+    .bottom-nav {
+        display: none;
     }
     
-    .brand-title {
-        font-size: 1.4rem;
+    .mobile-toggle {
+        display: flex;
     }
     
-    .brand-subtitle {
-        font-size: 0.7rem;
+    .brand-tagline {
+        display: none;
+    }
+    
+    .brand-name {
+        font-size: 1.5rem;
     }
     
     .brand-logo {
-        width: 120px;
         height: 40px;
     }
-    
-    .nav-content {
+
+    .mobile-top-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .dialog-header {
         padding: 1.5rem;
     }
-    
-    .action-btn,
-    .quick-btn {
-        padding: 0.75rem 1rem;
-        font-size: 0.85rem;
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
     }
-    
-    .dialog-header {
-        padding: 2rem 1.5rem 1rem;
-    }
-    
+
     .dialog-body {
         padding: 1.5rem;
     }
-    
+
     .dialog-actions {
         padding: 1rem 1.5rem;
         flex-direction: column;
+        gap: 0.75rem;
     }
-    
-    .action-btn {
+
+    .cancel-btn, .submit-btn {
         width: 100%;
     }
 }
 
-/* Enhanced Animations */
-.navbar-creative {
-    animation: slideDownEnhanced 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 0.5rem 1rem;
+    }
+    
+    .brand-name {
+        font-size: 1.3rem;
+    }
+    
+    .brand-logo {
+        height: 35px;
+    }
+    
+    .mobile-content {
+        padding: 1rem;
+    }
+    
+    .mobile-header {
+        padding: 1rem 1.5rem;
+    }
 }
 
-@keyframes slideDownEnhanced {
+/* Animation */
+.elegant-navbar {
+    animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
     from {
         transform: translateY(-100%);
         opacity: 0;
@@ -1172,90 +1162,5 @@ export default {
         transform: translateY(0);
         opacity: 1;
     }
-}
-
-.nav-item {
-    animation: fadeInUpEnhanced 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    opacity: 0;
-}
-
-@keyframes fadeInUpEnhanced {
-    from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Stagger animation delays */
-.nav-item:nth-child(1) { animation-delay: 0.1s; }
-.nav-item:nth-child(2) { animation-delay: 0.2s; }
-.nav-item:nth-child(3) { animation-delay: 0.3s; }
-.nav-item:nth-child(4) { animation-delay: 0.4s; }
-.nav-item:nth-child(5) { animation-delay: 0.5s; }
-.nav-item:nth-child(6) { animation-delay: 0.6s; }
-
-/* Focus states for accessibility */
-.creative-link:focus,
-.action-btn:focus,
-.quick-btn:focus,
-.creative-toggler:focus {
-    outline: 2px solid #FFD700;
-    outline-offset: 3px;
-    border-radius: 8px;
-}
-
-/* Loading states */
-.action-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none !important;
-}
-
-/* Premium glow effects for active state */
-.creative-link.router-link-active {
-    position: relative;
-}
-
-.creative-link.router-link-active::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
-    border-radius: 14px;
-    z-index: -1;
-    opacity: 0.4;
-    animation: enhancedGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes enhancedGlow {
-    from {
-        opacity: 0.3;
-        filter: blur(5px);
-    }
-    to {
-        opacity: 0.6;
-        filter: blur(8px);
-    }
-}
-
-/* Smooth scrolling for mobile */
-.nav-content {
-    -webkit-overflow-scrolling: touch;
-}
-
-/* Performance optimizations */
-.navbar-creative {
-    will-change: transform;
-}
-
-.creative-link, .action-btn {
-    will-change: transform, box-shadow;
 }
 </style>

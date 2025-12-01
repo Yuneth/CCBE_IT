@@ -33,7 +33,7 @@
               <div class="image-container">
                 <v-img 
                   :src="card.image" 
-                  height="250" 
+                  height="200" 
                   cover
                   class="news-image"
                 ></v-img>
@@ -172,29 +172,29 @@ export default {
 
 <style scoped>
 .news-events-page {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, white 0%, white 100%);
   min-height: 100vh;
   color: #ffffff;
 }
 
 .main-container {
   background: transparent;
-  padding: 2rem 1rem;
+  padding: 1rem;
 }
 
 /* Header Section */
 .header-section {
   text-align: center;
-  padding: 3rem 0;
-  margin-bottom: 3rem;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
 }
 
 .page-title {
   font-family: 'Inter', 'Poppins', sans-serif;
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
+  color: black;
+  margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -210,7 +210,7 @@ export default {
 .highlight::after {
   content: '';
   position: absolute;
-  bottom: -5px;
+  bottom: -3px;
   left: 0;
   width: 100%;
   height: 2px;
@@ -220,33 +220,33 @@ export default {
 
 .intro-text {
   font-family: 'Inter', sans-serif;
-  font-size: 1.2rem;
-  line-height: 1.7;
-  color: #e0e0e0;
-  max-width: 1200px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: black;
+  max-width: 1000px;
   margin: 0 auto;
   text-align: center;
 }
 
 /* News & Events Section */
 .news-events-section {
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .news-events-grid {
-  margin: 0 -12px;
+  margin: 0 -8px;
 }
 
 /* News Card */
 .news-card {
   background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
   border: 2px solid #333;
-  border-radius: 20px;
+  border-radius: 15px;
   overflow: hidden;
   transition: all 0.4s ease;
   height: 100%;
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
 }
@@ -268,9 +268,9 @@ export default {
 }
 
 .news-card:hover {
-  transform: translateY(-15px);
+  transform: translateY(-10px);
   border-color: #FFD700;
-  box-shadow: 0 25px 50px rgba(255, 215, 0, 0.25);
+  box-shadow: 0 20px 40px rgba(255, 215, 0, 0.25);
 }
 
 /* Image Container */
@@ -290,25 +290,25 @@ export default {
 
 .card-overlay {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.75rem;
+  right: 0.75rem;
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.9) 0%, rgba(255, 165, 0, 0.9) 100%);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   backdrop-filter: blur(10px);
 }
 
 .overlay-icon {
   color: #000000 !important;
-  font-size: 1.2rem !important;
+  font-size: 1rem !important;
 }
 
 .overlay-text {
   font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: #000000;
   text-transform: uppercase;
@@ -316,7 +316,7 @@ export default {
 
 /* Card Content */
 .card-content {
-  padding: 2rem;
+  padding: 1.5rem;
   position: relative;
   z-index: 2;
   flex: 1;
@@ -326,14 +326,14 @@ export default {
 
 .news-badge {
   font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #FFD700;
   background: rgba(255, 215, 0, 0.1);
-  padding: 0.4rem 1rem;
-  border-radius: 15px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
   display: inline-block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   align-self: flex-start;
@@ -341,12 +341,12 @@ export default {
 
 .news-title {
   font-family: 'Inter', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #ffffff;
-  line-height: 1.4;
-  margin-bottom: 0.75rem;
-  min-height: 3.5rem;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+  min-height: 2.8rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -355,10 +355,10 @@ export default {
 
 .news-subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.4;
   color: #e0e0e0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -368,25 +368,25 @@ export default {
 
 /* Expanded Content */
 .expanded-content {
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .content-divider {
   border-color: #333;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .news-content {
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-size: 0.85rem;
+  line-height: 1.5;
   color: #e0e0e0;
   white-space: pre-line;
 }
 
 /* Card Actions */
 .card-actions {
-  padding: 0 2rem 1.5rem;
+  padding: 0 1.5rem 1rem;
   display: flex;
   justify-content: center;
 }
@@ -397,11 +397,12 @@ export default {
   font-family: 'Inter', sans-serif !important;
   text-transform: none !important;
   transition: all 0.3s ease !important;
+  font-size: 0.9rem;
 }
 
 .read-more-btn:hover {
   color: #FFA500 !important;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 /* Floating Animation */
@@ -426,7 +427,7 @@ export default {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
@@ -438,12 +439,12 @@ export default {
 .news-card::after {
   content: '';
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
   background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
-  border-radius: 22px;
+  border-radius: 16px;
   z-index: -1;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -465,59 +466,132 @@ export default {
 /* Responsive Design */
 @media (max-width: 960px) {
   .page-title {
-    font-size: 2.8rem;
-  }
-  
-  .intro-text {
-    font-size: 1.1rem;
-  }
-  
-  .news-title {
-    font-size: 1.2rem;
-    min-height: auto;
-  }
-  
-  .news-subtitle {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .page-title {
     font-size: 2.2rem;
   }
   
   .intro-text {
     font-size: 1rem;
-    text-align: left;
-  }
-  
-  .header-section {
-    padding: 2rem 0;
-  }
-  
-  .card-content {
-    padding: 1.5rem;
   }
   
   .news-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    min-height: 2.5rem;
   }
   
   .news-subtitle {
     font-size: 0.85rem;
   }
   
+  .news-events-grid {
+    margin: 0 -6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .intro-text {
+    font-size: 0.95rem;
+    text-align: left;
+    padding: 0 1rem;
+  }
+  
+  .header-section {
+    padding: 1.5rem 0;
+  }
+  
+  .card-content {
+    padding: 1.25rem;
+  }
+  
+  .news-title {
+    font-size: 0.95rem;
+  }
+  
+  .news-subtitle {
+    font-size: 0.8rem;
+  }
+  
   .news-content {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
   
   .card-actions {
-    padding: 0 1.5rem 1.5rem;
+    padding: 0 1.25rem 0.75rem;
   }
   
   .news-events-grid {
-    margin: 0 -8px;
+    margin: 0 -4px;
+  }
+  
+  .news-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    padding: 0.5rem;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  .intro-text {
+    font-size: 0.9rem;
+  }
+  
+  .header-section {
+    padding: 1rem 0;
+  }
+  
+  .card-content {
+    padding: 1rem;
+  }
+  
+  .news-title {
+    font-size: 0.9rem;
+    min-height: auto;
+  }
+  
+  .news-subtitle {
+    font-size: 0.75rem;
+  }
+  
+  .news-content {
+    font-size: 0.75rem;
+  }
+  
+  .card-actions {
+    padding: 0 1rem 0.5rem;
+  }
+  
+  .read-more-btn {
+    font-size: 0.8rem;
+  }
+  
+  .news-badge {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.6rem;
+  }
+  
+  .overlay-text {
+    font-size: 0.6rem;
+  }
+  
+  .overlay-icon {
+    font-size: 0.8rem !important;
+  }
+  
+  .card-overlay {
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .news-image {
+    height: 160px;
   }
 }
 
@@ -541,6 +615,32 @@ export default {
 :deep(.v-expand-transition-enter-from),
 :deep(.v-expand-transition-leave-to) {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-8px);
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) {
+  .news-card:hover {
+    transform: none;
+  }
+  
+  .news-card:hover .news-image {
+    transform: none;
+  }
+  
+  .read-more-btn:hover {
+    transform: none;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .news-card {
+    animation: none;
+  }
+  
+  .news-card:hover .news-image {
+    transform: none;
+  }
 }
 </style>

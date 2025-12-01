@@ -9,8 +9,7 @@
         </h1>
 
         <p class="intro-text" data-aos="fade-up" data-aos-duration="2000">
-          At the heart of our institution lie the following core values, each meticulously cultivated to foster an
-          environment of academic excellence, innovation, and holistic development.
+          At the heart of our institution lie the following core values, each meticulously cultivated to foster an environment of academic excellence.
         </p>
       </section>
 
@@ -21,8 +20,9 @@
             v-for="(value, index) in coreValues" 
             :key="index" 
             cols="12" 
-            md="6" 
-            lg="4"
+            sm="6" 
+            md="4" 
+            lg="3"
             class="value-col"
           >
             <v-hover v-slot="{ isHovering, props }">
@@ -148,29 +148,29 @@ export default {
 
 <style scoped>
 .core-values-page {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, white 0%, white 100%);
   min-height: 100vh;
   color: #ffffff;
 }
 
 .main-container {
   background: transparent;
-  padding: 2rem 1rem;
+  padding: 1rem;
 }
 
 /* Header Section */
 .header-section {
   text-align: center;
-  padding: 3rem 0;
-  margin-bottom: 3rem;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
 }
 
 .page-title {
   font-family: 'Inter', 'Poppins', sans-serif;
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
+  color: black;
+  margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -186,7 +186,7 @@ export default {
 .highlight::after {
   content: '';
   position: absolute;
-  bottom: -5px;
+  bottom: -3px;
   left: 0;
   width: 100%;
   height: 2px;
@@ -196,25 +196,25 @@ export default {
 
 .intro-text {
   font-family: 'Inter', sans-serif;
-  font-size: 1.3rem;
-  line-height: 1.7;
-  color: #e0e0e0;
-  max-width: 800px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: black;
+  max-width: 700px;
   margin: 0 auto;
   text-align: center;
 }
 
 /* Values Section */
 .values-section {
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .values-grid {
-  margin: 0 -12px;
+  margin: 0 -8px;
 }
 
 .value-col {
-  padding: 1rem;
+  padding: 0.75rem;
   animation: fadeInUp 0.6s ease forwards;
   opacity: 0;
 }
@@ -232,7 +232,7 @@ export default {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -243,7 +243,7 @@ export default {
 .value-card {
   background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
   border: 2px solid #333;
-  border-radius: 20px;
+  border-radius: 15px;
   overflow: hidden;
   transition: all 0.4s ease;
   height: 100%;
@@ -267,13 +267,13 @@ export default {
 }
 
 .value-card:hover {
-  transform: translateY(-15px);
+  transform: translateY(-10px);
   border-color: #FFD700;
-  box-shadow: 0 25px 50px rgba(255, 215, 0, 0.25);
+  box-shadow: 0 20px 40px rgba(255, 215, 0, 0.25);
 }
 
 .card-hover {
-  transform: translateY(-15px);
+  transform: translateY(-10px);
 }
 
 /* Image Container */
@@ -301,7 +301,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 1.5rem;
   z-index: 2;
 }
 
@@ -311,15 +311,15 @@ export default {
 }
 
 .overlay-icon {
-  font-size: 3rem !important;
+  font-size: 2.5rem !important;
   color: #FFD700 !important;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .overlay-text {
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: #ffffff;
   text-align: center;
   margin: 0;
@@ -327,33 +327,33 @@ export default {
 
 /* Card Content */
 .card-content {
-  padding: 2rem;
+  padding: 1.5rem;
   position: relative;
   z-index: 2;
 }
 
 .value-index {
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: #FFD700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   text-align: center;
   background: rgba(255, 215, 0, 0.1);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
   display: inline-block;
 }
 
 .value-title {
   font-family: 'Inter', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #ffffff;
-  line-height: 1.4;
-  margin-bottom: 1.5rem;
+  line-height: 1.3;
+  margin-bottom: 1rem;
   text-align: center;
-  min-height: 3.5rem;
+  min-height: 2.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -363,11 +363,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .decoration-line {
-  width: 30px;
+  width: 25px;
   height: 2px;
   background: linear-gradient(90deg, #FFD700, #FFA500);
   border-radius: 1px;
@@ -375,7 +375,7 @@ export default {
 
 .decoration-icon {
   color: #FFD700 !important;
-  font-size: 1.2rem !important;
+  font-size: 1rem !important;
 }
 
 /* Floating Animation */
@@ -396,7 +396,7 @@ export default {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
@@ -404,67 +404,16 @@ export default {
   animation: none;
 }
 
-/* Responsive Design */
-@media (max-width: 960px) {
-  .page-title {
-    font-size: 2.8rem;
-  }
-  
-  .intro-text {
-    font-size: 1.2rem;
-  }
-  
-  .value-title {
-    font-size: 1.2rem;
-    min-height: auto;
-  }
-  
-  .values-grid {
-    margin: 0 -8px;
-  }
-}
-
-@media (max-width: 600px) {
-  .page-title {
-    font-size: 2.2rem;
-  }
-  
-  .intro-text {
-    font-size: 1.1rem;
-    text-align: left;
-  }
-  
-  .header-section {
-    padding: 2rem 0;
-  }
-  
-  .value-col {
-    padding: 0.5rem;
-  }
-  
-  .card-content {
-    padding: 1.5rem;
-  }
-  
-  .value-title {
-    font-size: 1.1rem;
-  }
-  
-  .overlay-text {
-    font-size: 0.9rem;
-  }
-}
-
 /* Additional Effects */
 .value-card::after {
   content: '';
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
   background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
-  border-radius: 22px;
+  border-radius: 16px;
   z-index: -1;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -481,5 +430,147 @@ export default {
 
 .value-col {
   transform-style: preserve-3d;
+}
+
+/* Responsive Design */
+@media (max-width: 960px) {
+  .page-title {
+    font-size: 2.2rem;
+  }
+  
+  .intro-text {
+    font-size: 1rem;
+  }
+  
+  .value-title {
+    font-size: 1rem;
+    min-height: 2.5rem;
+  }
+  
+  .values-grid {
+    margin: 0 -6px;
+  }
+  
+  .value-col {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .intro-text {
+    font-size: 0.95rem;
+    text-align: left;
+    padding: 0 1rem;
+  }
+  
+  .header-section {
+    padding: 1.5rem 0;
+  }
+  
+  .value-col {
+    padding: 0.5rem;
+  }
+  
+  .card-content {
+    padding: 1rem;
+  }
+  
+  .value-title {
+    font-size: 0.95rem;
+    min-height: auto;
+  }
+  
+  .overlay-text {
+    font-size: 0.85rem;
+  }
+  
+  .overlay-icon {
+    font-size: 2rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    padding: 0.5rem;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  .intro-text {
+    font-size: 0.9rem;
+  }
+  
+  .header-section {
+    padding: 1rem 0;
+  }
+  
+  .values-grid {
+    margin: 0 -4px;
+  }
+  
+  .value-col {
+    padding: 0.25rem;
+  }
+  
+  .card-content {
+    padding: 0.75rem;
+  }
+  
+  .value-title {
+    font-size: 0.9rem;
+  }
+  
+  .value-index {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .overlay-content {
+    padding: 1rem;
+  }
+  
+  .overlay-text {
+    font-size: 0.8rem;
+  }
+  
+  .overlay-icon {
+    font-size: 1.5rem !important;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) {
+  .value-card:hover {
+    transform: none;
+  }
+  
+  .card-overlay {
+    position: static;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(255, 215, 0, 0.2) 100%);
+    padding: 1rem;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .value-card {
+    animation: none;
+  }
+  
+  .value-card:hover .value-image {
+    transform: none;
+  }
+  
+  .value-col {
+    animation: none;
+    opacity: 1;
+  }
 }
 </style>

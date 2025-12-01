@@ -4,7 +4,7 @@
       <!-- Header Section -->
       <section class="header-section">
         <h1 class="page-title" data-aos="fade-up" data-aos-duration="3000">
-          OUR <span class="highlight">AWARDS</span>
+          OUR <span class="highlight">Awards & Recognitions</span>
         </h1>
         <p class="intro-text" data-aos="fade-up" data-aos-duration="3000">
           Celebrating our achievements and recognition in English language education. 
@@ -198,7 +198,7 @@ export default {
 }
 
 .awards-page {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, white 0%, white 100%);
   min-height: 100vh;
   color: #ffffff;
 }
@@ -217,9 +217,9 @@ export default {
 
 .page-title {
   font-family: 'Inter', 'Poppins', sans-serif;
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: #ffffff;
+  color: black;
   margin-bottom: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -246,9 +246,9 @@ export default {
 
 .intro-text {
   font-family: 'Inter', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.7;
-  color: #e0e0e0;
+  color: black;
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
@@ -461,17 +461,18 @@ export default {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-  border: 2px solid #333;
+  background: linear-gradient(135deg, white 0%, white 100%);
+  border: 2px solid white;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #FFD700;
+  color: black;
   position: relative;
   z-index: 10;
+  margin: 0 15px; 
 }
 
 .swiper-button:hover {
