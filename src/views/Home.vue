@@ -1,11 +1,16 @@
 <template>
   <div class="home-page">
-    <!-- Hero Section -->
+    <!-- Hero Section with Matrix Background -->
     <section class="hero-section">
+      <!-- Matrix Canvas Background -->
+      <div class="matrix-bg">
+        <canvas ref="matrixCanvas"></canvas>
+      </div>
+      
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-6">
-            <h1 class="hero-title">Shape Your Future with <span class="highlight">CCIT</span></h1>
+            <h1 class="hero-title">Shaping Your Future with <span class="highlight">CCIT</span></h1>
             <p class="hero-subtitle">
               The national IT school that hones your child's ICT skills with 
               <strong>100% PRACTICAL</strong> content that goes beyond the subject.
@@ -33,7 +38,7 @@
     <!-- Features Section -->
     <section class="features-section py-5">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Why Choose CCIT?</h2>
+        <h2 class="section-title text-center mb-5">Why Choose <span class="highlight">CCIT?</span></h2>
         <div class="row">
           <div class="col-md-4 mb-4" v-for="(feature, index) in features" :key="index">
             <div class="feature-card card-theme">
@@ -49,9 +54,9 @@
     </section>
 
     <!-- Courses Preview -->
-    <section class="courses-section py-5 bg-secondary">
+    <section class="courses-section py-5 bg-light">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Popular Courses</h2>
+        <h2 class="section-title text-center mb-5">Popular <span class="highlight">Courses</span></h2>
         <div class="row">
           <div class="col-md-4 mb-4" v-for="(course, index) in courses" :key="index">
             <div class="course-card card-theme">
@@ -75,8 +80,8 @@
     <!-- Contact CTA -->
     <section class="contact-cta py-5">
       <div class="container text-center">
-        <h2 class="section-title mb-4">Ready to Start Your IT Journey?</h2>
-        <p class="mb-4">Contact us today to learn more about our programs and enrollment.</p>
+        <h2 class="section-title mb-4">Ready to Start Your <span class="highlight">IT Journey?</span></h2>
+        <p class="mb-4 text-black">Contact us today to learn more about our programs and enrollment.</p>
         <div class="cta-buttons">
           <a :href="`tel:${mobile}`" class="btn btn-primary btn-lg">
             <i class="fas fa-phone"></i> Call Now
@@ -94,14 +99,17 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 export default {
   name: 'HomeView',
   setup() {
-    const mobile = '0718861234'
-    const whatsapp = '+94707205126'
+    const mobile = '0718864477'
+    const whatsapp = '+94705205666'
     const email = 'email.ccit@gmail.com'
+    
+    const matrixCanvas = ref(null)
+    const matrixInterval = ref(null)
     
     const features = ref([
       {
@@ -145,48 +153,181 @@ export default {
       }
     ])
     
+    // Matrix Rain Effect Functions
+    const initMatrix = () => {
+      const canvas = matrixCanvas.value
+      if (!canvas) return
+      
+      const ctx = canvas.getContext('2d')
+      
+      // Set canvas size to match hero section
+      const heroSection = document.querySelector('.hero-section')
+      if (heroSection) {
+        canvas.width = heroSection.clientWidth
+        canvas.height = heroSection.clientHeight
+      } else {
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight * 0.8
+      }
+      
+      // Matrix characters - IT themed
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&<>*+-/\\=^~|"
+      const charArray = chars.split("")
+      const fontSize = 14
+      const columns = Math.floor(canvas.width / fontSize)
+      
+      // Array of drops - one per column
+      const drops = []
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.floor(Math.random() * canvas.height / fontSize)
+      }
+      
+      // Drawing function
+      const draw = () => {
+        // Semi-transparent black rectangle for trail effect
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)"
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        
+        // Green color for matrix effect
+        ctx.fillStyle = "#0F0"
+        ctx.font = `${fontSize}px monospace`
+        
+        // Loop over drops
+        for (let i = 0; i < drops.length; i++) {
+          // Random character
+          const text = charArray[Math.floor(Math.random() * charArray.length)]
+          
+          // Draw the character
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize)
+          
+          // Move drop down
+          drops[i]++
+          
+          // Reset drop if it goes below canvas
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0
+          }
+        }
+      }
+      
+      // Start animation
+      matrixInterval.value = setInterval(draw, 35)
+    }
+    
+    const handleResize = () => {
+      if (matrixInterval.value) {
+        clearInterval(matrixInterval.value)
+      }
+      initMatrix()
+    }
+    
+    // Lifecycle hooks
+    onMounted(() => {
+      // Wait for DOM to be ready
+      setTimeout(() => {
+        initMatrix()
+        window.addEventListener('resize', handleResize)
+      }, 100)
+    })
+    
+    onBeforeUnmount(() => {
+      if (matrixInterval.value) {
+        clearInterval(matrixInterval.value)
+      }
+      window.removeEventListener('resize', handleResize)
+    })
+    
     return {
       mobile,
       whatsapp,
       email,
       features,
-      courses
+      courses,
+      matrixCanvas
     }
   }
 }
 </script>
 
 <style scoped>
+/* Hero Section */
 .hero-section {
   padding: 100px 0;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  );
   color: white;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Matrix Background */
+.matrix-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.matrix-bg canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .hero-title {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
 }
 
 .highlight {
-  color: var(--accent-color);
+  background: linear-gradient(135deg, #ff6b35 0%, #ffa500 50%, #ff8c00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  display: inline-block;
+  z-index: 2;
 }
 
 .hero-subtitle {
   font-size: 1.2rem;
   margin-bottom: 2rem;
-  opacity: 0.9;
+  opacity: 0.95;
+  position: relative;
+  z-index: 2;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle strong {
+  color: var(--accent-color);
 }
 
 .hero-buttons {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-image {
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .image-placeholder {
@@ -196,13 +337,33 @@ export default {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 .image-placeholder i {
   font-size: 8rem;
   color: var(--accent-color);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
+/* Container for hero content */
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Section Titles */
 .section-title {
   color: var(--text-primary);
   font-weight: 700;
@@ -216,10 +377,28 @@ export default {
   text-align: center;
   height: 100%;
   transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .feature-card:hover {
   transform: translateY(-10px);
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover::before {
+  transform: scaleX(1);
 }
 
 .feature-icon {
@@ -246,6 +425,11 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-10px);
 }
 
 .course-badge {
@@ -258,6 +442,7 @@ export default {
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.8rem;
+  z-index: 1;
 }
 
 .course-card h3 {
@@ -300,6 +485,7 @@ export default {
   text-decoration: none;
   display: inline-block;
   transition: all 0.3s ease;
+  margin-top: auto;
 }
 
 .btn-accent:hover {
@@ -309,7 +495,7 @@ export default {
 }
 
 .contact-cta {
-  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+  background: linear-gradient(135deg, white 0%, white 100%);
   color: white;
 }
 
@@ -325,6 +511,7 @@ export default {
   border-color: #25d366 !important;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.5rem;
@@ -337,6 +524,37 @@ export default {
   .cta-buttons {
     flex-direction: column;
     align-items: center;
+  }
+  
+  .image-placeholder {
+    padding: 40px;
+    margin-top: 2rem;
+  }
+  
+  .image-placeholder i {
+    font-size: 5rem;
+  }
+  
+  /* Adjust matrix effect for mobile */
+  .matrix-bg {
+    opacity: 0.35;
+  }
+}
+
+/* Performance optimization for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .image-placeholder {
+    animation: none;
+  }
+  
+  .feature-card,
+  .course-card,
+  .btn-accent:hover {
+    transition: none;
+  }
+  
+  .matrix-bg {
+    display: none;
   }
 }
 </style>

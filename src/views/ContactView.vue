@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-6">
-            <h1 class="hero-title">Contact Us</h1>
+            <h1 class="hero-title">Contact <span class="highlight">Us</span> </h1>
             <p class="lead">
               Get in touch with Cambridge College of Information Technology. 
               We're here to answer all your questions.
@@ -228,9 +228,9 @@
     </section>
     
     <!-- Map Section -->
-    <section class="map-section py-5 bg-secondary">
+    <section class="map-section py-5 bg-light">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Find Our Campus</h2>
+        <h2 class="section-title text-center mb-5">Find <span class="highlight">Our College</span></h2>
         <div class="map-container card-theme overflow-hidden">
           <!-- In a real application, you would embed Google Maps here -->
           <div class="map-placeholder text-center py-5">
@@ -293,9 +293,9 @@ export default {
   name: 'ContactView',
   data() {
     return {
-      address: 'No 26/B, New Rd, Ambalangoda, Sri Lanka, 80300',
-      mobile: '071 886 1234',
-      whatsapp: '+94 70 720 5126',
+      address: 'No 26/B, New Rd, Ambalangoda, Sri Lanka',
+      mobile: '071 886 4477',
+      whatsapp: '+94 70 520 5666',
       email: 'email.ccit@gmail.com',
       form: {
         name: '',
@@ -388,6 +388,15 @@ export default {
   font-size: 2.8rem;
   font-weight: 700;
   margin-bottom: 1rem;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #ff6b35 0%, #ffa500 50%, #ff8c00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  display: inline-block;
 }
 
 .hero-icon {

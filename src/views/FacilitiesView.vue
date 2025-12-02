@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-6">
-            <h1 class="hero-title">Our Facilities</h1>
+            <h1 class="hero-title">Our <span class="highlight">Facilities</span></h1>
             <p class="lead">
               State-of-the-art learning environment designed for practical IT education.
             </p>
@@ -46,9 +46,9 @@
     </section>
 
     <!-- Gallery Section -->
-    <section class="gallery-section py-5 bg-secondary">
+    <section class="gallery-section py-5 bg-light">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Campus Gallery</h2>
+        <h2 class="section-title text-center mb-5">College <span class="highlight">Gallery</span></h2>
         <div class="row">
           <div class="col-md-6 mb-4" v-for="(gallery, index) in galleryItems" :key="index">
             <div class="gallery-item card-theme overflow-hidden">
@@ -68,7 +68,7 @@
     <!-- Equipment & Resources -->
     <section class="equipment-section py-5">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Equipment & Resources</h2>
+        <h2 class="section-title text-center mb-5"><span class="highlight">Equipment</span> & <span class="highlight">Resources</span></h2>
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <div class="equipment-list card-theme p-4">
@@ -93,9 +93,9 @@
     </section>
 
     <!-- Learning Environment -->
-    <section class="environment-section py-5 bg-secondary">
+    <section class="environment-section py-5 bg-light">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Learning Environment</h2>
+        <h2 class="section-title text-center mb-5">Learning <span class="highlight">Environment</span></h2>
         <div class="row">
           <div class="col-lg-10 mx-auto">
             <div class="environment-features">
@@ -315,6 +315,15 @@ export default {
   font-size: 2.8rem;
   font-weight: 700;
   margin-bottom: 1rem;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #ff6b35 0%, #ffa500 50%, #ff8c00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  display: inline-block;
 }
 
 .hero-icon {

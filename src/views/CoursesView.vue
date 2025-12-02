@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-6">
-            <h1 class="hero-title">Our Courses</h1>
+            <h1 class="hero-title">Our <span class="highlight">Courses</span></h1>
             <p class="lead">
               Industry-relevant programs with <strong>100% practical</strong> training. 
               Choose from beginner to advanced levels.
@@ -25,7 +25,7 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-12">
-            <h2 class="section-title text-center mb-4">Course Categories</h2>
+            <h2 class="section-title text-center mb-4">Course <span class="highlight">Categories</span></h2>
             <div class="category-tabs d-flex justify-content-center flex-wrap gap-3">
               <button 
                 v-for="category in categories" 
@@ -107,11 +107,11 @@
     </section>
 
     <!-- Course Comparison -->
-    <section class="comparison py-5 bg-secondary">
+    <section class="comparison py-5 bg-light">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Why Our Courses Stand Out</h2>
+        <h2 class="section-title text-center mb-5 text-black">Why <span class="highlight">Our Courses</span> Stand Out?</h2>
         <div class="row">
-          <div class="col-md-6 mb-4" v-for="(feature, index) in uniqueFeatures" :key="index">
+          <div class="col-md-6 mb-4 text-black" v-for="(feature, index) in uniqueFeatures" :key="index">
             <div class="feature-comparison card-theme p-4">
               <div class="d-flex align-items-start">
                 <div class="feature-icon me-3">
@@ -131,7 +131,7 @@
     <!-- Enrollment CTA -->
     <section class="enrollment-cta py-5">
       <div class="container text-center">
-        <h2 class="mb-4">Ready to Start Your IT Journey?</h2>
+        <h2 class="mb-4">Ready to <span class="highlight">Start Your IT Journey?</span></h2>
         <p class="mb-4">Limited seats available. Enroll today to secure your spot.</p>
         <div class="cta-buttons">
           <router-link to="/contact" class="btn btn-primary btn-lg">
@@ -328,7 +328,7 @@ export default {
   methods: {
     enrollCourse(course) {
       // In a real application, this would navigate to enrollment form
-      alert(`Enrolling in: ${course.title}\n\nPlease contact us to complete enrollment:\nWhatsApp: ${this.whatsapp}\nPhone: 071 886 1234`)
+      alert(`Enrolling in: ${course.title}\n\nPlease contact us to complete enrollment:\nWhatsApp: ${this.whatsapp}\nPhone: 071 886 4477`)
     },
     viewDetails(course) {
       // In a real application, this would show detailed modal
@@ -366,6 +366,15 @@ Contact us for more details!
 .hero-icon {
   font-size: 6rem;
   color: var(--accent-color);
+}
+
+.highlight {
+  background: linear-gradient(135deg, #ff6b35 0%, #ffa500 50%, #ff8c00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  display: inline-block;
 }
 
 .category-tab {
@@ -511,8 +520,15 @@ Contact us for more details!
 }
 
 .enrollment-cta {
-  background: linear-gradient(135deg, var(--accent-color) 0%, #2196f3 100%);
-  color: white;
+  background: linear-gradient(135deg, white 0%, white 100%);
+  color: black;
+  gap: 1rem;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center; 
+  gap: 1rem;
 }
 
 @media (max-width: 768px) {
