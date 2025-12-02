@@ -82,7 +82,7 @@ export default {
 }
 
 .footer-logo {
-  color: var(--accent-color);
+  color: #ffa500;
   font-weight: 700;
   margin-bottom: 1rem;
 }
