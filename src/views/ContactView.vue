@@ -380,7 +380,7 @@ export default {
 
 <style scoped>
 .contact-hero {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  background: linear-gradient(135deg, black 0%, var(--secondary-color) 100%);
   color: white;
 }
 

@@ -75,7 +75,11 @@ export default {
 
 <style scoped>
 .footer {
-  background-color: var(--footer-bg);
+  background: linear-gradient(
+    135deg,
+    black 0%,
+    var(--secondary-color) 100%
+  );
   color: white;
   padding: 3rem 0 1.5rem;
   margin-top: auto;

@@ -255,7 +255,7 @@ export default {
   padding: 100px 0;
   background: linear-gradient(
     135deg,
-    var(--primary-color) 0%,
+    black 0%,
     var(--secondary-color) 100%
   );
   color: white;

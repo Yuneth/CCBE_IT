@@ -353,7 +353,7 @@ Contact us for more details!
 
 <style scoped>
 .courses-hero {
-  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+  background: linear-gradient(135deg, black 0%, var(--primary-color) 100%);
   color: white;
 }
 
