@@ -23,7 +23,7 @@
             </li>
             <li>
               <i class="fab fa-whatsapp"></i>
-              <a :href="`https://wa.me/${whatsapp.replace('+', '')}`" target="_blank">{{ whatsapp }}</a>
+              <a :href="`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`" target="_blank">{{ whatsapp }}</a>
             </li>
             <li>
               <i class="fas fa-envelope"></i>

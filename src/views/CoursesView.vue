@@ -137,7 +137,7 @@
           <router-link to="/contact" class="btn btn-primary btn-lg">
             <i class="fas fa-calendar-alt"></i> Schedule Consultation
           </router-link>
-          <a :href="`https://wa.me/${whatsapp.replace('+', '')}`" target="_blank" class="btn btn-success btn-lg">
+          <a :href="`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`" target="_blank" class="btn btn-success btn-lg">
             <i class="fab fa-whatsapp"></i> Chat on WhatsApp
           </a>
         </div>
@@ -314,7 +314,7 @@ export default {
           description: 'Industry-recognized certificates upon successful completion.'
         }
       ],
-      whatsapp: '+94707205126'
+      whatsapp: '+94 70 520 5666'
     }
   },
   computed: {

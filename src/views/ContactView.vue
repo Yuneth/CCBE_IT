@@ -58,7 +58,7 @@
                 <div class="contact-details">
                   <h4>WhatsApp</h4>
                   <p>
-                    <a :href="`https://wa.me/${whatsapp.replace('+', '')}`" target="_blank">
+                    <a :href="`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`" target="_blank">
                       {{ whatsapp }}
                     </a>
                   </p>
