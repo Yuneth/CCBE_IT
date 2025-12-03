@@ -31,7 +31,7 @@
     <!-- Why Work With Us -->
     <section class="benefits-section py-5">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Why Work at <span class="highlight">CCIT</span></h2>
+        <h2 class="section-title text-center mb-5">Why Work at <span class="highlight">CCIT?</span></h2>
         <div class="row">
           <div class="col-md-4 mb-4" v-for="(benefit, index) in benefits" :key="index">
             <div class="benefit-card card-theme">
@@ -79,12 +79,12 @@
               </div>
               
               <div class="opening-actions">
-                <button class="btn btn-accent" @click="openApplicationModal(opening)">
+                <button class="btn btn-outline-accent" @click="openApplicationModal(opening)">
                   Apply Now
                 </button>
-                <button class="btn btn-outline-accent" @click="viewJobDetails(opening)">
+                <!-- <button class="btn btn-outline-accent" @click="viewJobDetails(opening)">
                   View Details
-                </button>
+                </button> -->
               </div>
             </div>
           </div>
@@ -532,11 +532,11 @@ export default {
 
 .hero-icon {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.1);
+  /* background: rgba(255, 255, 255, 0.1); */
   border-radius: 50%;
   padding: 40px;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  animation: pulse 2s infinite;
+  /* border: 3px solid rgba(255, 255, 255, 0.2); */
+  /* animation: pulse 2s infinite; */
 }
 
 .hero-icon i {

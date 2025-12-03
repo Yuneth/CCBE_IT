@@ -58,7 +58,7 @@ export default {
   setup() {
     const currentYear = ref(new Date().getFullYear())
     const address = 'No 26/B, New Rd, Ambalangoda, Sri Lanka'
-    const mobile = '071 886 4477'
+    const mobile = '+94 71 886 4477'
     const whatsapp = '+94 70 520 5666'
     const email = 'email.ccit@gmail.com'
     

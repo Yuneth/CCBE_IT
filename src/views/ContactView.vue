@@ -294,7 +294,7 @@ export default {
   data() {
     return {
       address: 'No 26/B, New Rd, Ambalangoda, Sri Lanka',
-      mobile: '071 886 4477',
+      mobile: '+94 71 886 4477',
       whatsapp: '+94 70 520 5666',
       email: 'email.ccit@gmail.com',
       form: {
