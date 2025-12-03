@@ -239,7 +239,7 @@
             <p class="mb-0">{{ address }}</p>
             <div class="mt-4">
               <a 
-                href="https://www.google.com/maps?q=No+26/B,+New+Road,+Ambalangoda,+Sri+Lanka+80300" 
+                href="https://www.google.com/maps/place/Cambridge+College+of+Information+Technology+(Pvt)+Ltd/@6.2344923,80.0519568,17z/data=!3m1!4b1!4m6!3m5!1s0x3ae18115f8c652d9:0x786c763eacf34d9c!8m2!3d6.234487!4d80.0545317!16s%2Fg%2F11l6twft7_?entry=ttu&g_ep=EgoyMDI1MTEyMy4xIKXMDSoASAFQAw%3D%3D" 
                 target="_blank"
                 class="btn btn-primary"
               >

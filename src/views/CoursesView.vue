@@ -363,6 +363,13 @@ Contact us for more details!
   margin-bottom: 1rem;
 }
 
+.section-title {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+}
+
 .hero-icon {
   font-size: 6rem;
   color: var(--accent-color);

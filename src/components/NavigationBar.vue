@@ -76,6 +76,15 @@
           <li class="nav-item">
             <router-link 
               class="nav-link" 
+              to="/careers" 
+              @click="closeMenu"
+            >
+              Careers
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link 
+              class="nav-link" 
               to="/contact" 
               @click="closeMenu"
             >
