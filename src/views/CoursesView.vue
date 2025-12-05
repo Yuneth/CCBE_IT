@@ -84,12 +84,12 @@
                 </div>
                 
                 <div class="course-footer">
-                  <div class="course-price mb-3">
+                  <!-- <div class="course-price mb-3">
                     <span class="price">LKR {{ course.price.toLocaleString() }}</span>
                     <span class="installment" v-if="course.installment">
                       or {{ course.installment }}
                     </span>
-                  </div>
+                  </div> -->
                   <!-- <div class="d-grid gap-2">
                     <button class="btn btn-primary" @click="enrollCourse(course)">
                       <i class="fas fa-edit"></i> Enroll Now
@@ -170,8 +170,8 @@ export default {
           duration: '2 Months',
           maxStudents: 20,
           certification: 'CCIT Certificate',
-          price: 15000,
-          installment: 'LKR 8,000 x 2 months',
+          //price: 15000,
+          //installment: 'LKR 8,000 x 2 months',
           features: [
             'Windows/Mac OS Basics',
             'Microsoft Word & Excel',
@@ -190,8 +190,8 @@ export default {
           duration: '3 Months',
           maxStudents: 15,
           certification: 'CCIT Python Certificate',
-          price: 25000,
-          installment: 'LKR 9,000 x 3 months',
+          //price: 25000,
+          //installment: 'LKR 9,000 x 3 months',
           features: [
             'Python Syntax & Basics',
             'Variables & Data Types',
@@ -210,8 +210,8 @@ export default {
           duration: '4 Months',
           maxStudents: 15,
           certification: 'CCIT Web Developer Certificate',
-          price: 35000,
-          installment: 'LKR 12,000 x 3 months',
+          //price: 35000,
+          //installment: 'LKR 12,000 x 3 months',
           features: [
             'HTML5 & Semantic Markup',
             'CSS3 & Flexbox/Grid',
@@ -230,8 +230,8 @@ export default {
           duration: '6 Months',
           maxStudents: 12,
           certification: 'CCIT Full Stack Developer Certificate',
-          price: 65000,
-          installment: 'LKR 12,000 x 6 months',
+          //price: 65000,
+          //installment: 'LKR 12,000 x 6 months',
           features: [
             'Vue.js Framework',
             'Node.js & Express',
@@ -250,8 +250,8 @@ export default {
           duration: '5 Months',
           maxStudents: 10,
           certification: 'CCIT Cybersecurity Certificate',
-          price: 75000,
-          installment: 'LKR 16,000 x 5 months',
+          //price: 75000,
+          //installment: 'LKR 16,000 x 5 months',
           features: [
             'Network Security',
             'Ethical Hacking',
@@ -270,8 +270,8 @@ export default {
           duration: '4 Months',
           maxStudents: 10,
           certification: 'CCIT Network Certificate + CCNA Prep',
-          price: 80000,
-          installment: 'LKR 20,000 x 4 months',
+          //price: 80000,
+          //installment: 'LKR 20,000 x 4 months',
           features: [
             'Network Fundamentals',
             'Routing & Switching',
