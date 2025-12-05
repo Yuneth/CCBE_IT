@@ -216,6 +216,7 @@
                 id="position"
                 v-model="applicationForm.position"
                 required
+                readonly
               />
             </div>
           </div>

@@ -115,13 +115,7 @@
               <h2 class="mb-4">Send Us a Message</h2>
               
               <form @submit.prevent="submitForm" id="contactForm">
-                <div v-if="formSuccess" class="alert alert-success">
-                  <i class="fas fa-check-circle"></i> {{ formSuccess }}
-                </div>
-                
-                <div v-if="formError" class="alert alert-danger">
-                  <i class="fas fa-exclamation-circle"></i> {{ formError }}
-                </div>
+                <!-- Removed old alert divs -->
                 
                 <div class="row">
                   <div class="col-md-6 mb-3">
@@ -288,12 +282,17 @@
 </template>
 
 <script>
-
 import emailjs from '@emailjs/browser';
+import { useToast } from 'vue-toastification';
 
 /* eslint-disable vue/multi-word-component-names */
 export default {
   name: 'ContactView',
+  setup() {
+    // Get toast interface
+    const toast = useToast();
+    return { toast };
+  },
   data() {
     return {
       address: 'No 26/B, New Rd, Ambalangoda, Sri Lanka',
@@ -310,8 +309,6 @@ export default {
         newsletter: false
       },
       formSubmitting: false,
-      formSuccess: '',
-      formError: '',
       faqs: [
         {
           question: 'What are your operating hours?',
@@ -339,7 +336,7 @@ export default {
         }
       ],
 
-       // Add EmailJS credentials
+      // Add EmailJS credentials
       emailjsConfig: {
         serviceId: 'service_438x8g1', // SERVICE_ID
         templateId: 'template_sc86cor', // TEMPLATE_ID
@@ -350,9 +347,7 @@ export default {
   },
   methods: {
     async submitForm() {
-      this.formSubmitting = true
-      this.formSuccess = ''
-      this.formError = ''
+      this.formSubmitting = true;
       
       try {
         // Prepare template parameters for EmailJS
@@ -372,7 +367,7 @@ export default {
             hour: '2-digit',
             minute: '2-digit'
           })
-        }
+        };
         
         // Send email using EmailJS
         await emailjs.send(
@@ -380,10 +375,20 @@ export default {
           this.emailjsConfig.templateId,
           templateParams,
           this.emailjsConfig.publicKey
-        )
+        );
         
-        // Show success message
-        this.formSuccess = 'Thank you for your message! We have received it and will contact you within 24 hours.'
+        // Show success toast
+        this.toast.success('Thank you for your message! We have received it and will contact you within 24 hours.', {
+          timeout: 8000,
+          closeOnClick: true,
+          pauseOnFocusLoss: true,
+          pauseOnHover: true,
+          draggable: true,
+          draggablePercent: 0.6,
+          showCloseButtonOnHover: true,
+          closeButton: "button",
+          icon: "fas fa-check-circle"
+        });
         
         // Reset form
         this.form = {
@@ -394,19 +399,32 @@ export default {
           course: '',
           message: '',
           newsletter: false
-        }
+        };
         
         // Reset form validation
-        const form = document.getElementById('contactForm')
+        const form = document.getElementById('contactForm');
         if (form) {
-          form.reset()
+          form.reset();
         }
         
       } catch (error) {
-        console.error('Error sending message:', error)
-        this.formError = 'Sorry, there was an error sending your message. Please try again or contact us directly.'
+        console.error('Error sending message:', error);
+        
+        // Show error toast
+        this.toast.error('Sorry, there was an error sending your message. Please try again or contact us directly.', {
+          timeout: 8000,
+          closeOnClick: true,
+          pauseOnFocusLoss: true,
+          pauseOnHover: true,
+          draggable: true,
+          draggablePercent: 0.6,
+          showCloseButtonOnHover: true,
+          closeButton: "button",
+          icon: "fas fa-exclamation-circle"
+        });
+        
       } finally {
-        this.formSubmitting = false
+        this.formSubmitting = false;
       }
     },
     
@@ -417,8 +435,8 @@ export default {
         'schedule': 'Schedule & Timing',
         'fees': 'Fee Structure',
         'other': 'Other'
-      }
-      return subjects[subjectValue] || subjectValue || 'Not specified'
+      };
+      return subjects[subjectValue] || subjectValue || 'Not specified';
     },
     
     getCourseText(courseValue) {
@@ -429,14 +447,15 @@ export default {
         'fullstack': 'Full Stack Development',
         'cyber': 'Cybersecurity',
         'ccna': 'CISCO CCNA'
-      }
-      return courses[courseValue] || courseValue || 'Not specified'
+      };
+      return courses[courseValue] || courseValue || 'Not specified';
     }
   }
 }
 </script>
 
 <style scoped>
+/* Your existing styles remain the same */
 .contact-hero {
   background: linear-gradient(135deg, black 0%, var(--secondary-color) 100%);
   color: white;
@@ -536,25 +555,6 @@ export default {
 .contact-form .form-select:focus {
   border-color: var(--accent-color);
   box-shadow: 0 0 0 0.25rem rgba(0, 188, 212, 0.25);
-}
-
-.contact-form .alert {
-  border: none;
-  border-radius: 10px;
-}
-
-.alert-success {
-  background-color: rgba(76, 175, 80, 0.1);
-  border-left: 4px solid #4CAF50;
-}
-
-.alert-danger {
-  background-color: rgba(244, 67, 54, 0.1);
-  border-left: 4px solid #F44336;
-}
-
-.alert i {
-  margin-right: 10px;
 }
 
 .btn-primary:disabled {
