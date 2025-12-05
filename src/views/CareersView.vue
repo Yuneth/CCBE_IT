@@ -13,14 +13,6 @@
               passionate professionals who want to make a difference in
               students' lives.
             </p>
-            <!-- <div class="hero-actions">
-              <button class="btn btn-primary btn-lg" @click="scrollToOpenings">
-                View Open Positions
-              </button>
-              <a href="mailto:careers@ccit.lk" class="btn btn-outline-primary btn-lg">
-                <i class="fas fa-paper-plane"></i> Send Your CV
-              </a>
-            </div> -->
           </div>
           <div class="col-lg-4 text-center">
             <div class="hero-icon">
@@ -56,7 +48,7 @@
     </section>
 
     <!-- Current Openings -->
-    <section class="openings-section py-5 bg-light" ref="openingsSection">
+    <section class="openings-section py-5 bg-light">
       <div class="container">
         <h2 class="section-title text-center mb-5">
           Current <span class="highlight">Openings</span>
@@ -102,9 +94,6 @@
                 >
                   Apply Now
                 </button>
-                <!-- <button class="btn btn-outline-accent" @click="viewJobDetails(opening)">
-                  View Details
-                </button> -->
               </div>
             </div>
           </div>
@@ -297,7 +286,9 @@
               class="btn btn-primary"
               :disabled="isSubmitting"
             >
-              <span v-if="isSubmitting">Submitting...</span>
+              <span v-if="isSubmitting">
+                <i class="fas fa-spinner fa-spin"></i> Submitting...
+              </span>
               <span v-else>Submit Application</span>
             </button>
           </div>
@@ -310,10 +301,14 @@
 <script>
 import { ref, onMounted } from "vue";
 import emailjs from "@emailjs/browser";
+import { useToast } from "vue-toastification";
 
 export default {
   name: "CareersPage",
   setup() {
+    // Initialize toast
+    const toast = useToast();
+    
     // Modal State
     const showApplicationModal = ref(false);
     const selectedOpening = ref(null);
@@ -465,24 +460,23 @@ export default {
     ]);
 
     // Methods
-    const scrollToOpenings = () => {
-      const section = document.querySelector(".openings-section");
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
-      }
-    };
-
     const openApplicationModal = (opening = null) => {
       selectedOpening.value = opening;
       showApplicationModal.value = true;
       document.body.style.overflow = "hidden";
 
-      // Reset form
+      // Set position in form
       if (opening) {
         applicationForm.value.position = opening.title;
       } else {
         applicationForm.value.position = "";
       }
+      
+      // Show info toast
+      toast.info("Please fill out the application form completely", {
+        timeout: 4000,
+        icon: "fas fa-info-circle"
+      });
     };
 
     const closeApplicationModal = () => {
@@ -503,11 +497,6 @@ export default {
       };
     };
 
-    const viewJobDetails = (opening) => {
-      // In a real app, this would navigate to a detailed job page
-      openApplicationModal(opening);
-    };
-
     const handleFileUpload = (event) => {
       const file = event.target.files[0];
       if (file) {
@@ -517,37 +506,84 @@ export default {
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
           "text/plain",
         ];
+        
         if (!validTypes.includes(file.type)) {
-          alert("Please upload a PDF, DOC, DOCX, or TXT file");
+          toast.error("Please upload a PDF, DOC, DOCX, or TXT file", {
+            timeout: 5000,
+            icon: "fas fa-file-exclamation"
+          });
+          event.target.value = ""; // Clear the file input
           return;
         }
 
         if (file.size > 5 * 1024 * 1024) {
-          alert("File size should be less than 5MB");
+          toast.error("File size should be less than 5MB", {
+            timeout: 5000,
+            icon: "fas fa-weight-hanging"
+          });
+          event.target.value = ""; // Clear the file input
           return;
         }
 
         applicationForm.value.resume = file;
+        
+        // Show success toast
+        toast.success("Resume uploaded successfully!", {
+          timeout: 3000,
+          icon: "fas fa-file-check"
+        });
       }
     };
 
     const submitApplication = async () => {
+      // Validate required fields
+      if (!applicationForm.value.fullName.trim()) {
+        toast.error("Please enter your full name", {
+          timeout: 4000,
+          icon: "fas fa-user-times"
+        });
+        return;
+      }
+
+      if (!applicationForm.value.email.trim()) {
+        toast.error("Please enter your email address", {
+          timeout: 4000,
+          icon: "fas fa-envelope"
+        });
+        return;
+      }
+
+      if (!applicationForm.value.phone.trim()) {
+        toast.error("Please enter your phone number", {
+          timeout: 4000,
+          icon: "fas fa-phone"
+        });
+        return;
+      }
+
+      if (!applicationForm.value.resume) {
+        toast.error("Please upload your resume/CV", {
+          timeout: 5000,
+          icon: "fas fa-file-exclamation"
+        });
+        return;
+      }
+
       isSubmitting.value = true;
 
       try {
-        // Check if a resume file was uploaded
-        if (!applicationForm.value.resume) {
-          alert("⚠️ Please upload your resume/CV before submitting.");
-          isSubmitting.value = false;
-          return;
-        }
+        // Show processing toast
+        toast.info("Processing your application...", { 
+          timeout: 8000, // Keep it open
+          icon: "fas fa-spinner fa-pulse",
+          closeButton: true
+        });
 
         // Generate a unique ID for this application
         const applicationId =
           "ccit_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
 
-        // Store the file in localStorage temporarily (for demo/testing)
-        // In production, you'd upload to a cloud storage service
+        // Store the file in localStorage temporarily
         const fileToBase64 = (file) => {
           return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -559,57 +595,46 @@ export default {
 
         const resumeBase64 = await fileToBase64(applicationForm.value.resume);
 
-        // Store temporarily in localStorage (limited to ~5MB)
+        // Store temporarily in localStorage
         localStorage.setItem(applicationId, resumeBase64);
 
-        // Create a download link that HR can use
-        // This is a data URL that opens in a new tab
+        // Create a download link
         const downloadLink = `${
           window.location.origin
         }/download-resume.html?id=${applicationId}&filename=${encodeURIComponent(
           applicationForm.value.resume.name
         )}`;
 
-        // Simple clean function
-        const cleanText = (text) => {
-          if (!text) return "";
-          return String(text)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .trim();
-        };
-
-        // Prepare template parameters - NO BASE64!
+        // Prepare template parameters
         const templateParams = {
           to_email: "yunethper@gmail.com",
-          applicant_name: cleanText(applicationForm.value.fullName),
-          applicant_email: cleanText(applicationForm.value.email),
-          applicant_phone: cleanText(applicationForm.value.phone),
-          position: cleanText(
-            applicationForm.value.position || "General Application"
-          ),
-          experience: cleanText(applicationForm.value.experience),
-          qualification: cleanText(applicationForm.value.qualification),
-          cover_letter: cleanText(applicationForm.value.coverLetter),
-          application_date: cleanText(new Date().toLocaleDateString()),
-          job_title: cleanText(
-            selectedOpening.value?.title || "General Application"
-          ),
-          resume_filename: cleanText(applicationForm.value.resume.name),
-          resume_size:
-            Math.round(applicationForm.value.resume.size / 1024) + " KB",
+          applicant_name: applicationForm.value.fullName.trim(),
+          applicant_email: applicationForm.value.email.trim(),
+          applicant_phone: applicationForm.value.phone.trim(),
+          position: applicationForm.value.position || "General Application",
+          experience: applicationForm.value.experience || "Not specified",
+          qualification: applicationForm.value.qualification || "Not specified",
+          cover_letter: applicationForm.value.coverLetter.trim() || "No cover letter provided",
+          application_date: new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          }),
+          job_title: selectedOpening.value?.title || "General Application",
+          resume_filename: applicationForm.value.resume.name,
+          resume_size: Math.round(applicationForm.value.resume.size / 1024) + " KB",
           resume_download_link: downloadLink,
           application_id: applicationId,
         };
 
-        console.log("Sending application with download link...");
-
         // Send email using EmailJS
         await emailjs.send(
-          "service_438x8g1", //Service_ID
-          "template_6velvsl", //Template_ID
-          templateParams
+          "service_438x8g1", // Service_ID
+          "template_6velvsl", // Template_ID
+          templateParams,
+          "MIgdDTa538ETb_5yl" // PUBLIC_KEY
         );
 
         // Clean up localStorage after 24 hours
@@ -617,52 +642,22 @@ export default {
           localStorage.removeItem(applicationId);
         }, 24 * 60 * 60 * 1000);
 
-        alert(
-          "✅ Application submitted successfully! HR can download your resume using the link in the email."
-        );
+        // Show success
+        toast.success("🎉 Application submitted successfully! Our HR team will review it shortly.", {
+          timeout: 8000,
+          closeButton: true,
+          icon: "fas fa-check-circle"
+        });
+        
         closeApplicationModal();
       } catch (error) {
         console.error("EmailJS Error:", error);
-
-        // Fallback without download link
-        try {
-          const cleanText = (text) => {
-            if (!text) return "";
-            return String(text).trim();
-          };
-
-          const templateParams = {
-            to_email: "yunethper@gmail.com",
-            applicant_name: cleanText(applicationForm.value.fullName),
-            applicant_email: cleanText(applicationForm.value.email),
-            applicant_phone: cleanText(applicationForm.value.phone),
-            position: cleanText(
-              applicationForm.value.position || "General Application"
-            ),
-            experience: cleanText(applicationForm.value.experience),
-            qualification: cleanText(applicationForm.value.qualification),
-            cover_letter: cleanText(applicationForm.value.coverLetter),
-            application_date: cleanText(new Date().toLocaleDateString()),
-            job_title: cleanText(
-              selectedOpening.value?.title || "General Application"
-            ),
-            resume_filename: cleanText(applicationForm.value.resume.name),
-          };
-
-          await emailjs.send(
-            "service_438x8g1", //SERVICE_ID
-            "template_6velvsl",//Template_ID
-            templateParams
-          );
-
-          alert("✅ Application submitted! (Download link not available)");
-          closeApplicationModal();
-        } catch (fallbackError) {
-          console.error("Fallback error:", fallbackError);
-          alert(
-            "⚠️ Please email your application directly to yunethper@gmail.com"
-          );
-        }
+        
+        // Show error toast
+        toast.error("There was an error submitting your application. Please try again.", {
+          timeout: 6000,
+          icon: "fas fa-exclamation-triangle"
+        });
       } finally {
         isSubmitting.value = false;
       }
@@ -670,8 +665,16 @@ export default {
 
     // Lifecycle
     onMounted(() => {
-      // Any initialization code if needed
-      emailjs.init("MIgdDTa538ETb_5yl"); // PUBLIC_KEY
+      // Initialize EmailJS
+      emailjs.init("MIgdDTa538ETb_5yl");
+      
+      // Show welcome toast on page load
+      setTimeout(() => {
+        toast.info("👋 Browse our current openings and apply to join our team!", {
+          timeout: 6000,
+          icon: "fas fa-hand-wave"
+        });
+      }, 1000);
     });
 
     return {
@@ -682,10 +685,8 @@ export default {
       benefits,
       openings,
       applySteps,
-      scrollToOpenings,
       openApplicationModal,
       closeApplicationModal,
-      viewJobDetails,
       handleFileUpload,
       submitApplication,
     };
@@ -737,19 +738,10 @@ export default {
   max-width: 600px;
 }
 
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
 .hero-icon {
   display: inline-block;
-  /* background: rgba(255, 255, 255, 0.1); */
   border-radius: 50%;
   padding: 40px;
-  /* border: 3px solid rgba(255, 255, 255, 0.2); */
-  /* animation: pulse 2s infinite; */
 }
 
 .hero-icon i {
@@ -758,20 +750,7 @@ export default {
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
-  }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
-  }
-}
-
 /* Benefits Section */
-
 .section-title {
   color: var(--text-primary);
   font-weight: 700;
@@ -1214,5 +1193,10 @@ export default {
     transition: none;
     animation: none;
   }
+}
+
+/* Spinner style */
+.fa-spinner {
+  margin-right: 8px;
 }
 </style>
