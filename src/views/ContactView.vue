@@ -339,11 +339,11 @@ export default {
         }
       ],
 
-       // Add your EmailJS credentials here
+       // Add EmailJS credentials
       emailjsConfig: {
-        serviceId: 'service_438x8g1', // Replace with your SERVICE_ID
-        templateId: 'template_sc86cor', // Replace with your TEMPLATE_ID
-        publicKey: 'MIgdDTa538ETb_5yl', // Replace with your PUBLIC_KEY
+        serviceId: 'service_438x8g1', // SERVICE_ID
+        templateId: 'template_sc86cor', // TEMPLATE_ID
+        publicKey: 'MIgdDTa538ETb_5yl', // PUBLIC_KEY
         toEmail: 'yunethper@gmail.com' // The email where you want to receive messages
       }
     }

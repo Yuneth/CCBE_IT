@@ -90,14 +90,14 @@
                       or {{ course.installment }}
                     </span>
                   </div>
-                  <div class="d-grid gap-2">
+                  <!-- <div class="d-grid gap-2">
                     <button class="btn btn-primary" @click="enrollCourse(course)">
                       <i class="fas fa-edit"></i> Enroll Now
                     </button>
                     <button class="btn btn-outline-primary" @click="viewDetails(course)">
                       <i class="fas fa-info-circle"></i> More Details
                     </button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
