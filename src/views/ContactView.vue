@@ -288,6 +288,9 @@
 </template>
 
 <script>
+
+import emailjs from '@emailjs/browser';
+
 /* eslint-disable vue/multi-word-component-names */
 export default {
   name: 'ContactView',
@@ -334,7 +337,15 @@ export default {
           question: 'Can I visit the campus before enrolling?',
           answer: 'Absolutely! We encourage prospective students to visit our campus, see our facilities, and meet our instructors. Please call ahead to schedule a campus tour.'
         }
-      ]
+      ],
+
+       // Add your EmailJS credentials here
+      emailjsConfig: {
+        serviceId: 'service_438x8g1', // Replace with your SERVICE_ID
+        templateId: 'template_sc86cor', // Replace with your TEMPLATE_ID
+        publicKey: 'MIgdDTa538ETb_5yl', // Replace with your PUBLIC_KEY
+        toEmail: 'yunethper@gmail.com' // The email where you want to receive messages
+      }
     }
   },
   methods: {
@@ -344,11 +355,35 @@ export default {
       this.formError = ''
       
       try {
-        // Simulate API call - In real app, use emailjs-com or backend API
-        await new Promise(resolve => setTimeout(resolve, 1500))
+        // Prepare template parameters for EmailJS
+        const templateParams = {
+          to_email: this.emailjsConfig.toEmail,
+          from_name: this.form.name,
+          from_email: this.form.email,
+          phone: this.form.phone,
+          subject: this.getSubjectText(this.form.subject),
+          course: this.getCourseText(this.form.course),
+          message: this.form.message,
+          newsletter_subscription: this.form.newsletter ? 'Yes' : 'No',
+          received_date: new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+        }
         
-        // For demo purposes, show success message
-        this.formSuccess = 'Thank you for your message! We will contact you within 24 hours.'
+        // Send email using EmailJS
+        await emailjs.send(
+          this.emailjsConfig.serviceId,
+          this.emailjsConfig.templateId,
+          templateParams,
+          this.emailjsConfig.publicKey
+        )
+        
+        // Show success message
+        this.formSuccess = 'Thank you for your message! We have received it and will contact you within 24 hours.'
         
         // Reset form
         this.form = {
@@ -373,6 +408,29 @@ export default {
       } finally {
         this.formSubmitting = false
       }
+    },
+    
+    getSubjectText(subjectValue) {
+      const subjects = {
+        'course': 'Course Inquiry',
+        'admission': 'Admission Process',
+        'schedule': 'Schedule & Timing',
+        'fees': 'Fee Structure',
+        'other': 'Other'
+      }
+      return subjects[subjectValue] || subjectValue || 'Not specified'
+    },
+    
+    getCourseText(courseValue) {
+      const courses = {
+        'fundamentals': 'Computer Fundamentals',
+        'python': 'Programming with Python',
+        'web': 'Web Development',
+        'fullstack': 'Full Stack Development',
+        'cyber': 'Cybersecurity',
+        'ccna': 'CISCO CCNA'
+      }
+      return courses[courseValue] || courseValue || 'Not specified'
     }
   }
 }

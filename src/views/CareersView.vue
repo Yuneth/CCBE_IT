@@ -606,8 +606,8 @@ export default {
 
         // Send email using EmailJS
         await emailjs.send(
-          "service_438x8g1",
-          "template_6velvsl",
+          "service_438x8g1", //Service_ID
+          "template_6velvsl", //Template_ID
           templateParams
         );
 
@@ -649,8 +649,8 @@ export default {
           };
 
           await emailjs.send(
-            "service_438x8g1",
-            "template_6velvsl",
+            "service_438x8g1", //SERVICE_ID
+            "template_6velvsl",//Template_ID
             templateParams
           );
 
@@ -670,7 +670,7 @@ export default {
     // Lifecycle
     onMounted(() => {
       // Any initialization code if needed
-      emailjs.init("MIgdDTa538ETb_5yl");
+      emailjs.init("MIgdDTa538ETb_5yl"); // PUBLIC_KEY
     });
 
     return {
