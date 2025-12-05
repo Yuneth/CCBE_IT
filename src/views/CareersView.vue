@@ -5,10 +5,13 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-8">
-            <h1 class="hero-title">Join Our <span class="highlight">Team</span></h1>
+            <h1 class="hero-title">
+              Join Our <span class="highlight">Team</span>
+            </h1>
             <p class="lead">
-              Shape the future of IT education with CCIT. We're looking for passionate professionals 
-              who want to make a difference in students' lives.
+              Shape the future of IT education with CCIT. We're looking for
+              passionate professionals who want to make a difference in
+              students' lives.
             </p>
             <!-- <div class="hero-actions">
               <button class="btn btn-primary btn-lg" @click="scrollToOpenings">
@@ -31,9 +34,15 @@
     <!-- Why Work With Us -->
     <section class="benefits-section py-5">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Why Work at <span class="highlight">CCIT?</span></h2>
+        <h2 class="section-title text-center mb-5">
+          Why Work at <span class="highlight">CCIT?</span>
+        </h2>
         <div class="row">
-          <div class="col-md-4 mb-4" v-for="(benefit, index) in benefits" :key="index">
+          <div
+            class="col-md-4 mb-4"
+            v-for="(benefit, index) in benefits"
+            :key="index"
+          >
             <div class="benefit-card card-theme">
               <div class="benefit-icon">
                 <i :class="benefit.icon"></i>
@@ -49,12 +58,20 @@
     <!-- Current Openings -->
     <section class="openings-section py-5 bg-light" ref="openingsSection">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Current <span class="highlight">Openings</span></h2>
-        <p class="text-center mb-5 text-muted">Browse through our available positions and apply today</p>
-        
+        <h2 class="section-title text-center mb-5">
+          Current <span class="highlight">Openings</span>
+        </h2>
+        <p class="text-center mb-5 text-muted">
+          Browse through our available positions and apply today
+        </p>
+
         <!-- Opening Cards -->
         <div class="row">
-          <div class="col-md-6 mb-4" v-for="(opening, index) in openings" :key="index">
+          <div
+            class="col-md-6 mb-4"
+            v-for="(opening, index) in openings"
+            :key="index"
+          >
             <div class="opening-card card-theme">
               <div class="opening-header">
                 <span class="opening-type">{{ opening.type }}</span>
@@ -62,7 +79,7 @@
               </div>
               <h3>{{ opening.title }}</h3>
               <p>{{ opening.description }}</p>
-              
+
               <div class="opening-details">
                 <div class="detail-item">
                   <i class="fas fa-clock"></i>
@@ -77,9 +94,12 @@
                   <span>{{ opening.qualification }}</span>
                 </div>
               </div>
-              
+
               <div class="opening-actions">
-                <button class="btn btn-outline-accent" @click="openApplicationModal(opening)">
+                <button
+                  class="btn btn-outline-accent"
+                  @click="openApplicationModal(opening)"
+                >
                   Apply Now
                 </button>
                 <!-- <button class="btn btn-outline-accent" @click="viewJobDetails(opening)">
@@ -95,9 +115,15 @@
     <!-- How to Apply -->
     <section class="apply-section py-5">
       <div class="container">
-        <h2 class="section-title text-center mb-5">How to <span class="highlight">Apply</span></h2>
+        <h2 class="section-title text-center mb-5">
+          How to <span class="highlight">Apply</span>
+        </h2>
         <div class="row">
-          <div class="col-md-3 mb-4" v-for="(step, index) in applySteps" :key="index">
+          <div
+            class="col-md-3 mb-4"
+            v-for="(step, index) in applySteps"
+            :key="index"
+          >
             <div class="step-card text-center">
               <div class="step-number">{{ index + 1 }}</div>
               <div class="step-icon">
@@ -114,8 +140,12 @@
     <!-- Contact CTA -->
     <section class="contact-cta py-5">
       <div class="container text-center">
-        <h2 class="section-title mb-4">Questions About <span class="highlight">Careers at CCIT?</span></h2>
-        <p class="mb-4 text-black">Get in touch with our HR team for more information</p>
+        <h2 class="section-title mb-4">
+          Questions About <span class="highlight">Careers at CCIT?</span>
+        </h2>
+        <p class="mb-4 text-black">
+          Get in touch with our HR team for more information
+        </p>
         <div class="cta-buttons">
           <a href="mailto:careers@ccit.lk" class="btn btn-primary btn-lg">
             <i class="fas fa-envelope"></i> Email HR
@@ -131,11 +161,17 @@
     </section>
 
     <!-- Application Modal -->
-    <div v-if="showApplicationModal" class="application-modal" @click="closeApplicationModal">
+    <div
+      v-if="showApplicationModal"
+      class="application-modal"
+      @click="closeApplicationModal"
+    >
       <div class="modal-content application-content" @click.stop>
         <div class="modal-header">
           <h2 class="modal-title">Apply for Position</h2>
-          <p class="modal-subtitle">{{ selectedOpening?.title || 'General Application' }}</p>
+          <p class="modal-subtitle">
+            {{ selectedOpening?.title || "General Application" }}
+          </p>
           <button class="modal-close" @click="closeApplicationModal">
             <i class="fas fa-times"></i>
           </button>
@@ -145,28 +181,52 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="fullName">Full Name *</label>
-              <input type="text" id="fullName" v-model="applicationForm.fullName" required>
+              <input
+                type="text"
+                id="fullName"
+                v-model="applicationForm.fullName"
+                required
+              />
             </div>
             <div class="form-group col-md-6">
               <label for="email">Email Address *</label>
-              <input type="email" id="email" v-model="applicationForm.email" required>
+              <input
+                type="email"
+                id="email"
+                v-model="applicationForm.email"
+                required
+              />
             </div>
           </div>
-          
+
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="phone">Phone Number *</label>
-              <input type="tel" id="phone" v-model="applicationForm.phone" required>
+              <input
+                type="tel"
+                id="phone"
+                v-model="applicationForm.phone"
+                required
+              />
             </div>
             <div class="form-group col-md-6">
               <label for="position">Position Applying For *</label>
-              <input type="text" id="position" v-model="applicationForm.position" required>
+              <input
+                type="text"
+                id="position"
+                v-model="applicationForm.position"
+                required
+              />
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="experience">Years of Experience *</label>
-            <select id="experience" v-model="applicationForm.experience" required>
+            <select
+              id="experience"
+              v-model="applicationForm.experience"
+              required
+            >
               <option value="">Select experience level</option>
               <option value="0-1">0-1 years</option>
               <option value="1-3">1-3 years</option>
@@ -174,10 +234,14 @@
               <option value="5+">5+ years</option>
             </select>
           </div>
-          
+
           <div class="form-group">
             <label for="qualification">Highest Qualification *</label>
-            <select id="qualification" v-model="applicationForm.qualification" required>
+            <select
+              id="qualification"
+              v-model="applicationForm.qualification"
+              required
+            >
               <option value="">Select qualification</option>
               <option value="Diploma">Diploma</option>
               <option value="Bachelor's">Bachelor's Degree</option>
@@ -186,40 +250,52 @@
               <option value="Professional">Professional Certification</option>
             </select>
           </div>
-          
+
           <div class="form-group">
             <label for="coverLetter">Cover Letter *</label>
-            <textarea 
-              id="coverLetter" 
-              v-model="applicationForm.coverLetter" 
-              rows="4" 
+            <textarea
+              id="coverLetter"
+              v-model="applicationForm.coverLetter"
+              rows="4"
               placeholder="Tell us why you're interested in this position and what makes you a great candidate..."
               required
             ></textarea>
           </div>
-          
+
           <div class="form-group">
             <label for="resume">Upload Resume/CV *</label>
             <div class="file-upload">
-              <input 
-                type="file" 
-                id="resume" 
-                @change="handleFileUpload" 
+              <input
+                type="file"
+                id="resume"
+                @change="handleFileUpload"
                 accept=".pdf,.doc,.docx,.txt"
                 required
-              >
+              />
               <label for="resume" class="file-label">
                 <i class="fas fa-upload"></i>
-                <span>{{ applicationForm.resume ? applicationForm.resume.name : 'Choose file (PDF, DOC, DOCX)' }}</span>
+                <span>{{
+                  applicationForm.resume
+                    ? applicationForm.resume.name
+                    : "Choose file (PDF, DOC, DOCX)"
+                }}</span>
               </label>
             </div>
           </div>
-          
+
           <div class="form-footer">
-            <button type="button" class="btn btn-outline-primary" @click="closeApplicationModal">
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              @click="closeApplicationModal"
+            >
               Cancel
             </button>
-            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              :disabled="isSubmitting"
+            >
               <span v-if="isSubmitting">Submitting...</span>
               <span v-else>Submit Application</span>
             </button>
@@ -231,236 +307,372 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
+import emailjs from "@emailjs/browser";
 
 export default {
-  name: 'CareersPage',
+  name: "CareersPage",
   setup() {
     // Modal State
-    const showApplicationModal = ref(false)
-    const selectedOpening = ref(null)
-    const isSubmitting = ref(false)
-    
+    const showApplicationModal = ref(false);
+    const selectedOpening = ref(null);
+    const isSubmitting = ref(false);
+
     // Application Form
     const applicationForm = ref({
-      fullName: '',
-      email: '',
-      phone: '',
-      position: '',
-      experience: '',
-      qualification: '',
-      coverLetter: '',
-      resume: null
-    })
-    
+      fullName: "",
+      email: "",
+      phone: "",
+      position: "",
+      experience: "",
+      qualification: "",
+      coverLetter: "",
+      resume: null,
+    });
+
     // Data
     const benefits = ref([
       {
-        icon: 'fas fa-chart-line',
-        title: 'Career Growth',
-        description: 'Clear progression paths and opportunities for professional development.'
+        icon: "fas fa-chart-line",
+        title: "Career Growth",
+        description:
+          "Clear progression paths and opportunities for professional development.",
       },
       {
-        icon: 'fas fa-graduation-cap',
-        title: 'Training & Development',
-        description: 'Regular workshops, certifications, and skill enhancement programs.'
+        icon: "fas fa-graduation-cap",
+        title: "Training & Development",
+        description:
+          "Regular workshops, certifications, and skill enhancement programs.",
       },
       {
-        icon: 'fas fa-users',
-        title: 'Collaborative Environment',
-        description: 'Work with passionate educators and industry professionals.'
+        icon: "fas fa-users",
+        title: "Collaborative Environment",
+        description:
+          "Work with passionate educators and industry professionals.",
       },
       {
-        icon: 'fas fa-award',
-        title: 'Competitive Packages',
-        description: 'Attractive salaries, bonuses, and comprehensive benefits.'
+        icon: "fas fa-award",
+        title: "Competitive Packages",
+        description:
+          "Attractive salaries, bonuses, and comprehensive benefits.",
       },
       {
-        icon: 'fas fa-balance-scale',
-        title: 'Work-Life Balance',
-        description: 'Flexible schedules and supportive work environment.'
+        icon: "fas fa-balance-scale",
+        title: "Work-Life Balance",
+        description: "Flexible schedules and supportive work environment.",
       },
       {
-        icon: 'fas fa-child',
-        title: 'Make a Difference',
-        description: 'Impact students lives by shaping the next generation of IT professionals.'
-      }
-    ])
-    
+        icon: "fas fa-child",
+        title: "Make a Difference",
+        description:
+          "Impact students lives by shaping the next generation of IT professionals.",
+      },
+    ]);
+
     const openings = ref([
       {
         id: 1,
-        title: 'IT Instructor',
-        type: 'Full-time',
-        location: 'Colombo',
-        description: 'Deliver engaging IT lessons and practical sessions to students of all levels.',
-        duration: 'Permanent',
-        postedDate: '2 weeks ago',
-        qualification: 'Bachelor\'s in IT/Computer Science'
+        title: "IT Instructor",
+        type: "Full-time",
+        location: "Colombo",
+        description:
+          "Deliver engaging IT lessons and practical sessions to students of all levels.",
+        duration: "Permanent",
+        postedDate: "2 weeks ago",
+        qualification: "Bachelor's in IT/Computer Science",
       },
       {
         id: 2,
-        title: 'Web Development Trainer',
-        type: 'Part-time',
-        location: 'Online/On-site',
-        description: 'Train students in modern web development technologies and frameworks.',
-        duration: '6 Months',
-        postedDate: '1 week ago',
-        qualification: 'Relevant certification or experience'
+        title: "Web Development Trainer",
+        type: "Part-time",
+        location: "Online/On-site",
+        description:
+          "Train students in modern web development technologies and frameworks.",
+        duration: "6 Months",
+        postedDate: "1 week ago",
+        qualification: "Relevant certification or experience",
       },
       {
         id: 3,
-        title: 'Student Counselor',
-        type: 'Full-time',
-        location: 'Colombo',
-        description: 'Guide and support students in their educational and career journey.',
-        duration: 'Permanent',
-        postedDate: '3 days ago',
-        qualification: 'Degree in Psychology/Counseling'
+        title: "Student Counselor",
+        type: "Full-time",
+        location: "Colombo",
+        description:
+          "Guide and support students in their educational and career journey.",
+        duration: "Permanent",
+        postedDate: "3 days ago",
+        qualification: "Degree in Psychology/Counseling",
       },
       {
         id: 4,
-        title: 'Marketing Executive',
-        type: 'Full-time',
-        location: 'Colombo',
-        description: 'Promote our programs and engage with the community through various channels.',
-        duration: 'Permanent',
-        postedDate: '1 week ago',
-        qualification: 'Marketing/Communication degree'
+        title: "Marketing Executive",
+        type: "Full-time",
+        location: "Colombo",
+        description:
+          "Promote our programs and engage with the community through various channels.",
+        duration: "Permanent",
+        postedDate: "1 week ago",
+        qualification: "Marketing/Communication degree",
       },
       {
         id: 5,
-        title: 'Content Developer',
-        type: 'Contract',
-        location: 'Remote',
-        description: 'Create engaging educational materials and online course content.',
-        duration: '3 Months',
-        postedDate: '2 days ago',
-        qualification: 'Experience in educational content'
+        title: "Content Developer",
+        type: "Contract",
+        location: "Remote",
+        description:
+          "Create engaging educational materials and online course content.",
+        duration: "3 Months",
+        postedDate: "2 days ago",
+        qualification: "Experience in educational content",
       },
       {
         id: 6,
-        title: 'Administrative Assistant',
-        type: 'Full-time',
-        location: 'Colombo',
-        description: 'Provide administrative support and manage office operations.',
-        duration: 'Permanent',
-        postedDate: '1 month ago',
-        qualification: 'Diploma in Office Administration'
-      }
-    ])
-    
+        title: "Administrative Assistant",
+        type: "Full-time",
+        location: "Colombo",
+        description:
+          "Provide administrative support and manage office operations.",
+        duration: "Permanent",
+        postedDate: "1 month ago",
+        qualification: "Diploma in Office Administration",
+      },
+    ]);
+
     const applySteps = ref([
       {
-        icon: 'fas fa-search',
-        title: 'Browse Positions',
-        description: 'Explore our current openings and find the right fit for your skills.'
+        icon: "fas fa-search",
+        title: "Browse Positions",
+        description:
+          "Explore our current openings and find the right fit for your skills.",
       },
       {
-        icon: 'fas fa-file-alt',
-        title: 'Prepare Documents',
-        description: 'Update your resume and prepare a compelling cover letter.'
+        icon: "fas fa-file-alt",
+        title: "Prepare Documents",
+        description:
+          "Update your resume and prepare a compelling cover letter.",
       },
       {
-        icon: 'fas fa-edit',
-        title: 'Submit Application',
-        description: 'Fill out our application form and upload your documents.'
+        icon: "fas fa-edit",
+        title: "Submit Application",
+        description: "Fill out our application form and upload your documents.",
       },
       {
-        icon: 'fas fa-comments',
-        title: 'Interview Process',
-        description: 'Participate in interviews and assessment sessions.'
-      }
-    ])
-    
+        icon: "fas fa-comments",
+        title: "Interview Process",
+        description: "Participate in interviews and assessment sessions.",
+      },
+    ]);
+
     // Methods
     const scrollToOpenings = () => {
-      const section = document.querySelector('.openings-section')
+      const section = document.querySelector(".openings-section");
       if (section) {
-        section.scrollIntoView({ behavior: 'smooth' })
+        section.scrollIntoView({ behavior: "smooth" });
       }
-    }
-    
+    };
+
     const openApplicationModal = (opening = null) => {
-      selectedOpening.value = opening
-      showApplicationModal.value = true
-      document.body.style.overflow = 'hidden'
-      
+      selectedOpening.value = opening;
+      showApplicationModal.value = true;
+      document.body.style.overflow = "hidden";
+
       // Reset form
       if (opening) {
-        applicationForm.value.position = opening.title
+        applicationForm.value.position = opening.title;
       } else {
-        applicationForm.value.position = ''
+        applicationForm.value.position = "";
       }
-    }
-    
+    };
+
     const closeApplicationModal = () => {
-      showApplicationModal.value = false
-      document.body.style.overflow = ''
-      selectedOpening.value = null
-      
+      showApplicationModal.value = false;
+      document.body.style.overflow = "";
+      selectedOpening.value = null;
+
       // Reset form
       applicationForm.value = {
-        fullName: '',
-        email: '',
-        phone: '',
-        position: '',
-        experience: '',
-        qualification: '',
-        coverLetter: '',
-        resume: null
-      }
-    }
-    
+        fullName: "",
+        email: "",
+        phone: "",
+        position: "",
+        experience: "",
+        qualification: "",
+        coverLetter: "",
+        resume: null,
+      };
+    };
+
     const viewJobDetails = (opening) => {
       // In a real app, this would navigate to a detailed job page
-      openApplicationModal(opening)
-    }
-    
+      openApplicationModal(opening);
+    };
+
     const handleFileUpload = (event) => {
-      const file = event.target.files[0]
+      const file = event.target.files[0];
       if (file) {
-        const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain']
+        const validTypes = [
+          "application/pdf",
+          "application/msword",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "text/plain",
+        ];
         if (!validTypes.includes(file.type)) {
-          alert('Please upload a PDF, DOC, DOCX, or TXT file')
-          return
+          alert("Please upload a PDF, DOC, DOCX, or TXT file");
+          return;
         }
-        
+
         if (file.size > 5 * 1024 * 1024) {
-          alert('File size should be less than 5MB')
-          return
+          alert("File size should be less than 5MB");
+          return;
         }
-        
-        applicationForm.value.resume = file
+
+        applicationForm.value.resume = file;
       }
-    }
-    
+    };
+
     const submitApplication = async () => {
-      isSubmitting.value = true
-      
+      isSubmitting.value = true;
+
       try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500))
-        
-        // Show success message
-        alert('Application submitted successfully! Our HR team will contact you soon.')
-        
-        // Close modal
-        closeApplicationModal()
-        
+        // Check if a resume file was uploaded
+        if (!applicationForm.value.resume) {
+          alert("⚠️ Please upload your resume/CV before submitting.");
+          isSubmitting.value = false;
+          return;
+        }
+
+        // Generate a unique ID for this application
+        const applicationId =
+          "ccit_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
+
+        // Store the file in localStorage temporarily (for demo/testing)
+        // In production, you'd upload to a cloud storage service
+        const fileToBase64 = (file) => {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+          });
+        };
+
+        const resumeBase64 = await fileToBase64(applicationForm.value.resume);
+
+        // Store temporarily in localStorage (limited to ~5MB)
+        localStorage.setItem(applicationId, resumeBase64);
+
+        // Create a download link that HR can use
+        // This is a data URL that opens in a new tab
+        const downloadLink = `${
+          window.location.origin
+        }/download-resume.html?id=${applicationId}&filename=${encodeURIComponent(
+          applicationForm.value.resume.name
+        )}`;
+
+        // Simple clean function
+        const cleanText = (text) => {
+          if (!text) return "";
+          return String(text)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .trim();
+        };
+
+        // Prepare template parameters - NO BASE64!
+        const templateParams = {
+          to_email: "yunethper@gmail.com",
+          applicant_name: cleanText(applicationForm.value.fullName),
+          applicant_email: cleanText(applicationForm.value.email),
+          applicant_phone: cleanText(applicationForm.value.phone),
+          position: cleanText(
+            applicationForm.value.position || "General Application"
+          ),
+          experience: cleanText(applicationForm.value.experience),
+          qualification: cleanText(applicationForm.value.qualification),
+          cover_letter: cleanText(applicationForm.value.coverLetter),
+          application_date: cleanText(new Date().toLocaleDateString()),
+          job_title: cleanText(
+            selectedOpening.value?.title || "General Application"
+          ),
+          resume_filename: cleanText(applicationForm.value.resume.name),
+          resume_size:
+            Math.round(applicationForm.value.resume.size / 1024) + " KB",
+          resume_download_link: downloadLink,
+          application_id: applicationId,
+        };
+
+        console.log("Sending application with download link...");
+
+        // Send email using EmailJS
+        await emailjs.send(
+          "service_438x8g1",
+          "template_6velvsl",
+          templateParams
+        );
+
+        // Clean up localStorage after 24 hours
+        setTimeout(() => {
+          localStorage.removeItem(applicationId);
+        }, 24 * 60 * 60 * 1000);
+
+        alert(
+          "✅ Application submitted successfully! HR can download your resume using the link in the email."
+        );
+        closeApplicationModal();
       } catch (error) {
-        console.error('Error submitting application:', error)
-        alert('There was an error submitting your application. Please try again.')
+        console.error("EmailJS Error:", error);
+
+        // Fallback without download link
+        try {
+          const cleanText = (text) => {
+            if (!text) return "";
+            return String(text).trim();
+          };
+
+          const templateParams = {
+            to_email: "yunethper@gmail.com",
+            applicant_name: cleanText(applicationForm.value.fullName),
+            applicant_email: cleanText(applicationForm.value.email),
+            applicant_phone: cleanText(applicationForm.value.phone),
+            position: cleanText(
+              applicationForm.value.position || "General Application"
+            ),
+            experience: cleanText(applicationForm.value.experience),
+            qualification: cleanText(applicationForm.value.qualification),
+            cover_letter: cleanText(applicationForm.value.coverLetter),
+            application_date: cleanText(new Date().toLocaleDateString()),
+            job_title: cleanText(
+              selectedOpening.value?.title || "General Application"
+            ),
+            resume_filename: cleanText(applicationForm.value.resume.name),
+          };
+
+          await emailjs.send(
+            "service_438x8g1",
+            "template_6velvsl",
+            templateParams
+          );
+
+          alert("✅ Application submitted! (Download link not available)");
+          closeApplicationModal();
+        } catch (fallbackError) {
+          console.error("Fallback error:", fallbackError);
+          alert(
+            "⚠️ Please email your application directly to yunethper@gmail.com"
+          );
+        }
       } finally {
-        isSubmitting.value = false
+        isSubmitting.value = false;
       }
-    }
-    
+    };
+
     // Lifecycle
     onMounted(() => {
       // Any initialization code if needed
-    })
-    
+      emailjs.init("MIgdDTa538ETb_5yl");
+    });
+
     return {
       showApplicationModal,
       selectedOpening,
@@ -474,10 +686,10 @@ export default {
       closeApplicationModal,
       viewJobDetails,
       handleFileUpload,
-      submitApplication
-    }
-  }
-}
+      submitApplication,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -490,7 +702,7 @@ export default {
 }
 
 .careers-hero::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -546,7 +758,8 @@ export default {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
   }
@@ -584,7 +797,7 @@ export default {
 }
 
 .benefit-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -791,7 +1004,11 @@ export default {
 }
 
 .modal-header {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  );
   color: white;
   padding: 2rem;
   border-radius: 15px 15px 0 0;
@@ -940,33 +1157,33 @@ export default {
   .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-actions {
     flex-direction: column;
   }
-  
+
   .cta-buttons {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .hero-icon {
     padding: 30px;
     margin-top: 2rem;
   }
-  
+
   .hero-icon i {
     font-size: 4rem;
   }
-  
+
   .opening-actions {
     flex-direction: column;
   }
-  
+
   .form-group.col-md-6 {
     flex: 1 1 100%;
   }
-  
+
   .form-footer {
     flex-direction: column;
   }
@@ -976,11 +1193,11 @@ export default {
   .step-card {
     margin-bottom: 2rem;
   }
-  
+
   .hero-icon {
     padding: 20px;
   }
-  
+
   .hero-icon i {
     font-size: 3rem;
   }
