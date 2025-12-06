@@ -252,23 +252,35 @@
           </div>
 
           <div class="form-group">
-            <label for="resume">Upload Resume/CV *</label>
-            <div class="file-upload">
+            <label for="resumeLink">Resume/CV Google Drive Link *</label>
+            <div class="input-with-icon">
+              <i class="fas fa-link"></i>
               <input
-                type="file"
-                id="resume"
-                @change="handleFileUpload"
-                accept=".pdf,.doc,.docx,.txt"
+                type="url"
+                id="resumeLink"
+                v-model="applicationForm.resumeLink"
+                placeholder="https://drive.google.com/file/d/..."
                 required
+                pattern="https://.*"
               />
-              <label for="resume" class="file-label">
-                <i class="fas fa-upload"></i>
-                <span>{{
-                  applicationForm.resume
-                    ? applicationForm.resume.name
-                    : "Choose file (PDF, DOC, DOCX)"
-                }}</span>
-              </label>
+            </div>
+            <small class="form-help">
+              <i class="fas fa-info-circle"></i>
+              Please upload your resume to Google Drive and share the link here (set sharing to "Anyone with the link")
+            </small>
+            
+            <!-- Add preview button if link is entered -->
+            <div v-if="applicationForm.resumeLink" class="link-preview mt-2">
+              <button 
+                type="button" 
+                class="btn btn-sm btn-outline-success"
+                @click.prevent="previewResumeLink"
+              >
+                <i class="fas fa-eye"></i> Preview Link
+              </button>
+              <span class="preview-status ms-2">
+                <i class="fas fa-check-circle text-success"></i> Link added
+              </span>
             </div>
           </div>
 
@@ -322,7 +334,7 @@ export default {
       experience: "",
       qualification: "",
       coverLetter: "",
-      resume: null,
+      resumeLink: "",
     });
 
     // Data
@@ -471,11 +483,21 @@ export default {
         applicationForm.value.position = "";
       }
       
-      // Show info toast
-      toast.info("Please fill out the application form completely", {
-        timeout: 4000,
-        icon: "fas fa-info-circle"
-      });
+      // Show info toast with Google Drive instructions
+      // toast.info(
+      //   `<div style="text-align: left;">
+      //     <strong>📝 Application Instructions:</strong><br>
+      //     1. Fill out all fields<br>
+      //     2. Upload your resume to Google Drive<br>
+      //     3. Share the link (set to "Anyone with the link")<br>
+      //     4. Paste the link in the resume field
+      //   </div>`, 
+      //   {
+      //     timeout: 8000,
+      //     icon: "fas fa-info-circle",
+      //     closeButton: true
+      //   }
+      // );
     };
 
     const closeApplicationModal = () => {
@@ -492,44 +514,24 @@ export default {
         experience: "",
         qualification: "",
         coverLetter: "",
-        resume: null,
+        resumeLink: "",
       };
     };
 
-    const handleFileUpload = (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        const validTypes = [
-          "application/pdf",
-          "application/msword",
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          "text/plain",
-        ];
+    // Method for previewing the link
+    const previewResumeLink = () => {
+      if (applicationForm.value.resumeLink) {
+        // Open the link in a new tab
+        window.open(applicationForm.value.resumeLink, '_blank');
         
-        if (!validTypes.includes(file.type)) {
-          toast.error("Please upload a PDF, DOC, DOCX, or TXT file", {
-            timeout: 5000,
-            icon: "fas fa-file-exclamation"
-          });
-          event.target.value = ""; // Clear the file input
-          return;
-        }
-
-        if (file.size > 5 * 1024 * 1024) {
-          toast.error("File size should be less than 5MB", {
-            timeout: 5000,
-            icon: "fas fa-weight-hanging"
-          });
-          event.target.value = ""; // Clear the file input
-          return;
-        }
-
-        applicationForm.value.resume = file;
-        
-        // Show success toast
-        toast.success("Resume uploaded successfully!", {
+        toast.success("Opening resume link in new tab...", {
           timeout: 3000,
-          icon: "fas fa-file-check"
+          icon: "fas fa-external-link-alt"
+        });
+      } else {
+        toast.warning("Please enter a Google Drive link first", {
+          timeout: 4000,
+          icon: "fas fa-link"
         });
       }
     };
@@ -560,10 +562,20 @@ export default {
         return;
       }
 
-      if (!applicationForm.value.resume) {
-        toast.error("Please upload your resume/CV", {
+      if (!applicationForm.value.resumeLink.trim()) {
+        toast.error("Please provide your Google Drive resume link", {
           timeout: 5000,
-          icon: "fas fa-file-exclamation"
+          icon: "fas fa-link"
+        });
+        return;
+      }
+
+      // Validate Google Drive link format
+      const googleDriveRegex = /https:\/\/drive\.google\.com\/(file\/d\/|drive\/folders\/|open\?id=)/i;
+      if (!googleDriveRegex.test(applicationForm.value.resumeLink)) {
+        toast.error("Please provide a valid Google Drive link (should start with https://drive.google.com/)", {
+          timeout: 5000,
+          icon: "fas fa-exclamation-triangle"
         });
         return;
       }
@@ -573,36 +585,13 @@ export default {
       try {
         // Show processing toast
         toast.info("Processing your application...", { 
-          timeout: 8000, // Keep it open
+          timeout: 8000,
           icon: "fas fa-spinner fa-pulse",
           closeButton: true
         });
 
         // Generate a unique ID for this application
-        const applicationId =
-          "ccit_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
-
-        // Store the file in localStorage temporarily
-        const fileToBase64 = (file) => {
-          return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = (error) => reject(error);
-          });
-        };
-
-        const resumeBase64 = await fileToBase64(applicationForm.value.resume);
-
-        // Store temporarily in localStorage
-        localStorage.setItem(applicationId, resumeBase64);
-
-        // Create a download link
-        const downloadLink = `${
-          window.location.origin
-        }/download-resume.html?id=${applicationId}&filename=${encodeURIComponent(
-          applicationForm.value.resume.name
-        )}`;
+        const applicationId = "ccit_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
 
         // Prepare template parameters
         const templateParams = {
@@ -622,9 +611,7 @@ export default {
             minute: '2-digit'
           }),
           job_title: selectedOpening.value?.title || "General Application",
-          resume_filename: applicationForm.value.resume.name,
-          resume_size: Math.round(applicationForm.value.resume.size / 1024) + " KB",
-          resume_download_link: downloadLink,
+          resume_link: applicationForm.value.resumeLink.trim(),
           application_id: applicationId,
         };
 
@@ -635,11 +622,6 @@ export default {
           templateParams,
           "MIgdDTa538ETb_5yl" // PUBLIC_KEY
         );
-
-        // Clean up localStorage after 24 hours
-        setTimeout(() => {
-          localStorage.removeItem(applicationId);
-        }, 24 * 60 * 60 * 1000);
 
         // Show success
         toast.success("🎉 Application submitted successfully! Our HR team will review it shortly.", {
@@ -653,7 +635,15 @@ export default {
         console.error("EmailJS Error:", error);
         
         // Show error toast
-        toast.error("There was an error submitting your application. Please try again.", {
+        let errorMessage = "There was an error submitting your application. Please try again.";
+        
+        if (error.text && error.text.includes("corrupted")) {
+          errorMessage = "Please remove any special characters from your cover letter and try again.";
+        } else if (error.text) {
+          errorMessage = `Error: ${error.text}`;
+        }
+        
+        toast.error(errorMessage, {
           timeout: 6000,
           icon: "fas fa-exclamation-triangle"
         });
@@ -686,7 +676,7 @@ export default {
       applySteps,
       openApplicationModal,
       closeApplicationModal,
-      handleFileUpload,
+      previewResumeLink,
       submitApplication,
     };
   },
@@ -1073,40 +1063,81 @@ export default {
   min-height: 100px;
 }
 
-.file-upload {
+/* Google Drive Link Input Styles */
+.input-with-icon {
   position: relative;
-}
-
-.file-upload input[type="file"] {
-  position: absolute;
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  z-index: -1;
-}
-
-.file-label {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1.5rem;
-  background: #f8f9ff;
-  border: 2px dashed var(--border-color);
+}
+
+.input-with-icon i {
+  position: absolute;
+  left: 15px;
+  color: var(--accent-color);
+  font-size: 16px;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: var(--text-secondary);
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
-.file-label:hover {
-  background: #f0f4ff;
+.input-with-icon input:focus {
+  outline: none;
   border-color: var(--accent-color);
-  color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb), 0.1);
 }
 
-.file-label i {
+.form-help {
+  display: block;
+  margin-top: 8px;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.form-help i {
   color: var(--accent-color);
+  margin-right: 5px;
+}
+
+.link-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.preview-status {
+  color: #28a745;
+  font-size: 0.9rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.ms-2 {
+  margin-left: 0.5rem;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
+}
+
+.btn-outline-success {
+  color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+  color: white;
+  background-color: #28a745;
+  border-color: #28a745;
 }
 
 .form-footer {
@@ -1197,5 +1228,9 @@ export default {
 /* Spinner style */
 .fa-spinner {
   margin-right: 8px;
+}
+
+.text-success {
+  color: #28a745 !important;
 }
 </style>
