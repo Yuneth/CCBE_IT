@@ -26,7 +26,7 @@
     <section class="upcoming-events py-5 bg-light">
       <div class="container">
         <h2 class="section-title text-center mb-5">
-          Latest <span class="highlight">Events</span>
+          Latest <span class="highlight">News & Events</span>
         </h2>
         <p class="text-center mb-5 text-muted">
           Join us for these exciting events and workshops
@@ -69,131 +69,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Latest News -->
-    <section class="latest-news py-5">
-      <div class="container">
-        <h2 class="section-title text-center mb-5">
-          Latest <span class="highlight">News</span>
-        </h2>
-        
-        <div class="row">
-          <!-- Main Featured News -->
-          <div class="col-lg-6 mb-4">
-            <div 
-              class="featured-news card-theme h-100"
-              @click="viewNewsDetails(featuredNews)"
-            >
-              <div class="featured-image">
-                <img :src="featuredNews.image" :alt="featuredNews.title" class="img-fluid">
-                <div class="featured-badge">FEATURED</div>
-              </div>
-              <div class="featured-content p-4">
-                <div class="news-meta mb-3">
-                  <span class="news-category">{{ featuredNews.category }}</span>
-                  <span class="news-date">
-                    <i class="far fa-clock"></i> {{ featuredNews.date }}
-                  </span>
-                </div>
-                <h3 class="news-title">{{ featuredNews.title }}</h3>
-                <p class="news-excerpt">{{ featuredNews.excerpt }}</p>
-                <div class="news-tags">
-                  <span class="tag" v-for="tag in featuredNews.tags" :key="tag">
-                    {{ tag }}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- News List -->
-          <div class="col-lg-6">
-            <div class="news-list">
-              <div 
-                class="news-item card-theme mb-3"
-                v-for="(news, index) in latestNews"
-                :key="index"
-                @click="viewNewsDetails(news)"
-              >
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <div class="news-image">
-                      <img :src="news.image" :alt="news.title" class="img-fluid">
-                    </div>
-                  </div>
-                  <div class="col-md-8">
-                    <div class="news-content p-3">
-                      <div class="news-meta mb-2">
-                        <span class="news-category">{{ news.category }}</span>
-                        <span class="news-date">{{ news.date }}</span>
-                      </div>
-                      <h4 class="news-title">{{ news.title }}</h4>
-                      <p class="news-excerpt">{{ news.excerpt }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Photo Gallery -->
-    <section class="photo-gallery py-5 bg-light">
-      <div class="container">
-        <h2 class="section-title text-center mb-5">
-          Photo <span class="highlight">Gallery</span>
-        </h2>
-        
-        <!-- Gallery Filter -->
-        <div class="gallery-filter mb-5">
-          <div class="d-flex justify-content-center flex-wrap gap-3">
-            <button 
-              v-for="category in galleryCategories" 
-              :key="category"
-              :class="['filter-btn', { 'active': activeGalleryCategory === category }]"
-              @click="activeGalleryCategory = category"
-            >
-              {{ category }}
-            </button>
-          </div>
-        </div>
-
-        <!-- Gallery Grid -->
-        <div class="row gallery-grid">
-          <div 
-            class="col-lg-3 col-md-4 col-sm-6 mb-4"
-            v-for="(photo, index) in filteredGallery"
-            :key="index"
-            @click="openGalleryModal(photo, index)"
-          >
-            <div class="gallery-item card-theme">
-              <div class="gallery-image">
-                <img :src="photo.image" :alt="photo.title" class="img-fluid">
-                <div class="gallery-overlay">
-                  <div class="overlay-content">
-                    <h5>{{ photo.title }}</h5>
-                    <p class="mb-0">{{ photo.date }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Load More Button -->
-        <div class="text-center mt-4">
-          <button 
-            class="btn btn-outline-primary"
-            @click="loadMorePhotos"
-            v-if="visiblePhotos < filteredGallery.length"
-          >
-            <i class="fas fa-sync-alt"></i> Load More Photos
-          </button>
         </div>
       </div>
     </section>
@@ -485,6 +360,22 @@ export default {
       },
       {
         id: 6,
+        title: 'Industry Expert Talk: AI in 2024',
+        description: 'Insights from leading AI professionals on current trends.',
+        date: { day: '28', month: 'APR' },
+        type: 'Talk',
+        color: '#00BCD4',
+        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+        fullDescription: 'Get insights into the latest trends in Artificial Intelligence from industry experts. Perfect for students and professionals interested in AI.',
+        details: {
+          time: '5:30 PM - 7:00 PM',
+          location: 'CCIT Seminar Hall',
+          seats: 80
+        },
+        showRegistration: true
+      },
+      {
+        id: 7,
         title: 'Industry Expert Talk: AI in 2024',
         description: 'Insights from leading AI professionals on current trends.',
         date: { day: '28', month: 'APR' },
