@@ -273,7 +273,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0.35;
+  opacity: 0.4;
   pointer-events: none;
   z-index: 1;
 }
