@@ -580,7 +580,7 @@ export default {
   
   /* Adjust matrix effect for mobile */
   .matrix-bg {
-    opacity: 0.35;
+    opacity: 0.4;
   }
 }
 
