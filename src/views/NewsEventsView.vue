@@ -671,7 +671,7 @@ export default {
 <style scoped>
 /* News Hero Section */
 .news-hero {
-  background: linear-gradient(135deg, black 0%, var(--secondary-color) 100%);
+  background: linear-gradient(135deg, black 0%, black 100%);
   color: white;
   position: relative;
   overflow: hidden;
@@ -718,7 +718,7 @@ export default {
 
 .hero-icon i {
   font-size: 6rem;
-  color: var(--accent-color);
+  color: #ff8c00;
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
@@ -843,8 +843,8 @@ export default {
 .modal-header {
   background: linear-gradient(
     135deg,
-    var(--primary-color) 0%,
-    var(--secondary-color) 100%
+    black 0%,
+    black 100%
   );
   color: white;
   padding: 2rem;
@@ -1411,12 +1411,12 @@ export default {
 
 .btn-outline-primary {
   background: transparent;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
+  border: 2px solid #ff8c00;
+  color: black;
 }
 
 .btn-outline-primary:hover {
-  background: var(--primary-color);
+  background: black;
   color: white;
   transform: translateY(-2px);
 }

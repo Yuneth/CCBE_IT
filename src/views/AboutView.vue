@@ -222,7 +222,7 @@ export default {
   background: linear-gradient(
     135deg,
     black 0%,
-    var(--secondary-color) 100%
+    black 100%
   );
   color: white;
 }
@@ -256,7 +256,7 @@ export default {
 
 .icon-wrapper {
   font-size: 2.5rem;
-  color: var(--accent-color);
+  color: #ff8c00;
   display: inline-block;
 }
 
@@ -277,16 +277,16 @@ export default {
 
 .value-icon {
   font-size: 2.5rem;
-  color: var(--accent-color);
+  color: #ff8c00;
 }
 
 .team-avatar {
   font-size: 3rem;
-  color: var(--accent-color);
+  color: #ff8c00;
 }
 
 .text-accent {
-  color: var(--accent-color);
+  color: #ff8c00;
   font-weight: 600;
 }
 
