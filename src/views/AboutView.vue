@@ -38,7 +38,9 @@
               <div class="icon-wrapper mb-3">
                 <i class="fas fa-bullseye"></i>
               </div>
-              <h2 class="mb-3 text-black">Our <span class="highlight">Mission</span></h2>
+              <h2 class="mb-3 text-black">
+                Our <span class="highlight">Mission</span>
+              </h2>
               <p style="color: black">
                 To provide exceptional, practical IT education that empowers
                 students with the skills, knowledge, and confidence to excel in
@@ -51,7 +53,9 @@
               <div class="icon-wrapper mb-3">
                 <i class="fas fa-eye"></i>
               </div>
-              <h2 class="mb-3 text-black">Our <span class="highlight">Vision</span></h2>
+              <h2 class="mb-3 text-black">
+                Our <span class="highlight">Vision</span>
+              </h2>
               <p style="color: black">
                 To be Sri Lanka's premier institution for practical IT
                 education, recognized for producing highly skilled professionals
@@ -66,7 +70,9 @@
     <!-- Our Story -->
     <section class="our-story py-5">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Our <span class="highlight">Story</span></h2>
+        <h2 class="section-title text-center mb-5">
+          Our <span class="highlight">Story</span>
+        </h2>
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <div class="card-theme p-4">
@@ -103,7 +109,9 @@
     <!-- Values -->
     <section class="values py-5 bg-light">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Our <span class="highlight">Core Values</span></h2>
+        <h2 class="section-title text-center mb-5">
+          Our <span class="highlight">Core Values</span>
+        </h2>
         <div class="row">
           <div
             class="col-md-4 mb-4"
@@ -125,7 +133,9 @@
     <!-- Team Section -->
     <section class="team py-5">
       <div class="container">
-        <h2 class="section-title text-center mb-5">Meet <span class="highlight">Our Leadership</span></h2>
+        <h2 class="section-title text-center mb-5">
+          Meet <span class="highlight">Our Leadership</span>
+        </h2>
         <div class="row justify-content-center">
           <div
             class="col-md-4 mb-4"
@@ -219,11 +229,7 @@ export default {
 
 <style scoped>
 .about-hero {
-  background: linear-gradient(
-    135deg,
-    black 0%,
-    black 100%
-  );
+  background: linear-gradient(135deg, black 0%, black 100%);
   color: white;
 }
 
