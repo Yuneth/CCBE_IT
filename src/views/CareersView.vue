@@ -917,7 +917,7 @@ export default {
   top: -15px;
   left: 50%;
   transform: translateX(-50%);
-  background: #ff8c00;
+  background: black;
   color: white;
   width: 30px;
   height: 30px;
