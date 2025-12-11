@@ -658,12 +658,12 @@ export default {
       emailjs.init("MIgdDTa538ETb_5yl");
       
       // Show welcome toast on page load
-      setTimeout(() => {
-        toast.info("👋 Browse our current openings and apply to join our team!", {
-          timeout: 6000,
-          icon: "fas fa-hand-wave"
-        });
-      }, 1000);
+      // setTimeout(() => {
+      //   toast.info("👋 Browse our current openings and apply to join our team!", {
+      //     timeout: 6000,
+      //     icon: "fas fa-hand-wave"
+      //   });
+      // }, 1000);
     });
 
     return {
