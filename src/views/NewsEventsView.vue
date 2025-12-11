@@ -29,7 +29,7 @@
           Latest <span class="highlight">News & Events</span>
         </h2>
         <p class="text-center mb-5 text-muted">
-          Join us for these exciting events and workshops
+          Discover the latest at CCIT on our dynamic News & Events page.
         </p>
 
         <!-- Events Grid - Simplified Version -->
